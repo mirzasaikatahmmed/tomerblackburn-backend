@@ -55,6 +55,24 @@ export class CreateSiteSettingsDto {
   contactEmail?: string;
 
   @ApiProperty({
+    description: 'Business location/address',
+    example: '123 Main Street, Chicago, IL 60601',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  location?: string;
+
+  @ApiProperty({
+    description: 'Alternative address field',
+    example: '123 Main Street, Chicago, IL 60601',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  address?: string;
+
+  @ApiProperty({
     description: 'Facebook URL',
     example: 'https://facebook.com/bburnbuilders',
     required: false,
@@ -80,4 +98,21 @@ export class CreateSiteSettingsDto {
   @IsUrl()
   @IsOptional()
   twitterUrl?: string;
+
+  @ApiProperty({
+    description: 'CTA banner text displayed in the top bar',
+    example: 'Get Your Free Live Estimate Now!',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  ctaBannerText?: string;
+
+  @ApiProperty({
+    description: 'Whether the CTA banner is visible',
+    example: true,
+    required: false,
+  })
+  @IsOptional()
+  ctaBannerEnabled?: boolean;
 }

@@ -12,6 +12,40 @@ export class UpdateContactUsDto extends PartialType(CreateContactUsDto) {
   isRead?: boolean;
 }
 
+class FileInstanceDto {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  filename: string;
+
+  @ApiProperty()
+  url: string;
+
+  @ApiProperty()
+  mimeType: string;
+}
+
+class ContactMediaResponseDto {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  fileInstanceId: string;
+
+  @ApiProperty()
+  mediaType: string;
+
+  @ApiProperty({ required: false })
+  description?: string;
+
+  @ApiProperty()
+  displayOrder: number;
+
+  @ApiProperty({ type: FileInstanceDto, required: false })
+  fileInstance?: FileInstanceDto;
+}
+
 export class ContactUsResponseDto {
   @ApiProperty({
     description: 'Unique identifier',
@@ -95,4 +129,11 @@ export class ContactUsResponseDto {
     description: 'Last update timestamp',
   })
   updatedAt: Date;
+
+  @ApiProperty({
+    description: 'Attached media files (photos/videos)',
+    type: [ContactMediaResponseDto],
+    required: false,
+  })
+  contactMedia?: ContactMediaResponseDto[];
 }

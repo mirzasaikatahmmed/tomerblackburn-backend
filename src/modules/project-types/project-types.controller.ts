@@ -8,13 +8,17 @@ import {
   Delete,
   Query,
   HttpStatus,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiParam,
   ApiQuery,
+  ApiConsumes,
 } from '@nestjs/swagger';
 import { ProjectTypesService } from './project-types.service';
 import { CreateProjectTypeDto } from './dto/create-project-type.dto';
@@ -30,8 +34,9 @@ export class ProjectTypesController {
   @ApiOperation({
     summary: 'Create a new project type',
     description:
-      'Create a new project type (e.g., Bathroom Renovation, Kitchen Renovation)',
+      'Create a new project type (e.g., Bathroom Renovation, Kitchen Renovation). Supports multipart/form-data for image upload.',
   })
+  @ApiConsumes('multipart/form-data')
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Project type created successfully',
@@ -59,8 +64,12 @@ export class ProjectTypesController {
     status: HttpStatus.CONFLICT,
     description: 'Project type with this name already exists',
   })
-  create(@Body() createProjectTypeDto: CreateProjectTypeDto) {
-    return this.projectTypesService.create(createProjectTypeDto);
+  @UseInterceptors(FileInterceptor('image'))
+  create(
+    @Body() createProjectTypeDto: CreateProjectTypeDto,
+    @UploadedFile() image?: Express.Multer.File,
+  ) {
+    return this.projectTypesService.create(createProjectTypeDto, image);
   }
 
   @Get()
@@ -189,8 +198,10 @@ export class ProjectTypesController {
   @Patch(':id')
   @ApiOperation({
     summary: 'Update project type',
-    description: 'Update an existing project type by its ID',
+    description:
+      'Update an existing project type by its ID. Supports multipart/form-data for image upload.',
   })
+  @ApiConsumes('multipart/form-data')
   @ApiParam({
     name: 'id',
     description: 'Project type unique identifier',
@@ -223,11 +234,13 @@ export class ProjectTypesController {
     status: HttpStatus.CONFLICT,
     description: 'Project type with this name already exists',
   })
+  @UseInterceptors(FileInterceptor('image'))
   update(
     @Param('id') id: string,
     @Body() updateProjectTypeDto: UpdateProjectTypeDto,
+    @UploadedFile() image?: Express.Multer.File,
   ) {
-    return this.projectTypesService.update(id, updateProjectTypeDto);
+    return this.projectTypesService.update(id, updateProjectTypeDto, image);
   }
 
   @Delete(':id')

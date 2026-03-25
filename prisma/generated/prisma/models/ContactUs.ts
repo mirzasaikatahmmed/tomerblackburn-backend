@@ -262,6 +262,7 @@ export type ContactUsWhereInput = {
   isRead?: Prisma.BoolFilter<'ContactUs'> | boolean;
   createdAt?: Prisma.DateTimeFilter<'ContactUs'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'ContactUs'> | Date | string;
+  contactMedia?: Prisma.ContactMediaListRelationFilter;
 };
 
 export type ContactUsOrderByWithRelationInput = {
@@ -279,6 +280,7 @@ export type ContactUsOrderByWithRelationInput = {
   isRead?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  contactMedia?: Prisma.ContactMediaOrderByRelationAggregateInput;
 };
 
 export type ContactUsWhereUniqueInput = Prisma.AtLeast<
@@ -304,6 +306,7 @@ export type ContactUsWhereUniqueInput = Prisma.AtLeast<
     isRead?: Prisma.BoolFilter<'ContactUs'> | boolean;
     createdAt?: Prisma.DateTimeFilter<'ContactUs'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'ContactUs'> | Date | string;
+    contactMedia?: Prisma.ContactMediaListRelationFilter;
   },
   'id'
 >;
@@ -371,6 +374,7 @@ export type ContactUsCreateInput = {
   isRead?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  contactMedia?: Prisma.ContactMediaCreateNestedManyWithoutContactInput;
 };
 
 export type ContactUsUncheckedCreateInput = {
@@ -388,6 +392,7 @@ export type ContactUsUncheckedCreateInput = {
   isRead?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  contactMedia?: Prisma.ContactMediaUncheckedCreateNestedManyWithoutContactInput;
 };
 
 export type ContactUsUpdateInput = {
@@ -409,6 +414,7 @@ export type ContactUsUpdateInput = {
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  contactMedia?: Prisma.ContactMediaUpdateManyWithoutContactNestedInput;
 };
 
 export type ContactUsUncheckedUpdateInput = {
@@ -430,6 +436,7 @@ export type ContactUsUncheckedUpdateInput = {
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  contactMedia?: Prisma.ContactMediaUncheckedUpdateManyWithoutContactNestedInput;
 };
 
 export type ContactUsCreateManyInput = {
@@ -542,6 +549,179 @@ export type ContactUsMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder;
 };
 
+export type ContactUsScalarRelationFilter = {
+  is?: Prisma.ContactUsWhereInput;
+  isNot?: Prisma.ContactUsWhereInput;
+};
+
+export type ContactUsCreateNestedOneWithoutContactMediaInput = {
+  create?: Prisma.XOR<
+    Prisma.ContactUsCreateWithoutContactMediaInput,
+    Prisma.ContactUsUncheckedCreateWithoutContactMediaInput
+  >;
+  connectOrCreate?: Prisma.ContactUsCreateOrConnectWithoutContactMediaInput;
+  connect?: Prisma.ContactUsWhereUniqueInput;
+};
+
+export type ContactUsUpdateOneRequiredWithoutContactMediaNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.ContactUsCreateWithoutContactMediaInput,
+    Prisma.ContactUsUncheckedCreateWithoutContactMediaInput
+  >;
+  connectOrCreate?: Prisma.ContactUsCreateOrConnectWithoutContactMediaInput;
+  upsert?: Prisma.ContactUsUpsertWithoutContactMediaInput;
+  connect?: Prisma.ContactUsWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.ContactUsUpdateToOneWithWhereWithoutContactMediaInput,
+      Prisma.ContactUsUpdateWithoutContactMediaInput
+    >,
+    Prisma.ContactUsUncheckedUpdateWithoutContactMediaInput
+  >;
+};
+
+export type ContactUsCreateWithoutContactMediaInput = {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  message: string;
+  projectStartDate?: Date | string | null;
+  isRead?: boolean;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+};
+
+export type ContactUsUncheckedCreateWithoutContactMediaInput = {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  message: string;
+  projectStartDate?: Date | string | null;
+  isRead?: boolean;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+};
+
+export type ContactUsCreateOrConnectWithoutContactMediaInput = {
+  where: Prisma.ContactUsWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.ContactUsCreateWithoutContactMediaInput,
+    Prisma.ContactUsUncheckedCreateWithoutContactMediaInput
+  >;
+};
+
+export type ContactUsUpsertWithoutContactMediaInput = {
+  update: Prisma.XOR<
+    Prisma.ContactUsUpdateWithoutContactMediaInput,
+    Prisma.ContactUsUncheckedUpdateWithoutContactMediaInput
+  >;
+  create: Prisma.XOR<
+    Prisma.ContactUsCreateWithoutContactMediaInput,
+    Prisma.ContactUsUncheckedCreateWithoutContactMediaInput
+  >;
+  where?: Prisma.ContactUsWhereInput;
+};
+
+export type ContactUsUpdateToOneWithWhereWithoutContactMediaInput = {
+  where?: Prisma.ContactUsWhereInput;
+  data: Prisma.XOR<
+    Prisma.ContactUsUpdateWithoutContactMediaInput,
+    Prisma.ContactUsUncheckedUpdateWithoutContactMediaInput
+  >;
+};
+
+export type ContactUsUpdateWithoutContactMediaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+  email?: Prisma.StringFieldUpdateOperationsInput | string;
+  phone?: Prisma.StringFieldUpdateOperationsInput | string;
+  address?: Prisma.StringFieldUpdateOperationsInput | string;
+  city?: Prisma.StringFieldUpdateOperationsInput | string;
+  state?: Prisma.StringFieldUpdateOperationsInput | string;
+  zipCode?: Prisma.StringFieldUpdateOperationsInput | string;
+  message?: Prisma.StringFieldUpdateOperationsInput | string;
+  projectStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+
+export type ContactUsUncheckedUpdateWithoutContactMediaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+  email?: Prisma.StringFieldUpdateOperationsInput | string;
+  phone?: Prisma.StringFieldUpdateOperationsInput | string;
+  address?: Prisma.StringFieldUpdateOperationsInput | string;
+  city?: Prisma.StringFieldUpdateOperationsInput | string;
+  state?: Prisma.StringFieldUpdateOperationsInput | string;
+  zipCode?: Prisma.StringFieldUpdateOperationsInput | string;
+  message?: Prisma.StringFieldUpdateOperationsInput | string;
+  projectStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+
+/**
+ * Count Type ContactUsCountOutputType
+ */
+
+export type ContactUsCountOutputType = {
+  contactMedia: number;
+};
+
+export type ContactUsCountOutputTypeSelect<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  contactMedia?: boolean | ContactUsCountOutputTypeCountContactMediaArgs;
+};
+
+/**
+ * ContactUsCountOutputType without action
+ */
+export type ContactUsCountOutputTypeDefaultArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the ContactUsCountOutputType
+   */
+  select?: Prisma.ContactUsCountOutputTypeSelect<ExtArgs> | null;
+};
+
+/**
+ * ContactUsCountOutputType without action
+ */
+export type ContactUsCountOutputTypeCountContactMediaArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.ContactMediaWhereInput;
+};
+
 export type ContactUsSelect<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
@@ -561,6 +741,8 @@ export type ContactUsSelect<
     isRead?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    contactMedia?: boolean | Prisma.ContactUs$contactMediaArgs<ExtArgs>;
+    _count?: boolean | Prisma.ContactUsCountOutputTypeDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['contactUs']
 >;
@@ -648,13 +830,30 @@ export type ContactUsOmit<
   | 'updatedAt',
   ExtArgs['result']['contactUs']
 >;
+export type ContactUsInclude<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  contactMedia?: boolean | Prisma.ContactUs$contactMediaArgs<ExtArgs>;
+  _count?: boolean | Prisma.ContactUsCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type ContactUsIncludeCreateManyAndReturn<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {};
+export type ContactUsIncludeUpdateManyAndReturn<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {};
 
 export type $ContactUsPayload<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   name: 'ContactUs';
-  objects: {};
+  objects: {
+    contactMedia: Prisma.$ContactMediaPayload<ExtArgs>[];
+  };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
       id: string;
@@ -1221,6 +1420,17 @@ export interface Prisma__ContactUsClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
+  contactMedia<T extends Prisma.ContactUs$contactMediaArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.ContactUs$contactMediaArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$ContactMediaPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1296,6 +1506,10 @@ export type ContactUsFindUniqueArgs<
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
+  /**
    * Filter, which ContactUs to fetch.
    */
   where: Prisma.ContactUsWhereUniqueInput;
@@ -1317,6 +1531,10 @@ export type ContactUsFindUniqueOrThrowArgs<
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
+  /**
    * Filter, which ContactUs to fetch.
    */
   where: Prisma.ContactUsWhereUniqueInput;
@@ -1337,6 +1555,10 @@ export type ContactUsFindFirstArgs<
    * Omit specific fields from the ContactUs
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
   /**
    * Filter, which ContactUs to fetch.
    */
@@ -1393,6 +1615,10 @@ export type ContactUsFindFirstOrThrowArgs<
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
+  /**
    * Filter, which ContactUs to fetch.
    */
   where?: Prisma.ContactUsWhereInput;
@@ -1448,6 +1674,10 @@ export type ContactUsFindManyArgs<
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
+  /**
    * Filter, which Contactuses to fetch.
    */
   where?: Prisma.ContactUsWhereInput;
@@ -1497,6 +1727,10 @@ export type ContactUsCreateArgs<
    * Omit specific fields from the ContactUs
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
   /**
    * The data needed to create a ContactUs.
    */
@@ -1557,6 +1791,10 @@ export type ContactUsUpdateArgs<
    * Omit specific fields from the ContactUs
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
   /**
    * The data needed to update a ContactUs.
    */
@@ -1642,6 +1880,10 @@ export type ContactUsUpsertArgs<
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
+  /**
    * The filter to search for the ContactUs to update in case it exists.
    */
   where: Prisma.ContactUsWhereUniqueInput;
@@ -1677,6 +1919,10 @@ export type ContactUsDeleteArgs<
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
+  /**
    * Filter which ContactUs to delete.
    */
   where: Prisma.ContactUsWhereUniqueInput;
@@ -1700,6 +1946,37 @@ export type ContactUsDeleteManyArgs<
 };
 
 /**
+ * ContactUs.contactMedia
+ */
+export type ContactUs$contactMediaArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the ContactMedia
+   */
+  select?: Prisma.ContactMediaSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the ContactMedia
+   */
+  omit?: Prisma.ContactMediaOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactMediaInclude<ExtArgs> | null;
+  where?: Prisma.ContactMediaWhereInput;
+  orderBy?:
+    | Prisma.ContactMediaOrderByWithRelationInput
+    | Prisma.ContactMediaOrderByWithRelationInput[];
+  cursor?: Prisma.ContactMediaWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?:
+    | Prisma.ContactMediaScalarFieldEnum
+    | Prisma.ContactMediaScalarFieldEnum[];
+};
+
+/**
  * ContactUs without action
  */
 export type ContactUsDefaultArgs<
@@ -1714,4 +1991,8 @@ export type ContactUsDefaultArgs<
    * Omit specific fields from the ContactUs
    */
   omit?: Prisma.ContactUsOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactUsInclude<ExtArgs> | null;
 };

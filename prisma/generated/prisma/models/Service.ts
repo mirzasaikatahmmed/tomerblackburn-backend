@@ -28,11 +28,15 @@ export type AggregateService = {
 
 export type ServiceAvgAggregateOutputType = {
   basePrice: runtime.Decimal | null;
+  markup: runtime.Decimal | null;
+  clientPrice: runtime.Decimal | null;
   displayOrder: number | null;
 };
 
 export type ServiceSumAggregateOutputType = {
   basePrice: runtime.Decimal | null;
+  markup: runtime.Decimal | null;
+  clientPrice: runtime.Decimal | null;
   displayOrder: number | null;
 };
 
@@ -44,6 +48,8 @@ export type ServiceMinAggregateOutputType = {
   shortDescription: string | null;
   fullDescription: string | null;
   basePrice: runtime.Decimal | null;
+  markup: runtime.Decimal | null;
+  clientPrice: runtime.Decimal | null;
   imageFileId: string | null;
   displayOrder: number | null;
   isActive: boolean | null;
@@ -59,6 +65,8 @@ export type ServiceMaxAggregateOutputType = {
   shortDescription: string | null;
   fullDescription: string | null;
   basePrice: runtime.Decimal | null;
+  markup: runtime.Decimal | null;
+  clientPrice: runtime.Decimal | null;
   imageFileId: string | null;
   displayOrder: number | null;
   isActive: boolean | null;
@@ -74,6 +82,8 @@ export type ServiceCountAggregateOutputType = {
   shortDescription: number;
   fullDescription: number;
   basePrice: number;
+  markup: number;
+  clientPrice: number;
   imageFileId: number;
   displayOrder: number;
   isActive: number;
@@ -84,11 +94,15 @@ export type ServiceCountAggregateOutputType = {
 
 export type ServiceAvgAggregateInputType = {
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   displayOrder?: true;
 };
 
 export type ServiceSumAggregateInputType = {
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   displayOrder?: true;
 };
 
@@ -100,6 +114,8 @@ export type ServiceMinAggregateInputType = {
   shortDescription?: true;
   fullDescription?: true;
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   imageFileId?: true;
   displayOrder?: true;
   isActive?: true;
@@ -115,6 +131,8 @@ export type ServiceMaxAggregateInputType = {
   shortDescription?: true;
   fullDescription?: true;
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   imageFileId?: true;
   displayOrder?: true;
   isActive?: true;
@@ -130,6 +148,8 @@ export type ServiceCountAggregateInputType = {
   shortDescription?: true;
   fullDescription?: true;
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   imageFileId?: true;
   displayOrder?: true;
   isActive?: true;
@@ -239,6 +259,8 @@ export type ServiceGroupByOutputType = {
   shortDescription: string | null;
   fullDescription: string | null;
   basePrice: runtime.Decimal;
+  markup: runtime.Decimal;
+  clientPrice: runtime.Decimal;
   imageFileId: string | null;
   displayOrder: number;
   isActive: boolean;
@@ -280,6 +302,18 @@ export type ServiceWhereInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFilter<'Service'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFilter<'Service'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   imageFileId?: Prisma.StringNullableFilter<'Service'> | string | null;
   displayOrder?: Prisma.IntFilter<'Service'> | number;
   isActive?: Prisma.BoolFilter<'Service'> | boolean;
@@ -294,6 +328,7 @@ export type ServiceWhereInput = {
     Prisma.FileInstanceWhereInput
   > | null;
   submissions?: Prisma.SubmissionListRelationFilter;
+  costCodes?: Prisma.CostCodeListRelationFilter;
   serviceCostCodes?: Prisma.ServiceCostCodeListRelationFilter;
 };
 
@@ -305,6 +340,8 @@ export type ServiceOrderByWithRelationInput = {
   shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder;
   fullDescription?: Prisma.SortOrderInput | Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   imageFileId?: Prisma.SortOrderInput | Prisma.SortOrder;
   displayOrder?: Prisma.SortOrder;
   isActive?: Prisma.SortOrder;
@@ -313,6 +350,7 @@ export type ServiceOrderByWithRelationInput = {
   serviceCategory?: Prisma.ServiceCategoryOrderByWithRelationInput;
   imageFile?: Prisma.FileInstanceOrderByWithRelationInput;
   submissions?: Prisma.SubmissionOrderByRelationAggregateInput;
+  costCodes?: Prisma.CostCodeOrderByRelationAggregateInput;
   serviceCostCodes?: Prisma.ServiceCostCodeOrderByRelationAggregateInput;
 };
 
@@ -333,6 +371,18 @@ export type ServiceWhereUniqueInput = Prisma.AtLeast<
       | runtime.DecimalJsLike
       | number
       | string;
+    markup?:
+      | Prisma.DecimalFilter<'Service'>
+      | runtime.Decimal
+      | runtime.DecimalJsLike
+      | number
+      | string;
+    clientPrice?:
+      | Prisma.DecimalFilter<'Service'>
+      | runtime.Decimal
+      | runtime.DecimalJsLike
+      | number
+      | string;
     imageFileId?: Prisma.StringNullableFilter<'Service'> | string | null;
     displayOrder?: Prisma.IntFilter<'Service'> | number;
     isActive?: Prisma.BoolFilter<'Service'> | boolean;
@@ -347,6 +397,7 @@ export type ServiceWhereUniqueInput = Prisma.AtLeast<
       Prisma.FileInstanceWhereInput
     > | null;
     submissions?: Prisma.SubmissionListRelationFilter;
+    costCodes?: Prisma.CostCodeListRelationFilter;
     serviceCostCodes?: Prisma.ServiceCostCodeListRelationFilter;
   },
   'id' | 'code'
@@ -360,6 +411,8 @@ export type ServiceOrderByWithAggregationInput = {
   shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder;
   fullDescription?: Prisma.SortOrderInput | Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   imageFileId?: Prisma.SortOrderInput | Prisma.SortOrder;
   displayOrder?: Prisma.SortOrder;
   isActive?: Prisma.SortOrder;
@@ -398,6 +451,18 @@ export type ServiceScalarWhereWithAggregatesInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalWithAggregatesFilter<'Service'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalWithAggregatesFilter<'Service'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   imageFileId?:
     | Prisma.StringNullableWithAggregatesFilter<'Service'>
     | string
@@ -415,6 +480,8 @@ export type ServiceCreateInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
@@ -422,6 +489,7 @@ export type ServiceCreateInput = {
   serviceCategory: Prisma.ServiceCategoryCreateNestedOneWithoutServicesInput;
   imageFile?: Prisma.FileInstanceCreateNestedOneWithoutServicesInput;
   submissions?: Prisma.SubmissionCreateNestedManyWithoutServiceInput;
+  costCodes?: Prisma.CostCodeCreateNestedManyWithoutServiceInput;
   serviceCostCodes?: Prisma.ServiceCostCodeCreateNestedManyWithoutServiceInput;
 };
 
@@ -433,12 +501,15 @@ export type ServiceUncheckedCreateInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   imageFileId?: string | null;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutServiceInput;
+  costCodes?: Prisma.CostCodeUncheckedCreateNestedManyWithoutServiceInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUncheckedCreateNestedManyWithoutServiceInput;
 };
 
@@ -460,6 +531,18 @@ export type ServiceUpdateInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -467,6 +550,7 @@ export type ServiceUpdateInput = {
   serviceCategory?: Prisma.ServiceCategoryUpdateOneRequiredWithoutServicesNestedInput;
   imageFile?: Prisma.FileInstanceUpdateOneWithoutServicesNestedInput;
   submissions?: Prisma.SubmissionUpdateManyWithoutServiceNestedInput;
+  costCodes?: Prisma.CostCodeUpdateManyWithoutServiceNestedInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUpdateManyWithoutServiceNestedInput;
 };
 
@@ -489,12 +573,25 @@ export type ServiceUncheckedUpdateInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   imageFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutServiceNestedInput;
+  costCodes?: Prisma.CostCodeUncheckedUpdateManyWithoutServiceNestedInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUncheckedUpdateManyWithoutServiceNestedInput;
 };
 
@@ -506,6 +603,8 @@ export type ServiceCreateManyInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   imageFileId?: string | null;
   displayOrder?: number;
   isActive?: boolean;
@@ -526,6 +625,18 @@ export type ServiceUpdateManyMutationInput = {
     | string
     | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -556,11 +667,28 @@ export type ServiceUncheckedUpdateManyInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   imageFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+
+export type ServiceNullableScalarRelationFilter = {
+  is?: Prisma.ServiceWhereInput | null;
+  isNot?: Prisma.ServiceWhereInput | null;
 };
 
 export type ServiceCountOrderByAggregateInput = {
@@ -571,6 +699,8 @@ export type ServiceCountOrderByAggregateInput = {
   shortDescription?: Prisma.SortOrder;
   fullDescription?: Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   imageFileId?: Prisma.SortOrder;
   displayOrder?: Prisma.SortOrder;
   isActive?: Prisma.SortOrder;
@@ -580,6 +710,8 @@ export type ServiceCountOrderByAggregateInput = {
 
 export type ServiceAvgOrderByAggregateInput = {
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   displayOrder?: Prisma.SortOrder;
 };
 
@@ -591,6 +723,8 @@ export type ServiceMaxOrderByAggregateInput = {
   shortDescription?: Prisma.SortOrder;
   fullDescription?: Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   imageFileId?: Prisma.SortOrder;
   displayOrder?: Prisma.SortOrder;
   isActive?: Prisma.SortOrder;
@@ -606,6 +740,8 @@ export type ServiceMinOrderByAggregateInput = {
   shortDescription?: Prisma.SortOrder;
   fullDescription?: Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   imageFileId?: Prisma.SortOrder;
   displayOrder?: Prisma.SortOrder;
   isActive?: Prisma.SortOrder;
@@ -615,6 +751,8 @@ export type ServiceMinOrderByAggregateInput = {
 
 export type ServiceSumOrderByAggregateInput = {
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   displayOrder?: Prisma.SortOrder;
 };
 
@@ -631,6 +769,34 @@ export type ServiceOrderByRelationAggregateInput = {
 export type ServiceScalarRelationFilter = {
   is?: Prisma.ServiceWhereInput;
   isNot?: Prisma.ServiceWhereInput;
+};
+
+export type ServiceCreateNestedOneWithoutCostCodesInput = {
+  create?: Prisma.XOR<
+    Prisma.ServiceCreateWithoutCostCodesInput,
+    Prisma.ServiceUncheckedCreateWithoutCostCodesInput
+  >;
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutCostCodesInput;
+  connect?: Prisma.ServiceWhereUniqueInput;
+};
+
+export type ServiceUpdateOneWithoutCostCodesNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.ServiceCreateWithoutCostCodesInput,
+    Prisma.ServiceUncheckedCreateWithoutCostCodesInput
+  >;
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutCostCodesInput;
+  upsert?: Prisma.ServiceUpsertWithoutCostCodesInput;
+  disconnect?: Prisma.ServiceWhereInput | boolean;
+  delete?: Prisma.ServiceWhereInput | boolean;
+  connect?: Prisma.ServiceWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.ServiceUpdateToOneWithWhereWithoutCostCodesInput,
+      Prisma.ServiceUpdateWithoutCostCodesInput
+    >,
+    Prisma.ServiceUncheckedUpdateWithoutCostCodesInput
+  >;
 };
 
 export type ServiceCreateNestedManyWithoutServiceCategoryInput = {
@@ -873,6 +1039,152 @@ export type ServiceUncheckedUpdateManyWithoutImageFileNestedInput = {
     | Prisma.ServiceScalarWhereInput[];
 };
 
+export type ServiceCreateWithoutCostCodesInput = {
+  id?: string;
+  code: string;
+  name: string;
+  shortDescription?: string | null;
+  fullDescription?: string | null;
+  basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  displayOrder?: number;
+  isActive?: boolean;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  serviceCategory: Prisma.ServiceCategoryCreateNestedOneWithoutServicesInput;
+  imageFile?: Prisma.FileInstanceCreateNestedOneWithoutServicesInput;
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutServiceInput;
+  serviceCostCodes?: Prisma.ServiceCostCodeCreateNestedManyWithoutServiceInput;
+};
+
+export type ServiceUncheckedCreateWithoutCostCodesInput = {
+  id?: string;
+  serviceCategoryId: string;
+  code: string;
+  name: string;
+  shortDescription?: string | null;
+  fullDescription?: string | null;
+  basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  imageFileId?: string | null;
+  displayOrder?: number;
+  isActive?: boolean;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutServiceInput;
+  serviceCostCodes?: Prisma.ServiceCostCodeUncheckedCreateNestedManyWithoutServiceInput;
+};
+
+export type ServiceCreateOrConnectWithoutCostCodesInput = {
+  where: Prisma.ServiceWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.ServiceCreateWithoutCostCodesInput,
+    Prisma.ServiceUncheckedCreateWithoutCostCodesInput
+  >;
+};
+
+export type ServiceUpsertWithoutCostCodesInput = {
+  update: Prisma.XOR<
+    Prisma.ServiceUpdateWithoutCostCodesInput,
+    Prisma.ServiceUncheckedUpdateWithoutCostCodesInput
+  >;
+  create: Prisma.XOR<
+    Prisma.ServiceCreateWithoutCostCodesInput,
+    Prisma.ServiceUncheckedCreateWithoutCostCodesInput
+  >;
+  where?: Prisma.ServiceWhereInput;
+};
+
+export type ServiceUpdateToOneWithWhereWithoutCostCodesInput = {
+  where?: Prisma.ServiceWhereInput;
+  data: Prisma.XOR<
+    Prisma.ServiceUpdateWithoutCostCodesInput,
+    Prisma.ServiceUncheckedUpdateWithoutCostCodesInput
+  >;
+};
+
+export type ServiceUpdateWithoutCostCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  code?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.StringFieldUpdateOperationsInput | string;
+  shortDescription?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  fullDescription?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  serviceCategory?: Prisma.ServiceCategoryUpdateOneRequiredWithoutServicesNestedInput;
+  imageFile?: Prisma.FileInstanceUpdateOneWithoutServicesNestedInput;
+  submissions?: Prisma.SubmissionUpdateManyWithoutServiceNestedInput;
+  serviceCostCodes?: Prisma.ServiceCostCodeUpdateManyWithoutServiceNestedInput;
+};
+
+export type ServiceUncheckedUpdateWithoutCostCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  serviceCategoryId?: Prisma.StringFieldUpdateOperationsInput | string;
+  code?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.StringFieldUpdateOperationsInput | string;
+  shortDescription?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  fullDescription?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  imageFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutServiceNestedInput;
+  serviceCostCodes?: Prisma.ServiceCostCodeUncheckedUpdateManyWithoutServiceNestedInput;
+};
+
 export type ServiceCreateWithoutServiceCategoryInput = {
   id?: string;
   code: string;
@@ -880,12 +1192,15 @@ export type ServiceCreateWithoutServiceCategoryInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   imageFile?: Prisma.FileInstanceCreateNestedOneWithoutServicesInput;
   submissions?: Prisma.SubmissionCreateNestedManyWithoutServiceInput;
+  costCodes?: Prisma.CostCodeCreateNestedManyWithoutServiceInput;
   serviceCostCodes?: Prisma.ServiceCostCodeCreateNestedManyWithoutServiceInput;
 };
 
@@ -896,12 +1211,15 @@ export type ServiceUncheckedCreateWithoutServiceCategoryInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   imageFileId?: string | null;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutServiceInput;
+  costCodes?: Prisma.CostCodeUncheckedCreateNestedManyWithoutServiceInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUncheckedCreateNestedManyWithoutServiceInput;
 };
 
@@ -964,6 +1282,18 @@ export type ServiceScalarWhereInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFilter<'Service'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFilter<'Service'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   imageFileId?: Prisma.StringNullableFilter<'Service'> | string | null;
   displayOrder?: Prisma.IntFilter<'Service'> | number;
   isActive?: Prisma.BoolFilter<'Service'> | boolean;
@@ -978,6 +1308,8 @@ export type ServiceCreateWithoutServiceCostCodesInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
@@ -985,6 +1317,7 @@ export type ServiceCreateWithoutServiceCostCodesInput = {
   serviceCategory: Prisma.ServiceCategoryCreateNestedOneWithoutServicesInput;
   imageFile?: Prisma.FileInstanceCreateNestedOneWithoutServicesInput;
   submissions?: Prisma.SubmissionCreateNestedManyWithoutServiceInput;
+  costCodes?: Prisma.CostCodeCreateNestedManyWithoutServiceInput;
 };
 
 export type ServiceUncheckedCreateWithoutServiceCostCodesInput = {
@@ -995,12 +1328,15 @@ export type ServiceUncheckedCreateWithoutServiceCostCodesInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   imageFileId?: string | null;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutServiceInput;
+  costCodes?: Prisma.CostCodeUncheckedCreateNestedManyWithoutServiceInput;
 };
 
 export type ServiceCreateOrConnectWithoutServiceCostCodesInput = {
@@ -1049,6 +1385,18 @@ export type ServiceUpdateWithoutServiceCostCodesInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1056,6 +1404,7 @@ export type ServiceUpdateWithoutServiceCostCodesInput = {
   serviceCategory?: Prisma.ServiceCategoryUpdateOneRequiredWithoutServicesNestedInput;
   imageFile?: Prisma.FileInstanceUpdateOneWithoutServicesNestedInput;
   submissions?: Prisma.SubmissionUpdateManyWithoutServiceNestedInput;
+  costCodes?: Prisma.CostCodeUpdateManyWithoutServiceNestedInput;
 };
 
 export type ServiceUncheckedUpdateWithoutServiceCostCodesInput = {
@@ -1077,12 +1426,25 @@ export type ServiceUncheckedUpdateWithoutServiceCostCodesInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   imageFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutServiceNestedInput;
+  costCodes?: Prisma.CostCodeUncheckedUpdateManyWithoutServiceNestedInput;
 };
 
 export type ServiceCreateWithoutSubmissionsInput = {
@@ -1092,12 +1454,15 @@ export type ServiceCreateWithoutSubmissionsInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   serviceCategory: Prisma.ServiceCategoryCreateNestedOneWithoutServicesInput;
   imageFile?: Prisma.FileInstanceCreateNestedOneWithoutServicesInput;
+  costCodes?: Prisma.CostCodeCreateNestedManyWithoutServiceInput;
   serviceCostCodes?: Prisma.ServiceCostCodeCreateNestedManyWithoutServiceInput;
 };
 
@@ -1109,11 +1474,14 @@ export type ServiceUncheckedCreateWithoutSubmissionsInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   imageFileId?: string | null;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  costCodes?: Prisma.CostCodeUncheckedCreateNestedManyWithoutServiceInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUncheckedCreateNestedManyWithoutServiceInput;
 };
 
@@ -1163,12 +1531,25 @@ export type ServiceUpdateWithoutSubmissionsInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   serviceCategory?: Prisma.ServiceCategoryUpdateOneRequiredWithoutServicesNestedInput;
   imageFile?: Prisma.FileInstanceUpdateOneWithoutServicesNestedInput;
+  costCodes?: Prisma.CostCodeUpdateManyWithoutServiceNestedInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUpdateManyWithoutServiceNestedInput;
 };
 
@@ -1191,11 +1572,24 @@ export type ServiceUncheckedUpdateWithoutSubmissionsInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   imageFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  costCodes?: Prisma.CostCodeUncheckedUpdateManyWithoutServiceNestedInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUncheckedUpdateManyWithoutServiceNestedInput;
 };
 
@@ -1206,12 +1600,15 @@ export type ServiceCreateWithoutImageFileInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   serviceCategory: Prisma.ServiceCategoryCreateNestedOneWithoutServicesInput;
   submissions?: Prisma.SubmissionCreateNestedManyWithoutServiceInput;
+  costCodes?: Prisma.CostCodeCreateNestedManyWithoutServiceInput;
   serviceCostCodes?: Prisma.ServiceCostCodeCreateNestedManyWithoutServiceInput;
 };
 
@@ -1223,11 +1620,14 @@ export type ServiceUncheckedCreateWithoutImageFileInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutServiceInput;
+  costCodes?: Prisma.CostCodeUncheckedCreateNestedManyWithoutServiceInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUncheckedCreateNestedManyWithoutServiceInput;
 };
 
@@ -1281,6 +1681,8 @@ export type ServiceCreateManyServiceCategoryInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   imageFileId?: string | null;
   displayOrder?: number;
   isActive?: boolean;
@@ -1306,12 +1708,25 @@ export type ServiceUpdateWithoutServiceCategoryInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   imageFile?: Prisma.FileInstanceUpdateOneWithoutServicesNestedInput;
   submissions?: Prisma.SubmissionUpdateManyWithoutServiceNestedInput;
+  costCodes?: Prisma.CostCodeUpdateManyWithoutServiceNestedInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUpdateManyWithoutServiceNestedInput;
 };
 
@@ -1333,12 +1748,25 @@ export type ServiceUncheckedUpdateWithoutServiceCategoryInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   imageFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutServiceNestedInput;
+  costCodes?: Prisma.CostCodeUncheckedUpdateManyWithoutServiceNestedInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUncheckedUpdateManyWithoutServiceNestedInput;
 };
 
@@ -1360,6 +1788,18 @@ export type ServiceUncheckedUpdateManyWithoutServiceCategoryInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   imageFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
@@ -1375,6 +1815,8 @@ export type ServiceCreateManyImageFileInput = {
   shortDescription?: string | null;
   fullDescription?: string | null;
   basePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   displayOrder?: number;
   isActive?: boolean;
   createdAt?: Date | string;
@@ -1399,12 +1841,25 @@ export type ServiceUpdateWithoutImageFileInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   serviceCategory?: Prisma.ServiceCategoryUpdateOneRequiredWithoutServicesNestedInput;
   submissions?: Prisma.SubmissionUpdateManyWithoutServiceNestedInput;
+  costCodes?: Prisma.CostCodeUpdateManyWithoutServiceNestedInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUpdateManyWithoutServiceNestedInput;
 };
 
@@ -1427,11 +1882,24 @@ export type ServiceUncheckedUpdateWithoutImageFileInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutServiceNestedInput;
+  costCodes?: Prisma.CostCodeUncheckedUpdateManyWithoutServiceNestedInput;
   serviceCostCodes?: Prisma.ServiceCostCodeUncheckedUpdateManyWithoutServiceNestedInput;
 };
 
@@ -1454,6 +1922,18 @@ export type ServiceUncheckedUpdateManyWithoutImageFileInput = {
     | runtime.DecimalJsLike
     | number
     | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number;
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1466,6 +1946,7 @@ export type ServiceUncheckedUpdateManyWithoutImageFileInput = {
 
 export type ServiceCountOutputType = {
   submissions: number;
+  costCodes: number;
   serviceCostCodes: number;
 };
 
@@ -1474,6 +1955,7 @@ export type ServiceCountOutputTypeSelect<
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   submissions?: boolean | ServiceCountOutputTypeCountSubmissionsArgs;
+  costCodes?: boolean | ServiceCountOutputTypeCountCostCodesArgs;
   serviceCostCodes?: boolean | ServiceCountOutputTypeCountServiceCostCodesArgs;
 };
 
@@ -1503,6 +1985,16 @@ export type ServiceCountOutputTypeCountSubmissionsArgs<
 /**
  * ServiceCountOutputType without action
  */
+export type ServiceCountOutputTypeCountCostCodesArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.CostCodeWhereInput;
+};
+
+/**
+ * ServiceCountOutputType without action
+ */
 export type ServiceCountOutputTypeCountServiceCostCodesArgs<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
@@ -1522,6 +2014,8 @@ export type ServiceSelect<
     shortDescription?: boolean;
     fullDescription?: boolean;
     basePrice?: boolean;
+    markup?: boolean;
+    clientPrice?: boolean;
     imageFileId?: boolean;
     displayOrder?: boolean;
     isActive?: boolean;
@@ -1530,6 +2024,7 @@ export type ServiceSelect<
     serviceCategory?: boolean | Prisma.ServiceCategoryDefaultArgs<ExtArgs>;
     imageFile?: boolean | Prisma.Service$imageFileArgs<ExtArgs>;
     submissions?: boolean | Prisma.Service$submissionsArgs<ExtArgs>;
+    costCodes?: boolean | Prisma.Service$costCodesArgs<ExtArgs>;
     serviceCostCodes?: boolean | Prisma.Service$serviceCostCodesArgs<ExtArgs>;
     _count?: boolean | Prisma.ServiceCountOutputTypeDefaultArgs<ExtArgs>;
   },
@@ -1548,6 +2043,8 @@ export type ServiceSelectCreateManyAndReturn<
     shortDescription?: boolean;
     fullDescription?: boolean;
     basePrice?: boolean;
+    markup?: boolean;
+    clientPrice?: boolean;
     imageFileId?: boolean;
     displayOrder?: boolean;
     isActive?: boolean;
@@ -1571,6 +2068,8 @@ export type ServiceSelectUpdateManyAndReturn<
     shortDescription?: boolean;
     fullDescription?: boolean;
     basePrice?: boolean;
+    markup?: boolean;
+    clientPrice?: boolean;
     imageFileId?: boolean;
     displayOrder?: boolean;
     isActive?: boolean;
@@ -1590,6 +2089,8 @@ export type ServiceSelectScalar = {
   shortDescription?: boolean;
   fullDescription?: boolean;
   basePrice?: boolean;
+  markup?: boolean;
+  clientPrice?: boolean;
   imageFileId?: boolean;
   displayOrder?: boolean;
   isActive?: boolean;
@@ -1608,6 +2109,8 @@ export type ServiceOmit<
   | 'shortDescription'
   | 'fullDescription'
   | 'basePrice'
+  | 'markup'
+  | 'clientPrice'
   | 'imageFileId'
   | 'displayOrder'
   | 'isActive'
@@ -1622,6 +2125,7 @@ export type ServiceInclude<
   serviceCategory?: boolean | Prisma.ServiceCategoryDefaultArgs<ExtArgs>;
   imageFile?: boolean | Prisma.Service$imageFileArgs<ExtArgs>;
   submissions?: boolean | Prisma.Service$submissionsArgs<ExtArgs>;
+  costCodes?: boolean | Prisma.Service$costCodesArgs<ExtArgs>;
   serviceCostCodes?: boolean | Prisma.Service$serviceCostCodesArgs<ExtArgs>;
   _count?: boolean | Prisma.ServiceCountOutputTypeDefaultArgs<ExtArgs>;
 };
@@ -1649,6 +2153,7 @@ export type $ServicePayload<
     serviceCategory: Prisma.$ServiceCategoryPayload<ExtArgs>;
     imageFile: Prisma.$FileInstancePayload<ExtArgs> | null;
     submissions: Prisma.$SubmissionPayload<ExtArgs>[];
+    costCodes: Prisma.$CostCodePayload<ExtArgs>[];
     serviceCostCodes: Prisma.$ServiceCostCodePayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
@@ -1660,6 +2165,8 @@ export type $ServicePayload<
       shortDescription: string | null;
       fullDescription: string | null;
       basePrice: runtime.Decimal;
+      markup: runtime.Decimal;
+      clientPrice: runtime.Decimal;
       imageFileId: string | null;
       displayOrder: number;
       isActive: boolean;
@@ -2253,6 +2760,17 @@ export interface Prisma__ServiceClient<
       >
     | Null
   >;
+  costCodes<T extends Prisma.Service$costCodesArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.Service$costCodesArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$CostCodePayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
   serviceCostCodes<T extends Prisma.Service$serviceCostCodesArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.Service$serviceCostCodesArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -2313,6 +2831,8 @@ export interface ServiceFieldRefs {
   readonly shortDescription: Prisma.FieldRef<'Service', 'String'>;
   readonly fullDescription: Prisma.FieldRef<'Service', 'String'>;
   readonly basePrice: Prisma.FieldRef<'Service', 'Decimal'>;
+  readonly markup: Prisma.FieldRef<'Service', 'Decimal'>;
+  readonly clientPrice: Prisma.FieldRef<'Service', 'Decimal'>;
   readonly imageFileId: Prisma.FieldRef<'Service', 'String'>;
   readonly displayOrder: Prisma.FieldRef<'Service', 'Int'>;
   readonly isActive: Prisma.FieldRef<'Service', 'Boolean'>;
@@ -2829,6 +3349,35 @@ export type Service$submissionsArgs<
   distinct?:
     | Prisma.SubmissionScalarFieldEnum
     | Prisma.SubmissionScalarFieldEnum[];
+};
+
+/**
+ * Service.costCodes
+ */
+export type Service$costCodesArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the CostCode
+   */
+  select?: Prisma.CostCodeSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the CostCode
+   */
+  omit?: Prisma.CostCodeOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CostCodeInclude<ExtArgs> | null;
+  where?: Prisma.CostCodeWhereInput;
+  orderBy?:
+    | Prisma.CostCodeOrderByWithRelationInput
+    | Prisma.CostCodeOrderByWithRelationInput[];
+  cursor?: Prisma.CostCodeWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?: Prisma.CostCodeScalarFieldEnum | Prisma.CostCodeScalarFieldEnum[];
 };
 
 /**

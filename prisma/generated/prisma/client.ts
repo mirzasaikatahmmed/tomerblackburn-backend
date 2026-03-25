@@ -48,6 +48,16 @@ export { Prisma };
  */
 export type ActivityLog = Prisma.ActivityLogModel;
 /**
+ * Model BuildingType
+ *
+ */
+export type BuildingType = Prisma.BuildingTypeModel;
+/**
+ * Model BuildingTypeField
+ *
+ */
+export type BuildingTypeField = Prisma.BuildingTypeFieldModel;
+/**
  * Model CostCode
  *
  */
@@ -113,15 +123,31 @@ export type SubmissionItem = Prisma.SubmissionItemModel;
  */
 export type SubmissionMedia = Prisma.SubmissionMediaModel;
 /**
+ * Model SubmissionBuildingTypeFieldValue
+ *
+ */
+export type SubmissionBuildingTypeFieldValue =
+  Prisma.SubmissionBuildingTypeFieldValueModel;
+/**
  * Model TermsOfService
  *
  */
 export type TermsOfService = Prisma.TermsOfServiceModel;
 /**
+ * Model Tip
+ *
+ */
+export type Tip = Prisma.TipModel;
+/**
  * Model ContactUs
  *
  */
 export type ContactUs = Prisma.ContactUsModel;
+/**
+ * Model ContactMedia
+ *
+ */
+export type ContactMedia = Prisma.ContactMediaModel;
 /**
  * Model EstimatorPage
  *

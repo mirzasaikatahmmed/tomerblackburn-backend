@@ -1,21 +1,17 @@
 model ActivityLog {
   id          String   @id @default(uuid())
-  userId      String?
   action      String // create, update, delete, view, status_change
   entityType  String // submission, bathroom_type, cost_code, settings
   entityId    String?
   description String?
   metadata    String? // JSON data
-  ipAddress   String?
-  userAgent   String?
+  isRead      Boolean  @default(false)
   createdAt   DateTime @default(now())
 
-  user User? @relation(fields: [userId], references: [id])
-
-  @@index([userId])
   @@index([entityType])
   @@index([entityId])
   @@index([createdAt])
   @@index([action])
+  @@index([isRead])
   @@map("activity_logs")
 }

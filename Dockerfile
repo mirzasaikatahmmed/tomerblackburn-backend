@@ -62,8 +62,8 @@ RUN ls -la prisma/ && ls -la prisma/migrations/ || echo "Migrations directory ch
 # Copy built application from builder
 COPY --from=builder /app/dist ./dist
 
-# Copy Excel template file for contact-us exports
-COPY --from=builder /app/Leads\ Template.xlsx ./
+# Copy Excel template files
+COPY --from=builder ["/app/Leads Template.xlsx", "/app/Submission Template.xlsx", "./"]
 
 # Create uploads directory structure with proper permissions
 RUN mkdir -p /app/uploads/image /app/uploads/video /app/uploads/audio /app/uploads/document /app/uploads/any

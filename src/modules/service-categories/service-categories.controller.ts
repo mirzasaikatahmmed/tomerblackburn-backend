@@ -8,13 +8,17 @@ import {
   Delete,
   Query,
   HttpStatus,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiParam,
   ApiQuery,
+  ApiConsumes,
 } from '@nestjs/swagger';
 import { ServiceCategoriesService } from './service-categories.service';
 import { CreateServiceCategoryDto } from './dto/create-service-category.dto';
@@ -32,8 +36,9 @@ export class ServiceCategoriesController {
   @ApiOperation({
     summary: 'Create a new service category',
     description:
-      'Create a new service category (e.g., Bathroom Type, Shower Type) for a specific project type',
+      'Create a new service category (e.g., Bathroom Type, Shower Type) for a specific project type. Supports multipart/form-data for image upload.',
   })
+  @ApiConsumes('multipart/form-data')
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Service category created successfully',
@@ -67,8 +72,15 @@ export class ServiceCategoriesController {
     description:
       'Service category with this name already exists for this project type',
   })
-  create(@Body() createServiceCategoryDto: CreateServiceCategoryDto) {
-    return this.serviceCategoriesService.create(createServiceCategoryDto);
+  @UseInterceptors(FileInterceptor('image'))
+  create(
+    @Body() createServiceCategoryDto: CreateServiceCategoryDto,
+    @UploadedFile() image?: Express.Multer.File,
+  ) {
+    return this.serviceCategoriesService.create(
+      createServiceCategoryDto,
+      image,
+    );
   }
 
   @Get()
@@ -244,8 +256,10 @@ export class ServiceCategoriesController {
   @Patch(':id')
   @ApiOperation({
     summary: 'Update service category',
-    description: 'Update an existing service category by its ID',
+    description:
+      'Update an existing service category by its ID. Supports multipart/form-data for image upload.',
   })
+  @ApiConsumes('multipart/form-data')
   @ApiParam({
     name: 'id',
     description: 'Service category unique identifier',
@@ -280,11 +294,17 @@ export class ServiceCategoriesController {
     description:
       'Service category with this name already exists for this project type',
   })
+  @UseInterceptors(FileInterceptor('image'))
   update(
     @Param('id') id: string,
     @Body() updateServiceCategoryDto: UpdateServiceCategoryDto,
+    @UploadedFile() image?: Express.Multer.File,
   ) {
-    return this.serviceCategoriesService.update(id, updateServiceCategoryDto);
+    return this.serviceCategoriesService.update(
+      id,
+      updateServiceCategoryDto,
+      image,
+    );
   }
 
   @Delete(':id')

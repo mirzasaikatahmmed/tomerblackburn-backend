@@ -31,9 +31,13 @@ export type SiteSettingsMinAggregateOutputType = {
   logoImageId: string | null;
   contactNumber: string | null;
   contactEmail: string | null;
+  location: string | null;
+  address: string | null;
   facebookUrl: string | null;
   instagramUrl: string | null;
   twitterUrl: string | null;
+  ctaBannerText: string | null;
+  ctaBannerEnabled: boolean | null;
   createdAt: Date | null;
   updatedAt: Date | null;
 };
@@ -45,9 +49,13 @@ export type SiteSettingsMaxAggregateOutputType = {
   logoImageId: string | null;
   contactNumber: string | null;
   contactEmail: string | null;
+  location: string | null;
+  address: string | null;
   facebookUrl: string | null;
   instagramUrl: string | null;
   twitterUrl: string | null;
+  ctaBannerText: string | null;
+  ctaBannerEnabled: boolean | null;
   createdAt: Date | null;
   updatedAt: Date | null;
 };
@@ -59,9 +67,13 @@ export type SiteSettingsCountAggregateOutputType = {
   logoImageId: number;
   contactNumber: number;
   contactEmail: number;
+  location: number;
+  address: number;
   facebookUrl: number;
   instagramUrl: number;
   twitterUrl: number;
+  ctaBannerText: number;
+  ctaBannerEnabled: number;
   createdAt: number;
   updatedAt: number;
   _all: number;
@@ -74,9 +86,13 @@ export type SiteSettingsMinAggregateInputType = {
   logoImageId?: true;
   contactNumber?: true;
   contactEmail?: true;
+  location?: true;
+  address?: true;
   facebookUrl?: true;
   instagramUrl?: true;
   twitterUrl?: true;
+  ctaBannerText?: true;
+  ctaBannerEnabled?: true;
   createdAt?: true;
   updatedAt?: true;
 };
@@ -88,9 +104,13 @@ export type SiteSettingsMaxAggregateInputType = {
   logoImageId?: true;
   contactNumber?: true;
   contactEmail?: true;
+  location?: true;
+  address?: true;
   facebookUrl?: true;
   instagramUrl?: true;
   twitterUrl?: true;
+  ctaBannerText?: true;
+  ctaBannerEnabled?: true;
   createdAt?: true;
   updatedAt?: true;
 };
@@ -102,9 +122,13 @@ export type SiteSettingsCountAggregateInputType = {
   logoImageId?: true;
   contactNumber?: true;
   contactEmail?: true;
+  location?: true;
+  address?: true;
   facebookUrl?: true;
   instagramUrl?: true;
   twitterUrl?: true;
+  ctaBannerText?: true;
+  ctaBannerEnabled?: true;
   createdAt?: true;
   updatedAt?: true;
   _all?: true;
@@ -197,9 +221,13 @@ export type SiteSettingsGroupByOutputType = {
   logoImageId: string | null;
   contactNumber: string | null;
   contactEmail: string | null;
+  location: string | null;
+  address: string | null;
   facebookUrl: string | null;
   instagramUrl: string | null;
   twitterUrl: string | null;
+  ctaBannerText: string | null;
+  ctaBannerEnabled: boolean;
   createdAt: Date;
   updatedAt: Date;
   _count: SiteSettingsCountAggregateOutputType | null;
@@ -230,9 +258,13 @@ export type SiteSettingsWhereInput = {
   logoImageId?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   contactNumber?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   contactEmail?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+  location?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+  address?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   facebookUrl?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   instagramUrl?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   twitterUrl?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+  ctaBannerText?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+  ctaBannerEnabled?: Prisma.BoolFilter<'SiteSettings'> | boolean;
   createdAt?: Prisma.DateTimeFilter<'SiteSettings'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'SiteSettings'> | Date | string;
   logoImage?: Prisma.XOR<
@@ -248,9 +280,13 @@ export type SiteSettingsOrderByWithRelationInput = {
   logoImageId?: Prisma.SortOrderInput | Prisma.SortOrder;
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder;
   contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder;
+  location?: Prisma.SortOrderInput | Prisma.SortOrder;
+  address?: Prisma.SortOrderInput | Prisma.SortOrder;
   facebookUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
   instagramUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
   twitterUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
+  ctaBannerText?: Prisma.SortOrderInput | Prisma.SortOrder;
+  ctaBannerEnabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   logoImage?: Prisma.FileInstanceOrderByWithRelationInput;
@@ -270,9 +306,13 @@ export type SiteSettingsWhereUniqueInput = Prisma.AtLeast<
     logoImageId?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
     contactNumber?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
     contactEmail?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+    location?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+    address?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
     facebookUrl?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
     instagramUrl?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
     twitterUrl?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+    ctaBannerText?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+    ctaBannerEnabled?: Prisma.BoolFilter<'SiteSettings'> | boolean;
     createdAt?: Prisma.DateTimeFilter<'SiteSettings'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'SiteSettings'> | Date | string;
     logoImage?: Prisma.XOR<
@@ -290,9 +330,13 @@ export type SiteSettingsOrderByWithAggregationInput = {
   logoImageId?: Prisma.SortOrderInput | Prisma.SortOrder;
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder;
   contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder;
+  location?: Prisma.SortOrderInput | Prisma.SortOrder;
+  address?: Prisma.SortOrderInput | Prisma.SortOrder;
   facebookUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
   instagramUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
   twitterUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
+  ctaBannerText?: Prisma.SortOrderInput | Prisma.SortOrder;
+  ctaBannerEnabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   _count?: Prisma.SiteSettingsCountOrderByAggregateInput;
@@ -326,6 +370,14 @@ export type SiteSettingsScalarWhereWithAggregatesInput = {
     | Prisma.StringNullableWithAggregatesFilter<'SiteSettings'>
     | string
     | null;
+  location?:
+    | Prisma.StringNullableWithAggregatesFilter<'SiteSettings'>
+    | string
+    | null;
+  address?:
+    | Prisma.StringNullableWithAggregatesFilter<'SiteSettings'>
+    | string
+    | null;
   facebookUrl?:
     | Prisma.StringNullableWithAggregatesFilter<'SiteSettings'>
     | string
@@ -338,6 +390,11 @@ export type SiteSettingsScalarWhereWithAggregatesInput = {
     | Prisma.StringNullableWithAggregatesFilter<'SiteSettings'>
     | string
     | null;
+  ctaBannerText?:
+    | Prisma.StringNullableWithAggregatesFilter<'SiteSettings'>
+    | string
+    | null;
+  ctaBannerEnabled?: Prisma.BoolWithAggregatesFilter<'SiteSettings'> | boolean;
   createdAt?:
     | Prisma.DateTimeWithAggregatesFilter<'SiteSettings'>
     | Date
@@ -354,9 +411,13 @@ export type SiteSettingsCreateInput = {
   siteDescription?: string | null;
   contactNumber?: string | null;
   contactEmail?: string | null;
+  location?: string | null;
+  address?: string | null;
   facebookUrl?: string | null;
   instagramUrl?: string | null;
   twitterUrl?: string | null;
+  ctaBannerText?: string | null;
+  ctaBannerEnabled?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   logoImage?: Prisma.FileInstanceCreateNestedOneWithoutSiteSettingsLogosInput;
@@ -369,9 +430,13 @@ export type SiteSettingsUncheckedCreateInput = {
   logoImageId?: string | null;
   contactNumber?: string | null;
   contactEmail?: string | null;
+  location?: string | null;
+  address?: string | null;
   facebookUrl?: string | null;
   instagramUrl?: string | null;
   twitterUrl?: string | null;
+  ctaBannerText?: string | null;
+  ctaBannerEnabled?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -391,12 +456,19 @@ export type SiteSettingsUpdateInput = {
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   facebookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   instagramUrl?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ctaBannerText?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  ctaBannerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   logoImage?: Prisma.FileInstanceUpdateOneWithoutSiteSettingsLogosNestedInput;
@@ -418,12 +490,19 @@ export type SiteSettingsUncheckedUpdateInput = {
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   facebookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   instagramUrl?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ctaBannerText?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  ctaBannerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -435,9 +514,13 @@ export type SiteSettingsCreateManyInput = {
   logoImageId?: string | null;
   contactNumber?: string | null;
   contactEmail?: string | null;
+  location?: string | null;
+  address?: string | null;
   facebookUrl?: string | null;
   instagramUrl?: string | null;
   twitterUrl?: string | null;
+  ctaBannerText?: string | null;
+  ctaBannerEnabled?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -457,12 +540,19 @@ export type SiteSettingsUpdateManyMutationInput = {
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   facebookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   instagramUrl?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ctaBannerText?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  ctaBannerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -483,12 +573,19 @@ export type SiteSettingsUncheckedUpdateManyInput = {
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   facebookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   instagramUrl?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ctaBannerText?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  ctaBannerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -510,9 +607,13 @@ export type SiteSettingsCountOrderByAggregateInput = {
   logoImageId?: Prisma.SortOrder;
   contactNumber?: Prisma.SortOrder;
   contactEmail?: Prisma.SortOrder;
+  location?: Prisma.SortOrder;
+  address?: Prisma.SortOrder;
   facebookUrl?: Prisma.SortOrder;
   instagramUrl?: Prisma.SortOrder;
   twitterUrl?: Prisma.SortOrder;
+  ctaBannerText?: Prisma.SortOrder;
+  ctaBannerEnabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -524,9 +625,13 @@ export type SiteSettingsMaxOrderByAggregateInput = {
   logoImageId?: Prisma.SortOrder;
   contactNumber?: Prisma.SortOrder;
   contactEmail?: Prisma.SortOrder;
+  location?: Prisma.SortOrder;
+  address?: Prisma.SortOrder;
   facebookUrl?: Prisma.SortOrder;
   instagramUrl?: Prisma.SortOrder;
   twitterUrl?: Prisma.SortOrder;
+  ctaBannerText?: Prisma.SortOrder;
+  ctaBannerEnabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -538,9 +643,13 @@ export type SiteSettingsMinOrderByAggregateInput = {
   logoImageId?: Prisma.SortOrder;
   contactNumber?: Prisma.SortOrder;
   contactEmail?: Prisma.SortOrder;
+  location?: Prisma.SortOrder;
+  address?: Prisma.SortOrder;
   facebookUrl?: Prisma.SortOrder;
   instagramUrl?: Prisma.SortOrder;
   twitterUrl?: Prisma.SortOrder;
+  ctaBannerText?: Prisma.SortOrder;
+  ctaBannerEnabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -661,9 +770,13 @@ export type SiteSettingsCreateWithoutLogoImageInput = {
   siteDescription?: string | null;
   contactNumber?: string | null;
   contactEmail?: string | null;
+  location?: string | null;
+  address?: string | null;
   facebookUrl?: string | null;
   instagramUrl?: string | null;
   twitterUrl?: string | null;
+  ctaBannerText?: string | null;
+  ctaBannerEnabled?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -674,9 +787,13 @@ export type SiteSettingsUncheckedCreateWithoutLogoImageInput = {
   siteDescription?: string | null;
   contactNumber?: string | null;
   contactEmail?: string | null;
+  location?: string | null;
+  address?: string | null;
   facebookUrl?: string | null;
   instagramUrl?: string | null;
   twitterUrl?: string | null;
+  ctaBannerText?: string | null;
+  ctaBannerEnabled?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -738,9 +855,13 @@ export type SiteSettingsScalarWhereInput = {
   logoImageId?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   contactNumber?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   contactEmail?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+  location?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+  address?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   facebookUrl?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   instagramUrl?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
   twitterUrl?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+  ctaBannerText?: Prisma.StringNullableFilter<'SiteSettings'> | string | null;
+  ctaBannerEnabled?: Prisma.BoolFilter<'SiteSettings'> | boolean;
   createdAt?: Prisma.DateTimeFilter<'SiteSettings'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'SiteSettings'> | Date | string;
 };
@@ -751,9 +872,13 @@ export type SiteSettingsCreateManyLogoImageInput = {
   siteDescription?: string | null;
   contactNumber?: string | null;
   contactEmail?: string | null;
+  location?: string | null;
+  address?: string | null;
   facebookUrl?: string | null;
   instagramUrl?: string | null;
   twitterUrl?: string | null;
+  ctaBannerText?: string | null;
+  ctaBannerEnabled?: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -773,12 +898,19 @@ export type SiteSettingsUpdateWithoutLogoImageInput = {
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   facebookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   instagramUrl?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ctaBannerText?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  ctaBannerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -798,12 +930,19 @@ export type SiteSettingsUncheckedUpdateWithoutLogoImageInput = {
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   facebookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   instagramUrl?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ctaBannerText?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  ctaBannerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -823,12 +962,19 @@ export type SiteSettingsUncheckedUpdateManyWithoutLogoImageInput = {
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   facebookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   instagramUrl?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
     | null;
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ctaBannerText?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  ctaBannerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -844,9 +990,13 @@ export type SiteSettingsSelect<
     logoImageId?: boolean;
     contactNumber?: boolean;
     contactEmail?: boolean;
+    location?: boolean;
+    address?: boolean;
     facebookUrl?: boolean;
     instagramUrl?: boolean;
     twitterUrl?: boolean;
+    ctaBannerText?: boolean;
+    ctaBannerEnabled?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     logoImage?: boolean | Prisma.SiteSettings$logoImageArgs<ExtArgs>;
@@ -865,9 +1015,13 @@ export type SiteSettingsSelectCreateManyAndReturn<
     logoImageId?: boolean;
     contactNumber?: boolean;
     contactEmail?: boolean;
+    location?: boolean;
+    address?: boolean;
     facebookUrl?: boolean;
     instagramUrl?: boolean;
     twitterUrl?: boolean;
+    ctaBannerText?: boolean;
+    ctaBannerEnabled?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     logoImage?: boolean | Prisma.SiteSettings$logoImageArgs<ExtArgs>;
@@ -886,9 +1040,13 @@ export type SiteSettingsSelectUpdateManyAndReturn<
     logoImageId?: boolean;
     contactNumber?: boolean;
     contactEmail?: boolean;
+    location?: boolean;
+    address?: boolean;
     facebookUrl?: boolean;
     instagramUrl?: boolean;
     twitterUrl?: boolean;
+    ctaBannerText?: boolean;
+    ctaBannerEnabled?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     logoImage?: boolean | Prisma.SiteSettings$logoImageArgs<ExtArgs>;
@@ -903,9 +1061,13 @@ export type SiteSettingsSelectScalar = {
   logoImageId?: boolean;
   contactNumber?: boolean;
   contactEmail?: boolean;
+  location?: boolean;
+  address?: boolean;
   facebookUrl?: boolean;
   instagramUrl?: boolean;
   twitterUrl?: boolean;
+  ctaBannerText?: boolean;
+  ctaBannerEnabled?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
 };
@@ -920,9 +1082,13 @@ export type SiteSettingsOmit<
   | 'logoImageId'
   | 'contactNumber'
   | 'contactEmail'
+  | 'location'
+  | 'address'
   | 'facebookUrl'
   | 'instagramUrl'
   | 'twitterUrl'
+  | 'ctaBannerText'
+  | 'ctaBannerEnabled'
   | 'createdAt'
   | 'updatedAt',
   ExtArgs['result']['siteSettings']
@@ -962,9 +1128,13 @@ export type $SiteSettingsPayload<
       logoImageId: string | null;
       contactNumber: string | null;
       contactEmail: string | null;
+      location: string | null;
+      address: string | null;
       facebookUrl: string | null;
       instagramUrl: string | null;
       twitterUrl: string | null;
+      ctaBannerText: string | null;
+      ctaBannerEnabled: boolean;
       createdAt: Date;
       updatedAt: Date;
     },
@@ -1584,9 +1754,13 @@ export interface SiteSettingsFieldRefs {
   readonly logoImageId: Prisma.FieldRef<'SiteSettings', 'String'>;
   readonly contactNumber: Prisma.FieldRef<'SiteSettings', 'String'>;
   readonly contactEmail: Prisma.FieldRef<'SiteSettings', 'String'>;
+  readonly location: Prisma.FieldRef<'SiteSettings', 'String'>;
+  readonly address: Prisma.FieldRef<'SiteSettings', 'String'>;
   readonly facebookUrl: Prisma.FieldRef<'SiteSettings', 'String'>;
   readonly instagramUrl: Prisma.FieldRef<'SiteSettings', 'String'>;
   readonly twitterUrl: Prisma.FieldRef<'SiteSettings', 'String'>;
+  readonly ctaBannerText: Prisma.FieldRef<'SiteSettings', 'String'>;
+  readonly ctaBannerEnabled: Prisma.FieldRef<'SiteSettings', 'Boolean'>;
   readonly createdAt: Prisma.FieldRef<'SiteSettings', 'DateTime'>;
   readonly updatedAt: Prisma.FieldRef<'SiteSettings', 'DateTime'>;
 }

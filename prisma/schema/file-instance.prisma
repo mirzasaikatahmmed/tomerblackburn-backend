@@ -18,11 +18,14 @@ model FileInstance {
   portfolioImages         Portfolio[]
   portfolioCategoryImages PortfolioImage[]
   siteSettingsLogos       SiteSettings[]
-  services                Service[]              @relation("ServiceImage")
+  services                Service[]            @relation("ServiceImage")
   submissionMedia         SubmissionMedia[]
-  userAvatars             User[]                 @relation("UserAvatar")
-  estimatorBackgrounds    EstimatorPage[]        @relation("EstimatorBackground")
-  whyChooseUsIcons        WhyChooseUsFeature[]   @relation("WhyChooseUsIcon")
+  contactMedia            ContactMedia[]       @relation("ContactMediaFileInstance")
+  userAvatars             User[]               @relation("UserAvatar")
+  estimatorBackgrounds    EstimatorPage[]      @relation("EstimatorBackground")
+  whyChooseUsIcons        WhyChooseUsFeature[] @relation("WhyChooseUsIcon")
+  projectTypes            ProjectType[]
+  serviceCategories       ServiceCategory[]
 
   @@map("file_instances")
 }

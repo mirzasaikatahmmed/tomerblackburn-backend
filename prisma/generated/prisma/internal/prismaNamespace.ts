@@ -413,6 +413,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never
 
 export const ModelName = {
   ActivityLog: 'ActivityLog',
+  BuildingType: 'BuildingType',
+  BuildingTypeField: 'BuildingTypeField',
   CostCode: 'CostCode',
   CostCodeCategory: 'CostCodeCategory',
   CostCodeOption: 'CostCodeOption',
@@ -426,8 +428,11 @@ export const ModelName = {
   Submission: 'Submission',
   SubmissionItem: 'SubmissionItem',
   SubmissionMedia: 'SubmissionMedia',
+  SubmissionBuildingTypeFieldValue: 'SubmissionBuildingTypeFieldValue',
   TermsOfService: 'TermsOfService',
+  Tip: 'Tip',
   ContactUs: 'ContactUs',
+  ContactMedia: 'ContactMedia',
   EstimatorPage: 'EstimatorPage',
   HowItWorksStep: 'HowItWorksStep',
   WhyChooseUsFeature: 'WhyChooseUsFeature',
@@ -463,6 +468,8 @@ export type TypeMap<
   meta: {
     modelProps:
       | 'activityLog'
+      | 'buildingType'
+      | 'buildingTypeField'
       | 'costCode'
       | 'costCodeCategory'
       | 'costCodeOption'
@@ -476,8 +483,11 @@ export type TypeMap<
       | 'submission'
       | 'submissionItem'
       | 'submissionMedia'
+      | 'submissionBuildingTypeFieldValue'
       | 'termsOfService'
+      | 'tip'
       | 'contactUs'
+      | 'contactMedia'
       | 'estimatorPage'
       | 'howItWorksStep'
       | 'whyChooseUsFeature'
@@ -565,6 +575,158 @@ export type TypeMap<
           args: Prisma.ActivityLogCountArgs<ExtArgs>;
           result:
             | runtime.Types.Utils.Optional<Prisma.ActivityLogCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
+    BuildingType: {
+      payload: Prisma.$BuildingTypePayload<ExtArgs>;
+      fields: Prisma.BuildingTypeFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.BuildingTypeFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.BuildingTypeFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload>;
+        };
+        findFirst: {
+          args: Prisma.BuildingTypeFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.BuildingTypeFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload>;
+        };
+        findMany: {
+          args: Prisma.BuildingTypeFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload>[];
+        };
+        create: {
+          args: Prisma.BuildingTypeCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload>;
+        };
+        createMany: {
+          args: Prisma.BuildingTypeCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.BuildingTypeCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload>[];
+        };
+        delete: {
+          args: Prisma.BuildingTypeDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload>;
+        };
+        update: {
+          args: Prisma.BuildingTypeUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload>;
+        };
+        deleteMany: {
+          args: Prisma.BuildingTypeDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.BuildingTypeUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.BuildingTypeUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload>[];
+        };
+        upsert: {
+          args: Prisma.BuildingTypeUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypePayload>;
+        };
+        aggregate: {
+          args: Prisma.BuildingTypeAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBuildingType>;
+        };
+        groupBy: {
+          args: Prisma.BuildingTypeGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.BuildingTypeGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.BuildingTypeCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.BuildingTypeCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
+    BuildingTypeField: {
+      payload: Prisma.$BuildingTypeFieldPayload<ExtArgs>;
+      fields: Prisma.BuildingTypeFieldFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.BuildingTypeFieldFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.BuildingTypeFieldFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload>;
+        };
+        findFirst: {
+          args: Prisma.BuildingTypeFieldFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.BuildingTypeFieldFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload>;
+        };
+        findMany: {
+          args: Prisma.BuildingTypeFieldFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload>[];
+        };
+        create: {
+          args: Prisma.BuildingTypeFieldCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload>;
+        };
+        createMany: {
+          args: Prisma.BuildingTypeFieldCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.BuildingTypeFieldCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload>[];
+        };
+        delete: {
+          args: Prisma.BuildingTypeFieldDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload>;
+        };
+        update: {
+          args: Prisma.BuildingTypeFieldUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload>;
+        };
+        deleteMany: {
+          args: Prisma.BuildingTypeFieldDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.BuildingTypeFieldUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.BuildingTypeFieldUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload>[];
+        };
+        upsert: {
+          args: Prisma.BuildingTypeFieldUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuildingTypeFieldPayload>;
+        };
+        aggregate: {
+          args: Prisma.BuildingTypeFieldAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBuildingTypeField>;
+        };
+        groupBy: {
+          args: Prisma.BuildingTypeFieldGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.BuildingTypeFieldGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.BuildingTypeFieldCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.BuildingTypeFieldCountAggregateOutputType>
             | number;
         };
       };
@@ -1557,6 +1719,82 @@ export type TypeMap<
         };
       };
     };
+    SubmissionBuildingTypeFieldValue: {
+      payload: Prisma.$SubmissionBuildingTypeFieldValuePayload<ExtArgs>;
+      fields: Prisma.SubmissionBuildingTypeFieldValueFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.SubmissionBuildingTypeFieldValueFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.SubmissionBuildingTypeFieldValueFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload>;
+        };
+        findFirst: {
+          args: Prisma.SubmissionBuildingTypeFieldValueFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.SubmissionBuildingTypeFieldValueFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload>;
+        };
+        findMany: {
+          args: Prisma.SubmissionBuildingTypeFieldValueFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload>[];
+        };
+        create: {
+          args: Prisma.SubmissionBuildingTypeFieldValueCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload>;
+        };
+        createMany: {
+          args: Prisma.SubmissionBuildingTypeFieldValueCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.SubmissionBuildingTypeFieldValueCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload>[];
+        };
+        delete: {
+          args: Prisma.SubmissionBuildingTypeFieldValueDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload>;
+        };
+        update: {
+          args: Prisma.SubmissionBuildingTypeFieldValueUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload>;
+        };
+        deleteMany: {
+          args: Prisma.SubmissionBuildingTypeFieldValueDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.SubmissionBuildingTypeFieldValueUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.SubmissionBuildingTypeFieldValueUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload>[];
+        };
+        upsert: {
+          args: Prisma.SubmissionBuildingTypeFieldValueUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubmissionBuildingTypeFieldValuePayload>;
+        };
+        aggregate: {
+          args: Prisma.SubmissionBuildingTypeFieldValueAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSubmissionBuildingTypeFieldValue>;
+        };
+        groupBy: {
+          args: Prisma.SubmissionBuildingTypeFieldValueGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.SubmissionBuildingTypeFieldValueGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.SubmissionBuildingTypeFieldValueCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.SubmissionBuildingTypeFieldValueCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
     TermsOfService: {
       payload: Prisma.$TermsOfServicePayload<ExtArgs>;
       fields: Prisma.TermsOfServiceFieldRefs;
@@ -1633,6 +1871,82 @@ export type TypeMap<
         };
       };
     };
+    Tip: {
+      payload: Prisma.$TipPayload<ExtArgs>;
+      fields: Prisma.TipFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.TipFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.TipFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload>;
+        };
+        findFirst: {
+          args: Prisma.TipFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.TipFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload>;
+        };
+        findMany: {
+          args: Prisma.TipFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload>[];
+        };
+        create: {
+          args: Prisma.TipCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload>;
+        };
+        createMany: {
+          args: Prisma.TipCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.TipCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload>[];
+        };
+        delete: {
+          args: Prisma.TipDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload>;
+        };
+        update: {
+          args: Prisma.TipUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload>;
+        };
+        deleteMany: {
+          args: Prisma.TipDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.TipUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.TipUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload>[];
+        };
+        upsert: {
+          args: Prisma.TipUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipPayload>;
+        };
+        aggregate: {
+          args: Prisma.TipAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTip>;
+        };
+        groupBy: {
+          args: Prisma.TipGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.TipGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.TipCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.TipCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
     ContactUs: {
       payload: Prisma.$ContactUsPayload<ExtArgs>;
       fields: Prisma.ContactUsFieldRefs;
@@ -1705,6 +2019,82 @@ export type TypeMap<
           args: Prisma.ContactUsCountArgs<ExtArgs>;
           result:
             | runtime.Types.Utils.Optional<Prisma.ContactUsCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
+    ContactMedia: {
+      payload: Prisma.$ContactMediaPayload<ExtArgs>;
+      fields: Prisma.ContactMediaFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.ContactMediaFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.ContactMediaFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload>;
+        };
+        findFirst: {
+          args: Prisma.ContactMediaFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.ContactMediaFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload>;
+        };
+        findMany: {
+          args: Prisma.ContactMediaFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload>[];
+        };
+        create: {
+          args: Prisma.ContactMediaCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload>;
+        };
+        createMany: {
+          args: Prisma.ContactMediaCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.ContactMediaCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload>[];
+        };
+        delete: {
+          args: Prisma.ContactMediaDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload>;
+        };
+        update: {
+          args: Prisma.ContactMediaUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload>;
+        };
+        deleteMany: {
+          args: Prisma.ContactMediaDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.ContactMediaUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.ContactMediaUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload>[];
+        };
+        upsert: {
+          args: Prisma.ContactMediaUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMediaPayload>;
+        };
+        aggregate: {
+          args: Prisma.ContactMediaAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContactMedia>;
+        };
+        groupBy: {
+          args: Prisma.ContactMediaGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.ContactMediaGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.ContactMediaCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.ContactMediaCountAggregateOutputType>
             | number;
         };
       };
@@ -2662,28 +3052,58 @@ export type TransactionIsolationLevel =
 
 export const ActivityLogScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   action: 'action',
   entityType: 'entityType',
   entityId: 'entityId',
   description: 'description',
   metadata: 'metadata',
-  ipAddress: 'ipAddress',
-  userAgent: 'userAgent',
+  isRead: 'isRead',
   createdAt: 'createdAt',
 } as const;
 
 export type ActivityLogScalarFieldEnum =
   (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum];
 
+export const BuildingTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  price: 'price',
+  isActive: 'isActive',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type BuildingTypeScalarFieldEnum =
+  (typeof BuildingTypeScalarFieldEnum)[keyof typeof BuildingTypeScalarFieldEnum];
+
+export const BuildingTypeFieldScalarFieldEnum = {
+  id: 'id',
+  buildingTypeId: 'buildingTypeId',
+  label: 'label',
+  fieldType: 'fieldType',
+  placeholder: 'placeholder',
+  isRequired: 'isRequired',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type BuildingTypeFieldScalarFieldEnum =
+  (typeof BuildingTypeFieldScalarFieldEnum)[keyof typeof BuildingTypeFieldScalarFieldEnum];
+
 export const CostCodeScalarFieldEnum = {
   id: 'id',
   categoryId: 'categoryId',
-  serviceCategoryId: 'serviceCategoryId',
+  serviceId: 'serviceId',
   code: 'code',
   name: 'name',
+  elies: 'elies',
+  tips: 'tips',
   description: 'description',
   basePrice: 'basePrice',
+  markup: 'markup',
+  clientPrice: 'clientPrice',
   unitType: 'unitType',
   questionType: 'questionType',
   step: 'step',
@@ -2692,6 +3112,10 @@ export const CostCodeScalarFieldEnum = {
   requiresQuantity: 'requiresQuantity',
   isOptional: 'isOptional',
   isActive: 'isActive',
+  excludeFromExport: 'excludeFromExport',
+  parentCostCodeId: 'parentCostCodeId',
+  showWhenParentValue: 'showWhenParentValue',
+  nestedInputType: 'nestedInputType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 } as const;
@@ -2777,6 +3201,7 @@ export const ProjectTypeScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  imageId: 'imageId',
   displayOrder: 'displayOrder',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -2794,6 +3219,8 @@ export const ServiceScalarFieldEnum = {
   shortDescription: 'shortDescription',
   fullDescription: 'fullDescription',
   basePrice: 'basePrice',
+  markup: 'markup',
+  clientPrice: 'clientPrice',
   imageFileId: 'imageFileId',
   displayOrder: 'displayOrder',
   isActive: 'isActive',
@@ -2809,6 +3236,7 @@ export const ServiceCategoryScalarFieldEnum = {
   projectTypeId: 'projectTypeId',
   name: 'name',
   description: 'description',
+  imageId: 'imageId',
   displayOrder: 'displayOrder',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -2844,10 +3272,16 @@ export const SubmissionScalarFieldEnum = {
   clientPhone: 'clientPhone',
   projectAddress: 'projectAddress',
   zipCode: 'zipCode',
+  desiredStartDate: 'desiredStartDate',
+  buildingType: 'buildingType',
+  buildingTypeId: 'buildingTypeId',
   basePrice: 'basePrice',
+  markup: 'markup',
+  clientPrice: 'clientPrice',
   additionalItemsTotal: 'additionalItemsTotal',
   totalAmount: 'totalAmount',
   status: 'status',
+  isArchived: 'isArchived',
   projectNotes: 'projectNotes',
   additionalDetails: 'additionalDetails',
   pdfUrl: 'pdfUrl',
@@ -2896,6 +3330,18 @@ export const SubmissionMediaScalarFieldEnum = {
 export type SubmissionMediaScalarFieldEnum =
   (typeof SubmissionMediaScalarFieldEnum)[keyof typeof SubmissionMediaScalarFieldEnum];
 
+export const SubmissionBuildingTypeFieldValueScalarFieldEnum = {
+  id: 'id',
+  submissionId: 'submissionId',
+  fieldId: 'fieldId',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type SubmissionBuildingTypeFieldValueScalarFieldEnum =
+  (typeof SubmissionBuildingTypeFieldValueScalarFieldEnum)[keyof typeof SubmissionBuildingTypeFieldValueScalarFieldEnum];
+
 export const TermsOfServiceScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2907,6 +3353,17 @@ export const TermsOfServiceScalarFieldEnum = {
 
 export type TermsOfServiceScalarFieldEnum =
   (typeof TermsOfServiceScalarFieldEnum)[keyof typeof TermsOfServiceScalarFieldEnum];
+
+export const TipScalarFieldEnum = {
+  id: 'id',
+  position: 'position',
+  message: 'message',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type TipScalarFieldEnum =
+  (typeof TipScalarFieldEnum)[keyof typeof TipScalarFieldEnum];
 
 export const ContactUsScalarFieldEnum = {
   id: 'id',
@@ -2927,6 +3384,19 @@ export const ContactUsScalarFieldEnum = {
 
 export type ContactUsScalarFieldEnum =
   (typeof ContactUsScalarFieldEnum)[keyof typeof ContactUsScalarFieldEnum];
+
+export const ContactMediaScalarFieldEnum = {
+  id: 'id',
+  contactId: 'contactId',
+  fileInstanceId: 'fileInstanceId',
+  mediaType: 'mediaType',
+  description: 'description',
+  displayOrder: 'displayOrder',
+  uploadedAt: 'uploadedAt',
+} as const;
+
+export type ContactMediaScalarFieldEnum =
+  (typeof ContactMediaScalarFieldEnum)[keyof typeof ContactMediaScalarFieldEnum];
 
 export const EstimatorPageScalarFieldEnum = {
   id: 'id',
@@ -3067,9 +3537,13 @@ export const SiteSettingsScalarFieldEnum = {
   logoImageId: 'logoImageId',
   contactNumber: 'contactNumber',
   contactEmail: 'contactEmail',
+  location: 'location',
+  address: 'address',
   facebookUrl: 'facebookUrl',
   instagramUrl: 'instagramUrl',
   twitterUrl: 'twitterUrl',
+  ctaBannerText: 'ctaBannerText',
+  ctaBannerEnabled: 'ctaBannerEnabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 } as const;
@@ -3135,6 +3609,14 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<
 >;
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<
+  $PrismaModel,
+  'Boolean'
+>;
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -3167,6 +3649,22 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<
 >;
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<
+  $PrismaModel,
+  'Int'
+>;
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<
+  $PrismaModel,
+  'Int[]'
+>;
+
+/**
  * Reference to a field of type 'UnitType'
  */
 export type EnumUnitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -3196,30 +3694,6 @@ export type EnumQuestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 export type ListEnumQuestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
   $PrismaModel,
   'QuestionType[]'
->;
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<
-  $PrismaModel,
-  'Int'
->;
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<
-  $PrismaModel,
-  'Int[]'
->;
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<
-  $PrismaModel,
-  'Boolean'
 >;
 
 /**
@@ -3404,6 +3878,8 @@ export type PrismaClientOptions = (
 };
 export type GlobalOmitConfig = {
   activityLog?: Prisma.ActivityLogOmit;
+  buildingType?: Prisma.BuildingTypeOmit;
+  buildingTypeField?: Prisma.BuildingTypeFieldOmit;
   costCode?: Prisma.CostCodeOmit;
   costCodeCategory?: Prisma.CostCodeCategoryOmit;
   costCodeOption?: Prisma.CostCodeOptionOmit;
@@ -3417,8 +3893,11 @@ export type GlobalOmitConfig = {
   submission?: Prisma.SubmissionOmit;
   submissionItem?: Prisma.SubmissionItemOmit;
   submissionMedia?: Prisma.SubmissionMediaOmit;
+  submissionBuildingTypeFieldValue?: Prisma.SubmissionBuildingTypeFieldValueOmit;
   termsOfService?: Prisma.TermsOfServiceOmit;
+  tip?: Prisma.TipOmit;
   contactUs?: Prisma.ContactUsOmit;
+  contactMedia?: Prisma.ContactMediaOmit;
   estimatorPage?: Prisma.EstimatorPageOmit;
   howItWorksStep?: Prisma.HowItWorksStepOmit;
   whyChooseUsFeature?: Prisma.WhyChooseUsFeatureOmit;

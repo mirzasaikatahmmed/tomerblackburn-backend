@@ -145,6 +145,61 @@ export class UploadController {
     }
   }
 
+  @Post('video')
+  @ApiOperation({
+    summary: 'Upload a video file',
+    description: 'Upload a video file with support for up to 100MB file size',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'Video file to upload (max 100MB)',
+        },
+      },
+      required: ['file'],
+    },
+  })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Video uploaded successfully',
+    schema: {
+      example: {
+        message: 'Video uploaded successfully',
+        data: {
+          id: '123e4567-e89b-12d3-a456-426614174000',
+          filename: 'abc123-xyz.mp4',
+          originalFilename: 'project-video.mp4',
+          url: 'http://localhost:3000/uploads/video/abc123-xyz.mp4',
+          fileType: 'video',
+          mimeType: 'video/mp4',
+          size: 52428800,
+        },
+      },
+    },
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid video file or upload failed',
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadVideo(@UploadedFile() file: Express.Multer.File) {
+    try {
+      const uploadedVideo = await this.uploadService.uploadVideo(file);
+
+      return {
+        message: 'Video uploaded successfully',
+        data: uploadedVideo,
+      };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
   @Get(':id')
   @ApiOperation({
     summary: 'Get file details',

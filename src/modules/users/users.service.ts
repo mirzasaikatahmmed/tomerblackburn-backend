@@ -82,10 +82,6 @@ export class UsersService {
         where: { id },
         include: {
           avatarFile: true,
-          activityLogs: {
-            take: 10,
-            orderBy: { createdAt: 'desc' },
-          },
         },
       });
 

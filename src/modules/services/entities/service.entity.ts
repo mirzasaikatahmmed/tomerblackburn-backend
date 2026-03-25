@@ -24,6 +24,12 @@ export class ServiceEntity implements Service {
   basePrice: any;
 
   @ApiProperty()
+  markup: any;
+
+  @ApiProperty()
+  clientPrice: any;
+
+  @ApiProperty()
   imageFileId: string | null;
 
   @ApiProperty()

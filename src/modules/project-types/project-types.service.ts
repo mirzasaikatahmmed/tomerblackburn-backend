@@ -6,12 +6,19 @@ import {
 import { CreateProjectTypeDto } from './dto/create-project-type.dto';
 import { UpdateProjectTypeDto } from './dto/update-project-type.dto';
 import { PrismaService } from '@/common/prisma/prisma.service';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ProjectTypesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploadService: UploadService,
+  ) {}
 
-  async create(createProjectTypeDto: CreateProjectTypeDto) {
+  async create(
+    createProjectTypeDto: CreateProjectTypeDto,
+    file?: Express.Multer.File,
+  ) {
     try {
       // Check for duplicate name
       const existingProjectType = await this.prisma.projectType.findFirst({
@@ -24,9 +31,19 @@ export class ProjectTypesService {
         );
       }
 
+      let imageId = createProjectTypeDto.imageId;
+      if (file) {
+        const uploadedFile = await this.uploadService.uploadFile(file);
+        imageId = uploadedFile.id;
+      }
+
       const projectType = await this.prisma.projectType.create({
-        data: createProjectTypeDto,
+        data: {
+          ...createProjectTypeDto,
+          imageId,
+        },
         include: {
+          image: true,
           serviceCategories: {
             orderBy: { displayOrder: 'asc' },
           },
@@ -56,6 +73,7 @@ export class ProjectTypesService {
       const projectTypes = await this.prisma.projectType.findMany({
         where,
         include: {
+          image: true,
           serviceCategories: {
             orderBy: { displayOrder: 'asc' },
           },
@@ -81,6 +99,7 @@ export class ProjectTypesService {
       const projectTypes = await this.prisma.projectType.findMany({
         where: { isActive: true },
         include: {
+          image: true,
           serviceCategories: {
             where: { isActive: true },
             orderBy: { displayOrder: 'asc' },
@@ -109,6 +128,7 @@ export class ProjectTypesService {
       const projectType = await this.prisma.projectType.findUnique({
         where: { id },
         include: {
+          image: true,
           serviceCategories: {
             orderBy: { displayOrder: 'asc' },
           },
@@ -131,7 +151,11 @@ export class ProjectTypesService {
     }
   }
 
-  async update(id: string, updateProjectTypeDto: UpdateProjectTypeDto) {
+  async update(
+    id: string,
+    updateProjectTypeDto: UpdateProjectTypeDto,
+    file?: Express.Multer.File,
+  ) {
     try {
       // Check if project type exists
       await this.findOne(id);
@@ -149,10 +173,20 @@ export class ProjectTypesService {
         }
       }
 
+      let imageId = updateProjectTypeDto.imageId;
+      if (file) {
+        const uploadedFile = await this.uploadService.uploadFile(file);
+        imageId = uploadedFile.id;
+      }
+
       const projectType = await this.prisma.projectType.update({
         where: { id },
-        data: updateProjectTypeDto,
+        data: {
+          ...updateProjectTypeDto,
+          imageId,
+        },
         include: {
+          image: true,
           serviceCategories: {
             orderBy: { displayOrder: 'asc' },
           },

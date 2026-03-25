@@ -201,6 +201,79 @@ export class UploadService {
     }
   }
 
+  async uploadVideo(file: Express.Multer.File): Promise<UploadedFileResponse> {
+    try {
+      if (!file) {
+        throw new BadRequestException('No file provided');
+      }
+
+      this.validateVideoFile(file);
+
+      const fileType = this.determineFileType(file.mimetype);
+
+      const ext = path.extname(file.originalname);
+      const filename = `${uuidv4()}${ext}`;
+
+      const subfolder = path.join(this.uploadsDir, fileType);
+      await fs.mkdir(subfolder, { recursive: true });
+
+      const filePath = path.join(subfolder, filename);
+
+      await fs.writeFile(filePath, file.buffer);
+
+      const relativePath = path.join(fileType, filename).replace(/\\/g, '/');
+      const url = `${this.baseUrl}/uploads/${relativePath}`;
+
+      const fileInstance = await this.prisma.fileInstance.create({
+        data: {
+          filename,
+          originalFilename: file.originalname,
+          path: relativePath,
+          url,
+          fileType,
+          mimeType: file.mimetype,
+          size: file.size,
+        },
+      });
+
+      return {
+        id: fileInstance.id,
+        filename: fileInstance.filename,
+        originalFilename: fileInstance.originalFilename,
+        url: fileInstance.url,
+        fileType: fileInstance.fileType,
+        mimeType: fileInstance.mimeType,
+        size: fileInstance.size,
+      };
+    } catch (error) {
+      throw new BadRequestException(`Video upload failed: ${error.message}`);
+    }
+  }
+
+  private validateVideoFile(file: Express.Multer.File): void {
+    const maxSize = 100 * 1024 * 1024; // 100MB
+    const allowedVideoMimeTypes = [
+      'video/mp4',
+      'video/mpeg',
+      'video/webm',
+      'video/quicktime',
+      'video/x-msvideo',
+      'video/x-matroska',
+    ];
+
+    if (file.size > maxSize) {
+      throw new BadRequestException(
+        `Video file size exceeds maximum limit of ${maxSize / 1024 / 1024}MB`,
+      );
+    }
+
+    if (!allowedVideoMimeTypes.includes(file.mimetype)) {
+      throw new BadRequestException(
+        `File type ${file.mimetype} is not a supported video format`,
+      );
+    }
+  }
+
   private determineFileType(mimeType: string): FileType {
     if (mimeType.startsWith('image/')) {
       return FileType.image;

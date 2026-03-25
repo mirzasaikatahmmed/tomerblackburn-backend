@@ -1,23 +1,44 @@
 model ContactUs {
-  id        String @id @default(uuid())
-  firstName String
-  lastName  String
-  email     String
-  phone     String
-  address   String
-  city      String
-  state     String
+  id               String    @id @default(uuid())
+  firstName        String
+  lastName         String
+  email            String
+  phone            String
+  address          String
+  city             String
+  state            String
   zipCode          String
-  message          String   // Scope of Work
+  message          String // Scope of Work
   projectStartDate DateTime?
 
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  contactMedia ContactMedia[]
+
   @@index([email])
   @@index([phone])
   @@index([isRead])
   @@index([createdAt])
   @@map("contact_us")
+}
+
+model ContactMedia {
+  id             String @id @default(uuid())
+  contactId      String
+  fileInstanceId String
+
+  mediaType    MediaType @default(PHOTO)
+  description  String?
+  displayOrder Int       @default(0)
+  uploadedAt   DateTime  @default(now())
+
+  contact      ContactUs    @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  fileInstance FileInstance @relation("ContactMediaFileInstance", fields: [fileInstanceId], references: [id])
+
+  @@index([contactId])
+  @@index([mediaType])
+  @@index([fileInstanceId])
+  @@map("contact_media")
 }

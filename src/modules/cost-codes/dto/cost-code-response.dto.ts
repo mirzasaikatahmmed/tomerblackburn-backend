@@ -63,6 +63,14 @@ export class CostCodeResponseDto {
   name: string;
 
   @ApiProperty({
+    description: 'Tips for this cost code',
+    example: ['Measure twice, cut once'],
+    required: false,
+    type: [String],
+  })
+  tips?: string[];
+
+  @ApiProperty({
     description: 'Description',
     required: false,
   })
@@ -73,6 +81,18 @@ export class CostCodeResponseDto {
     example: 500.0,
   })
   basePrice: number;
+
+  @ApiProperty({
+    description: 'Markup percentage (e.g. 20 for 20%)',
+    example: 20.0,
+  })
+  markup: number;
+
+  @ApiProperty({
+    description: 'Client-facing price (basePrice + markup)',
+    example: 600.0,
+  })
+  clientPrice: number;
 
   @ApiProperty({
     description: 'Unit type for pricing calculation',
@@ -123,6 +143,14 @@ export class CostCodeResponseDto {
     example: true,
   })
   isActive: boolean;
+
+  @ApiProperty({
+    description:
+      'If true, this cost code is branch-only: shown in estimator for conditional logic but excluded from Buildertrend/Excel export.',
+    example: false,
+    required: false,
+  })
+  excludeFromExport?: boolean;
 
   @ApiProperty({
     description: 'Category details',

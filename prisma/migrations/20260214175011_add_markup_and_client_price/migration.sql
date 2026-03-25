@@ -1,0 +1,11 @@
+-- AlterTable
+ALTER TABLE "cost_codes" ADD COLUMN     "clientPrice" DECIMAL(10,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "markup" DECIMAL(5,2) NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE "services" ADD COLUMN     "clientPrice" DECIMAL(10,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "markup" DECIMAL(5,2) NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE "submissions" ADD COLUMN     "clientPrice" DECIMAL(10,2) NOT NULL DEFAULT 0,
+ADD COLUMN     "markup" DECIMAL(5,2) NOT NULL DEFAULT 0;

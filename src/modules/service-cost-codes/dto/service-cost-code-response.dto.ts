@@ -13,6 +13,12 @@ class ServiceSummaryDto {
 
   @ApiProperty()
   basePrice: number;
+
+  @ApiProperty()
+  markup: number;
+
+  @ApiProperty()
+  clientPrice: number;
 }
 
 class CategorySummaryDto {
@@ -64,6 +70,12 @@ class CostCodeDetailDto {
 
   @ApiProperty()
   basePrice: number;
+
+  @ApiProperty()
+  markup: number;
+
+  @ApiProperty()
+  clientPrice: number;
 
   @ApiProperty({ enum: UnitType })
   unitType: UnitType;

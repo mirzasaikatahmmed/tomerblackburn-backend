@@ -14,6 +14,12 @@ class CostCodeSummaryDto {
   basePrice: number;
 
   @ApiProperty()
+  markup: number;
+
+  @ApiProperty()
+  clientPrice: number;
+
+  @ApiProperty()
   colorTag: string;
 }
 

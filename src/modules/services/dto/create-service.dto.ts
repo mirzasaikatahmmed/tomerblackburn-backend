@@ -69,6 +69,33 @@ export class CreateServiceDto {
   basePrice: number;
 
   @ApiProperty({
+    description: 'Markup percentage applied to base price (e.g. 20 for 20%)',
+    example: 20.0,
+    minimum: 0,
+    default: 0,
+    required: false,
+  })
+  @IsNumber()
+  @Type(() => Number)
+  @Min(0)
+  @IsOptional()
+  markup?: number;
+
+  @ApiProperty({
+    description:
+      'Client-facing price (basePrice + markup). Auto-calculated if not provided.',
+    example: 18000.0,
+    minimum: 0,
+    default: 0,
+    required: false,
+  })
+  @IsNumber()
+  @Type(() => Number)
+  @Min(0)
+  @IsOptional()
+  clientPrice?: number;
+
+  @ApiProperty({
     description: 'File instance ID for service image (UUID)',
     example: '123e4567-e89b-12d3-a456-426614174000',
     required: false,

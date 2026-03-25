@@ -8,15 +8,20 @@ model SiteSettings {
 
   contactNumber String?
   contactEmail  String?
+  location      String? // Address/Location field
+  address       String? // Alternative address field
 
   // Social Media Links
   facebookUrl  String?
   instagramUrl String?
   twitterUrl   String?
 
+  // CTA Banner Settings
+  ctaBannerText    String? @default("Get Your Free Live Estimate Now!")
+  ctaBannerEnabled Boolean @default(true)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("site_settings")
 }
-

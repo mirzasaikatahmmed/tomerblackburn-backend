@@ -229,7 +229,6 @@ export type UserWhereInput = {
     Prisma.FileInstanceNullableScalarRelationFilter,
     Prisma.FileInstanceWhereInput
   > | null;
-  activityLogs?: Prisma.ActivityLogListRelationFilter;
 };
 
 export type UserOrderByWithRelationInput = {
@@ -244,7 +243,6 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   avatarFile?: Prisma.FileInstanceOrderByWithRelationInput;
-  activityLogs?: Prisma.ActivityLogOrderByRelationAggregateInput;
 };
 
 export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -266,7 +264,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
       Prisma.FileInstanceNullableScalarRelationFilter,
       Prisma.FileInstanceWhereInput
     > | null;
-    activityLogs?: Prisma.ActivityLogListRelationFilter;
   },
   'id' | 'email'
 >;
@@ -325,7 +322,6 @@ export type UserCreateInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   avatarFile?: Prisma.FileInstanceCreateNestedOneWithoutUserAvatarsInput;
-  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput;
 };
 
 export type UserUncheckedCreateInput = {
@@ -339,7 +335,6 @@ export type UserUncheckedCreateInput = {
   lastLoginAt?: Date | string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput;
 };
 
 export type UserUpdateInput = {
@@ -357,7 +352,6 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   avatarFile?: Prisma.FileInstanceUpdateOneWithoutUserAvatarsNestedInput;
-  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateInput = {
@@ -378,7 +372,6 @@ export type UserUncheckedUpdateInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 export type UserCreateManyInput = {
@@ -430,11 +423,6 @@ export type UserUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 
-export type UserNullableScalarRelationFilter = {
-  is?: Prisma.UserWhereInput | null;
-  isNot?: Prisma.UserWhereInput | null;
-};
-
 export type UserListRelationFilter = {
   every?: Prisma.UserWhereInput;
   some?: Prisma.UserWhereInput;
@@ -482,34 +470,6 @@ export type UserMinOrderByAggregateInput = {
   lastLoginAt?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
-};
-
-export type UserCreateNestedOneWithoutActivityLogsInput = {
-  create?: Prisma.XOR<
-    Prisma.UserCreateWithoutActivityLogsInput,
-    Prisma.UserUncheckedCreateWithoutActivityLogsInput
-  >;
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivityLogsInput;
-  connect?: Prisma.UserWhereUniqueInput;
-};
-
-export type UserUpdateOneWithoutActivityLogsNestedInput = {
-  create?: Prisma.XOR<
-    Prisma.UserCreateWithoutActivityLogsInput,
-    Prisma.UserUncheckedCreateWithoutActivityLogsInput
-  >;
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivityLogsInput;
-  upsert?: Prisma.UserUpsertWithoutActivityLogsInput;
-  disconnect?: Prisma.UserWhereInput | boolean;
-  delete?: Prisma.UserWhereInput | boolean;
-  connect?: Prisma.UserWhereUniqueInput;
-  update?: Prisma.XOR<
-    Prisma.XOR<
-      Prisma.UserUpdateToOneWithWhereWithoutActivityLogsInput,
-      Prisma.UserUpdateWithoutActivityLogsInput
-    >,
-    Prisma.UserUncheckedUpdateWithoutActivityLogsInput
-  >;
 };
 
 export type UserCreateNestedManyWithoutAvatarFileInput = {
@@ -602,97 +562,6 @@ export type EnumUserRoleFieldUpdateOperationsInput = {
   set?: $Enums.UserRole;
 };
 
-export type UserCreateWithoutActivityLogsInput = {
-  id?: string;
-  name: string;
-  email: string;
-  password: string;
-  role?: $Enums.UserRole;
-  isActive?: boolean;
-  lastLoginAt?: Date | string | null;
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
-  avatarFile?: Prisma.FileInstanceCreateNestedOneWithoutUserAvatarsInput;
-};
-
-export type UserUncheckedCreateWithoutActivityLogsInput = {
-  id?: string;
-  name: string;
-  email: string;
-  password: string;
-  role?: $Enums.UserRole;
-  isActive?: boolean;
-  avatarFileId?: string | null;
-  lastLoginAt?: Date | string | null;
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
-};
-
-export type UserCreateOrConnectWithoutActivityLogsInput = {
-  where: Prisma.UserWhereUniqueInput;
-  create: Prisma.XOR<
-    Prisma.UserCreateWithoutActivityLogsInput,
-    Prisma.UserUncheckedCreateWithoutActivityLogsInput
-  >;
-};
-
-export type UserUpsertWithoutActivityLogsInput = {
-  update: Prisma.XOR<
-    Prisma.UserUpdateWithoutActivityLogsInput,
-    Prisma.UserUncheckedUpdateWithoutActivityLogsInput
-  >;
-  create: Prisma.XOR<
-    Prisma.UserCreateWithoutActivityLogsInput,
-    Prisma.UserUncheckedCreateWithoutActivityLogsInput
-  >;
-  where?: Prisma.UserWhereInput;
-};
-
-export type UserUpdateToOneWithWhereWithoutActivityLogsInput = {
-  where?: Prisma.UserWhereInput;
-  data: Prisma.XOR<
-    Prisma.UserUpdateWithoutActivityLogsInput,
-    Prisma.UserUncheckedUpdateWithoutActivityLogsInput
-  >;
-};
-
-export type UserUpdateWithoutActivityLogsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string;
-  name?: Prisma.StringFieldUpdateOperationsInput | string;
-  email?: Prisma.StringFieldUpdateOperationsInput | string;
-  password?: Prisma.StringFieldUpdateOperationsInput | string;
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
-  lastLoginAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  avatarFile?: Prisma.FileInstanceUpdateOneWithoutUserAvatarsNestedInput;
-};
-
-export type UserUncheckedUpdateWithoutActivityLogsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string;
-  name?: Prisma.StringFieldUpdateOperationsInput | string;
-  email?: Prisma.StringFieldUpdateOperationsInput | string;
-  password?: Prisma.StringFieldUpdateOperationsInput | string;
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
-  avatarFileId?:
-    | Prisma.NullableStringFieldUpdateOperationsInput
-    | string
-    | null;
-  lastLoginAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-};
-
 export type UserCreateWithoutAvatarFileInput = {
   id?: string;
   name: string;
@@ -703,7 +572,6 @@ export type UserCreateWithoutAvatarFileInput = {
   lastLoginAt?: Date | string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput;
 };
 
 export type UserUncheckedCreateWithoutAvatarFileInput = {
@@ -716,7 +584,6 @@ export type UserUncheckedCreateWithoutAvatarFileInput = {
   lastLoginAt?: Date | string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput;
 };
 
 export type UserCreateOrConnectWithoutAvatarFileInput = {
@@ -804,7 +671,6 @@ export type UserUpdateWithoutAvatarFileInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutAvatarFileInput = {
@@ -821,7 +687,6 @@ export type UserUncheckedUpdateWithoutAvatarFileInput = {
     | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateManyWithoutAvatarFileInput = {
@@ -840,44 +705,6 @@ export type UserUncheckedUpdateManyWithoutAvatarFileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 
-/**
- * Count Type UserCountOutputType
- */
-
-export type UserCountOutputType = {
-  activityLogs: number;
-};
-
-export type UserCountOutputTypeSelect<
-  ExtArgs extends
-    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-> = {
-  activityLogs?: boolean | UserCountOutputTypeCountActivityLogsArgs;
-};
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeDefaultArgs<
-  ExtArgs extends
-    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-> = {
-  /**
-   * Select specific fields to fetch from the UserCountOutputType
-   */
-  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null;
-};
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountActivityLogsArgs<
-  ExtArgs extends
-    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-> = {
-  where?: Prisma.ActivityLogWhereInput;
-};
-
 export type UserSelect<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
@@ -894,8 +721,6 @@ export type UserSelect<
     createdAt?: boolean;
     updatedAt?: boolean;
     avatarFile?: boolean | Prisma.User$avatarFileArgs<ExtArgs>;
-    activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>;
-    _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['user']
 >;
@@ -974,8 +799,6 @@ export type UserInclude<
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   avatarFile?: boolean | Prisma.User$avatarFileArgs<ExtArgs>;
-  activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>;
-  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<
   ExtArgs extends
@@ -997,7 +820,6 @@ export type $UserPayload<
   name: 'User';
   objects: {
     avatarFile: Prisma.$FileInstancePayload<ExtArgs> | null;
-    activityLogs: Prisma.$ActivityLogPayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -1574,17 +1396,6 @@ export interface Prisma__UserClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-  activityLogs<T extends Prisma.User$activityLogsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.User$activityLogsArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$ActivityLogPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
-  >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2105,37 +1916,6 @@ export type User$avatarFileArgs<
    */
   include?: Prisma.FileInstanceInclude<ExtArgs> | null;
   where?: Prisma.FileInstanceWhereInput;
-};
-
-/**
- * User.activityLogs
- */
-export type User$activityLogsArgs<
-  ExtArgs extends
-    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-> = {
-  /**
-   * Select specific fields to fetch from the ActivityLog
-   */
-  select?: Prisma.ActivityLogSelect<ExtArgs> | null;
-  /**
-   * Omit specific fields from the ActivityLog
-   */
-  omit?: Prisma.ActivityLogOmit<ExtArgs> | null;
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ActivityLogInclude<ExtArgs> | null;
-  where?: Prisma.ActivityLogWhereInput;
-  orderBy?:
-    | Prisma.ActivityLogOrderByWithRelationInput
-    | Prisma.ActivityLogOrderByWithRelationInput[];
-  cursor?: Prisma.ActivityLogWhereUniqueInput;
-  take?: number;
-  skip?: number;
-  distinct?:
-    | Prisma.ActivityLogScalarFieldEnum
-    | Prisma.ActivityLogScalarFieldEnum[];
 };
 
 /**

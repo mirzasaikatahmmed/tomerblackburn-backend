@@ -34,26 +34,53 @@ export class CostCodesService {
         );
       }
 
-      // Validate serviceCategoryId if provided
-      if (createCostCodeDto.serviceCategoryId) {
-        const serviceCategoryExists =
-          await this.prisma.serviceCategory.findUnique({
-            where: { id: createCostCodeDto.serviceCategoryId },
-          });
+      // Validate serviceId if provided
+      if (createCostCodeDto.serviceId) {
+        const serviceExists = await this.prisma.service.findUnique({
+          where: { id: createCostCodeDto.serviceId },
+        });
 
-        if (!serviceCategoryExists) {
+        if (!serviceExists) {
           throw new NotFoundException(
-            `Service category with ID ${createCostCodeDto.serviceCategoryId} not found`,
+            `Service with ID ${createCostCodeDto.serviceId} not found`,
           );
         }
       }
 
+      // Validate parentCostCodeId if provided
+      if (createCostCodeDto.parentCostCodeId) {
+        const parentExists = await this.prisma.costCode.findUnique({
+          where: { id: createCostCodeDto.parentCostCodeId },
+        });
+
+        if (!parentExists) {
+          throw new NotFoundException(
+            `Parent cost code with ID ${createCostCodeDto.parentCostCodeId} not found`,
+          );
+        }
+      }
+
+      // Auto-calculate clientPrice from basePrice + markup if not provided
+      const basePrice = createCostCodeDto.basePrice ?? 0;
+      const markup = createCostCodeDto.markup ?? 0;
+      const clientPrice =
+        createCostCodeDto.clientPrice ?? basePrice * (1 + markup / 100);
+
       const costCode = await this.prisma.costCode.create({
-        data: createCostCodeDto,
+        data: {
+          ...createCostCodeDto,
+          markup,
+          clientPrice,
+        },
         include: {
           category: true,
-          serviceCategory: true,
+          service: true,
           options: {
+            orderBy: { displayOrder: 'asc' },
+          },
+          parentCostCode: true,
+          childCostCodes: {
+            where: { isActive: true },
             orderBy: { displayOrder: 'asc' },
           },
         },
@@ -78,20 +105,20 @@ export class CostCodesService {
     try {
       const {
         categoryId,
-        serviceCategoryId,
+        serviceId,
         questionType,
         unitType,
         isActive,
         isIncludedInBase,
         includeOptions,
         includeCategory,
-        includeServiceCategoryRelation,
+        includeServiceRelation,
       } = filterDto;
 
       const where: any = {};
 
       if (categoryId) where.categoryId = categoryId;
-      if (serviceCategoryId) where.serviceCategoryId = serviceCategoryId;
+      if (serviceId) where.serviceId = serviceId;
       if (questionType) where.questionType = questionType;
       if (unitType) where.unitType = unitType;
       if (isActive !== undefined) where.isActive = isActive;
@@ -102,12 +129,17 @@ export class CostCodesService {
         where,
         include: {
           category: includeCategory,
-          serviceCategory: includeServiceCategoryRelation,
+          service: includeServiceRelation,
           options: includeOptions
             ? {
                 orderBy: { displayOrder: 'asc' },
               }
             : false,
+          parentCostCode: true,
+          childCostCodes: {
+            where: { isActive: true },
+            orderBy: { displayOrder: 'asc' },
+          },
         },
         orderBy: [{ displayOrder: 'asc' }, { code: 'asc' }],
       });
@@ -134,8 +166,13 @@ export class CostCodesService {
         },
         include: {
           category: true,
-          serviceCategory: true,
+          service: true,
           options: {
+            orderBy: { displayOrder: 'asc' },
+          },
+          parentCostCode: true,
+          childCostCodes: {
+            where: { isActive: true },
             orderBy: { displayOrder: 'asc' },
           },
         },
@@ -172,7 +209,7 @@ export class CostCodesService {
           costCode: {
             include: {
               category: true,
-              serviceCategory: true,
+              service: true,
               options: includeOptions
                 ? {
                     where: { isActive: true },
@@ -219,8 +256,13 @@ export class CostCodesService {
         },
         include: {
           category: true,
-          serviceCategory: true,
+          service: true,
           options: {
+            orderBy: { displayOrder: 'asc' },
+          },
+          parentCostCode: true,
+          childCostCodes: {
+            where: { isActive: true },
             orderBy: { displayOrder: 'asc' },
           },
         },
@@ -248,7 +290,7 @@ export class CostCodesService {
         where: { id },
         include: {
           category: true,
-          serviceCategory: true,
+          service: true,
           options: {
             orderBy: { displayOrder: 'asc' },
           },
@@ -256,6 +298,11 @@ export class CostCodesService {
             include: {
               service: true,
             },
+          },
+          parentCostCode: true,
+          childCostCodes: {
+            where: { isActive: true },
+            orderBy: { displayOrder: 'asc' },
           },
         },
       });
@@ -282,8 +329,13 @@ export class CostCodesService {
         where: { code },
         include: {
           category: true,
-          serviceCategory: true,
+          service: true,
           options: {
+            orderBy: { displayOrder: 'asc' },
+          },
+          parentCostCode: true,
+          childCostCodes: {
+            where: { isActive: true },
             orderBy: { displayOrder: 'asc' },
           },
         },
@@ -333,27 +385,74 @@ export class CostCodesService {
         }
       }
 
-      // Validate serviceCategoryId if being updated
-      if (updateCostCodeDto.serviceCategoryId) {
-        const serviceCategoryExists =
-          await this.prisma.serviceCategory.findUnique({
-            where: { id: updateCostCodeDto.serviceCategoryId },
+      // Validate serviceId if being updated
+      if (updateCostCodeDto.serviceId) {
+        const serviceExists = await this.prisma.service.findUnique({
+          where: { id: updateCostCodeDto.serviceId },
+        });
+
+        if (!serviceExists) {
+          throw new NotFoundException(
+            `Service with ID ${updateCostCodeDto.serviceId} not found`,
+          );
+        }
+      }
+
+      // Auto-calculate clientPrice if markup or basePrice changed
+      const updateData: any = { ...updateCostCodeDto };
+
+      // Validate parentCostCodeId if being updated
+      if (updateCostCodeDto.parentCostCodeId !== undefined) {
+        if (
+          updateCostCodeDto.parentCostCodeId === '' ||
+          updateCostCodeDto.parentCostCodeId === null
+        ) {
+          // Allow clearing parent (make it top-level)
+          updateData.parentCostCodeId = null;
+          updateData.showWhenParentValue = null;
+        } else {
+          const parentExists = await this.prisma.costCode.findUnique({
+            where: { id: updateCostCodeDto.parentCostCodeId },
           });
 
-        if (!serviceCategoryExists) {
-          throw new NotFoundException(
-            `Service category with ID ${updateCostCodeDto.serviceCategoryId} not found`,
-          );
+          if (!parentExists) {
+            throw new NotFoundException(
+              `Parent cost code with ID ${updateCostCodeDto.parentCostCodeId} not found`,
+            );
+          }
+
+          // Prevent circular dependency
+          if (updateCostCodeDto.parentCostCodeId === id) {
+            throw new ConflictException('Cost code cannot be its own parent');
+          }
+        }
+      }
+      if (
+        updateCostCodeDto.basePrice !== undefined ||
+        updateCostCodeDto.markup !== undefined
+      ) {
+        const existingCostCode = (await this.findOne(id)).data;
+        const updatedBasePrice =
+          updateCostCodeDto.basePrice ?? Number(existingCostCode.basePrice);
+        const updatedMarkup =
+          updateCostCodeDto.markup ?? Number(existingCostCode.markup);
+        if (updateCostCodeDto.clientPrice === undefined) {
+          updateData.clientPrice = updatedBasePrice * (1 + updatedMarkup / 100);
         }
       }
 
       const costCode = await this.prisma.costCode.update({
         where: { id },
-        data: updateCostCodeDto,
+        data: updateData,
         include: {
           category: true,
-          serviceCategory: true,
+          service: true,
           options: {
+            orderBy: { displayOrder: 'asc' },
+          },
+          parentCostCode: true,
+          childCostCodes: {
+            where: { isActive: true },
             orderBy: { displayOrder: 'asc' },
           },
         },
@@ -384,7 +483,7 @@ export class CostCodesService {
         data: { isActive: !costCode.isActive },
         include: {
           category: true,
-          serviceCategory: true,
+          service: true,
           options: true,
         },
       });

@@ -1,0 +1,11 @@
+model Tip {
+  id       String @id @default(uuid())
+  position Int
+  message  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([position])
+  @@map("tips")
+}

@@ -1,0 +1,37 @@
+model BuildingType {
+  id           String  @id @default(uuid())
+  name         String
+  price        Decimal @default(0) @db.Decimal(10, 2)
+  isActive     Boolean @default(true)
+  displayOrder Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fields      BuildingTypeField[]
+  submissions Submission[]
+
+  @@index([isActive])
+  @@index([displayOrder])
+  @@map("building_types")
+}
+
+model BuildingTypeField {
+  id             String @id @default(uuid())
+  buildingTypeId String
+
+  label        String // Display label, e.g. "Number of Units", "Square Footage"
+  fieldType    String  @default("text") // text, number, email, tel, etc.
+  placeholder  String?
+  isRequired   Boolean @default(false)
+  displayOrder Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  buildingType     BuildingType                       @relation(fields: [buildingTypeId], references: [id], onDelete: Cascade)
+  submissionValues SubmissionBuildingTypeFieldValue[]
+
+  @@index([buildingTypeId])
+  @@map("building_type_fields")
+}

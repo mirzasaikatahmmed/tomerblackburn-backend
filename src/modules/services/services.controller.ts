@@ -67,6 +67,16 @@ export class ServicesController {
           example: 15000.0,
           description: 'Base price',
         },
+        markup: {
+          type: 'number',
+          example: 20.0,
+          description: 'Markup percentage (e.g. 20 for 20%)',
+        },
+        clientPrice: {
+          type: 'number',
+          example: 18000.0,
+          description: 'Client-facing price (basePrice + markup)',
+        },
         isActive: {
           type: 'boolean',
           example: true,
@@ -136,6 +146,8 @@ export class ServicesController {
             name: 'Four Piece',
             fullDescription: 'Toilet + Sink + Shower + Tub',
             basePrice: 15000.0,
+            markup: 20.0,
+            clientPrice: 18000.0,
             isActive: true,
             displayOrder: 1,
           },
@@ -233,6 +245,16 @@ export class ServicesController {
           type: 'number',
           example: 18000.0,
           description: 'Base price',
+        },
+        markup: {
+          type: 'number',
+          example: 20.0,
+          description: 'Markup percentage (e.g. 20 for 20%)',
+        },
+        clientPrice: {
+          type: 'number',
+          example: 21600.0,
+          description: 'Client-facing price (basePrice + markup)',
         },
         isActive: {
           type: 'boolean',

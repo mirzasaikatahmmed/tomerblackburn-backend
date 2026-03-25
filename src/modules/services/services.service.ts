@@ -33,9 +33,17 @@ export class ServicesService {
         imageFileId = uploadedFile.id;
       }
 
+      // Auto-calculate clientPrice from basePrice + markup if not provided
+      const markup = createServiceDto.markup ?? 0;
+      const clientPrice =
+        createServiceDto.clientPrice ??
+        createServiceDto.basePrice * (1 + markup / 100);
+
       const service = await this.prisma.service.create({
         data: {
           ...createServiceDto,
+          markup,
+          clientPrice,
           imageFileId,
         },
         include: {
@@ -223,10 +231,25 @@ export class ServicesService {
         imageFileId = uploadedFile.id;
       }
 
+      // Auto-calculate clientPrice if markup or basePrice changed
+      const updateData: any = { ...updateServiceDto };
+      if (
+        updateServiceDto.basePrice !== undefined ||
+        updateServiceDto.markup !== undefined
+      ) {
+        const basePrice =
+          updateServiceDto.basePrice ??
+          Number((await this.findOne(id)).data.basePrice);
+        const markup = updateServiceDto.markup ?? 0;
+        if (updateServiceDto.clientPrice === undefined) {
+          updateData.clientPrice = basePrice * (1 + markup / 100);
+        }
+      }
+
       const service = await this.prisma.service.update({
         where: { id },
         data: {
-          ...updateServiceDto,
+          ...updateData,
           ...(imageFileId && { imageFileId }),
         },
         include: {

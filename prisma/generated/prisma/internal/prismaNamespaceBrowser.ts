@@ -55,6 +55,8 @@ export const AnyNull = runtime.AnyNull;
 
 export const ModelName = {
   ActivityLog: 'ActivityLog',
+  BuildingType: 'BuildingType',
+  BuildingTypeField: 'BuildingTypeField',
   CostCode: 'CostCode',
   CostCodeCategory: 'CostCodeCategory',
   CostCodeOption: 'CostCodeOption',
@@ -68,8 +70,11 @@ export const ModelName = {
   Submission: 'Submission',
   SubmissionItem: 'SubmissionItem',
   SubmissionMedia: 'SubmissionMedia',
+  SubmissionBuildingTypeFieldValue: 'SubmissionBuildingTypeFieldValue',
   TermsOfService: 'TermsOfService',
+  Tip: 'Tip',
   ContactUs: 'ContactUs',
+  ContactMedia: 'ContactMedia',
   EstimatorPage: 'EstimatorPage',
   HowItWorksStep: 'HowItWorksStep',
   WhyChooseUsFeature: 'WhyChooseUsFeature',
@@ -102,28 +107,58 @@ export type TransactionIsolationLevel =
 
 export const ActivityLogScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   action: 'action',
   entityType: 'entityType',
   entityId: 'entityId',
   description: 'description',
   metadata: 'metadata',
-  ipAddress: 'ipAddress',
-  userAgent: 'userAgent',
+  isRead: 'isRead',
   createdAt: 'createdAt',
 } as const;
 
 export type ActivityLogScalarFieldEnum =
   (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum];
 
+export const BuildingTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  price: 'price',
+  isActive: 'isActive',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type BuildingTypeScalarFieldEnum =
+  (typeof BuildingTypeScalarFieldEnum)[keyof typeof BuildingTypeScalarFieldEnum];
+
+export const BuildingTypeFieldScalarFieldEnum = {
+  id: 'id',
+  buildingTypeId: 'buildingTypeId',
+  label: 'label',
+  fieldType: 'fieldType',
+  placeholder: 'placeholder',
+  isRequired: 'isRequired',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type BuildingTypeFieldScalarFieldEnum =
+  (typeof BuildingTypeFieldScalarFieldEnum)[keyof typeof BuildingTypeFieldScalarFieldEnum];
+
 export const CostCodeScalarFieldEnum = {
   id: 'id',
   categoryId: 'categoryId',
-  serviceCategoryId: 'serviceCategoryId',
+  serviceId: 'serviceId',
   code: 'code',
   name: 'name',
+  elies: 'elies',
+  tips: 'tips',
   description: 'description',
   basePrice: 'basePrice',
+  markup: 'markup',
+  clientPrice: 'clientPrice',
   unitType: 'unitType',
   questionType: 'questionType',
   step: 'step',
@@ -132,6 +167,10 @@ export const CostCodeScalarFieldEnum = {
   requiresQuantity: 'requiresQuantity',
   isOptional: 'isOptional',
   isActive: 'isActive',
+  excludeFromExport: 'excludeFromExport',
+  parentCostCodeId: 'parentCostCodeId',
+  showWhenParentValue: 'showWhenParentValue',
+  nestedInputType: 'nestedInputType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 } as const;
@@ -217,6 +256,7 @@ export const ProjectTypeScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  imageId: 'imageId',
   displayOrder: 'displayOrder',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -234,6 +274,8 @@ export const ServiceScalarFieldEnum = {
   shortDescription: 'shortDescription',
   fullDescription: 'fullDescription',
   basePrice: 'basePrice',
+  markup: 'markup',
+  clientPrice: 'clientPrice',
   imageFileId: 'imageFileId',
   displayOrder: 'displayOrder',
   isActive: 'isActive',
@@ -249,6 +291,7 @@ export const ServiceCategoryScalarFieldEnum = {
   projectTypeId: 'projectTypeId',
   name: 'name',
   description: 'description',
+  imageId: 'imageId',
   displayOrder: 'displayOrder',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -284,10 +327,16 @@ export const SubmissionScalarFieldEnum = {
   clientPhone: 'clientPhone',
   projectAddress: 'projectAddress',
   zipCode: 'zipCode',
+  desiredStartDate: 'desiredStartDate',
+  buildingType: 'buildingType',
+  buildingTypeId: 'buildingTypeId',
   basePrice: 'basePrice',
+  markup: 'markup',
+  clientPrice: 'clientPrice',
   additionalItemsTotal: 'additionalItemsTotal',
   totalAmount: 'totalAmount',
   status: 'status',
+  isArchived: 'isArchived',
   projectNotes: 'projectNotes',
   additionalDetails: 'additionalDetails',
   pdfUrl: 'pdfUrl',
@@ -336,6 +385,18 @@ export const SubmissionMediaScalarFieldEnum = {
 export type SubmissionMediaScalarFieldEnum =
   (typeof SubmissionMediaScalarFieldEnum)[keyof typeof SubmissionMediaScalarFieldEnum];
 
+export const SubmissionBuildingTypeFieldValueScalarFieldEnum = {
+  id: 'id',
+  submissionId: 'submissionId',
+  fieldId: 'fieldId',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type SubmissionBuildingTypeFieldValueScalarFieldEnum =
+  (typeof SubmissionBuildingTypeFieldValueScalarFieldEnum)[keyof typeof SubmissionBuildingTypeFieldValueScalarFieldEnum];
+
 export const TermsOfServiceScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -347,6 +408,17 @@ export const TermsOfServiceScalarFieldEnum = {
 
 export type TermsOfServiceScalarFieldEnum =
   (typeof TermsOfServiceScalarFieldEnum)[keyof typeof TermsOfServiceScalarFieldEnum];
+
+export const TipScalarFieldEnum = {
+  id: 'id',
+  position: 'position',
+  message: 'message',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type TipScalarFieldEnum =
+  (typeof TipScalarFieldEnum)[keyof typeof TipScalarFieldEnum];
 
 export const ContactUsScalarFieldEnum = {
   id: 'id',
@@ -367,6 +439,19 @@ export const ContactUsScalarFieldEnum = {
 
 export type ContactUsScalarFieldEnum =
   (typeof ContactUsScalarFieldEnum)[keyof typeof ContactUsScalarFieldEnum];
+
+export const ContactMediaScalarFieldEnum = {
+  id: 'id',
+  contactId: 'contactId',
+  fileInstanceId: 'fileInstanceId',
+  mediaType: 'mediaType',
+  description: 'description',
+  displayOrder: 'displayOrder',
+  uploadedAt: 'uploadedAt',
+} as const;
+
+export type ContactMediaScalarFieldEnum =
+  (typeof ContactMediaScalarFieldEnum)[keyof typeof ContactMediaScalarFieldEnum];
 
 export const EstimatorPageScalarFieldEnum = {
   id: 'id',
@@ -507,9 +592,13 @@ export const SiteSettingsScalarFieldEnum = {
   logoImageId: 'logoImageId',
   contactNumber: 'contactNumber',
   contactEmail: 'contactEmail',
+  location: 'location',
+  address: 'address',
   facebookUrl: 'facebookUrl',
   instagramUrl: 'instagramUrl',
   twitterUrl: 'twitterUrl',
+  ctaBannerText: 'ctaBannerText',
+  ctaBannerEnabled: 'ctaBannerEnabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 } as const;

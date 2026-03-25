@@ -9,14 +9,23 @@ export interface SubmissionPdfData {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string;
+  /** Tagline/subtitle shown below company name in PDF header (e.g. from site settings). */
+  tagline?: string;
   service: {
     name: string;
     code: string;
+    scopeDescription?: string;
   };
   basePrice: number;
+  markup: number;
+  clientPrice: number;
   additionalItemsTotal: number;
   totalAmount: number;
   submittedAt: Date;
+  includedBaseItems: Array<{
+    itemName: string;
+    itemDescription?: string;
+  }>;
   items: Array<{
     itemName: string;
     itemDescription?: string;
@@ -35,17 +44,20 @@ export class PdfGeneratorService {
   private readonly secondaryColor = '#2d3748'; // Dark gray
   private readonly accentColor = '#3182ce'; // Blue
   private readonly lightGray = '#e2e8f0';
+  /** Reserve 100pt for footer to prevent overflow. */
+  private readonly footerReserve = 100;
 
   async generateSubmissionPdf(data: SubmissionPdfData): Promise<Buffer> {
     return new Promise((resolve, reject) => {
       try {
+        const pdfTagline = this.normalizeTaglineForPdf(data.tagline);
         const doc = new PDFDocument({
-          size: 'LETTER',
+          size: 'A4',
           margins: { top: 50, bottom: 50, left: 50, right: 50 },
           info: {
             Title: `Estimate ${data.submissionNumber}`,
             Author: 'BBurn Builders',
-            Subject: `Bathroom Renovation Estimate for ${data.clientName}`,
+            Subject: `${pdfTagline ?? 'Estimate'} for ${data.clientName}`,
           },
         });
 
@@ -81,7 +93,12 @@ export class PdfGeneratorService {
       .fontSize(12)
       .font('Helvetica')
       .fillColor(this.secondaryColor)
-      .text('Professional Bathroom Renovation', 50, 82);
+      .text(
+        this.normalizeTaglineForPdf(data.tagline) ??
+          'Professional Home Renovation',
+        50,
+        82,
+      );
 
     // Estimate Number and Date (right aligned)
     doc
@@ -96,7 +113,7 @@ export class PdfGeneratorService {
     // Horizontal line
     doc
       .moveTo(50, 110)
-      .lineTo(562, 110)
+      .lineTo(545, 110)
       .strokeColor(this.lightGray)
       .lineWidth(2)
       .stroke();
@@ -144,7 +161,7 @@ export class PdfGeneratorService {
     // Horizontal line
     doc
       .moveTo(50, clientInfoY + 60)
-      .lineTo(562, clientInfoY + 60)
+      .lineTo(545, clientInfoY + 60)
       .strokeColor(this.lightGray)
       .lineWidth(1)
       .stroke();
@@ -183,6 +200,7 @@ export class PdfGeneratorService {
   private addLineItems(doc: PDFKit.PDFDocument, data: SubmissionPdfData): void {
     const startY = 300;
     let currentY = startY;
+    const baseRowHeight = 25;
 
     // Section Title
     doc
@@ -193,7 +211,7 @@ export class PdfGeneratorService {
 
     currentY += 25;
 
-    // Table Header
+    // Table Header (Description and Total only - no Qty, no Unit Price)
     doc.rect(50, currentY, 512, 25).fillColor(this.primaryColor).fill();
 
     doc
@@ -201,33 +219,93 @@ export class PdfGeneratorService {
       .font('Helvetica-Bold')
       .fillColor('#ffffff')
       .text('Description', 55, currentY + 8)
-      .text('Qty', 350, currentY + 8)
-      .text('Unit Price', 400, currentY + 8)
       .text('Total', 480, currentY + 8);
 
     currentY += 25;
 
-    // Filter enabled items only
-    const enabledItems = data.items.filter((item) => item.isEnabled);
+    // Base price row + included items bullets
+    if (data.basePrice > 0) {
+      const includedItems = data.includedBaseItems || [];
+      const itemLinesHeight = includedItems.reduce((sum, item) => {
+        const nameH = doc.heightOfString(`• ${item.itemName}`, { width: 400 });
+        const descH = item.itemDescription
+          ? doc.heightOfString(item.itemDescription, { width: 390 })
+          : 0;
+        return sum + nameH + (descH ? descH + 2 : 0) + 4;
+      }, 0);
+      const basePriceRowHeight =
+        25 + (includedItems.length > 0 ? itemLinesHeight + 10 : 0);
 
-    // Table Rows
+      if (currentY + basePriceRowHeight > this.getMaxContentY(doc)) {
+        doc.addPage({
+          size: 'A4',
+          margins: { top: 50, bottom: 50, left: 50, right: 50 },
+        });
+        currentY = 50;
+      }
+
+      doc
+        .rect(50, currentY, 512, basePriceRowHeight)
+        .fillColor('#f7fafc')
+        .fill();
+
+      // Base price title + price
+      doc
+        .fontSize(9)
+        .font('Helvetica-Bold')
+        .fillColor(this.secondaryColor)
+        .text(
+          `Base Price - ${data.service.name} Bathroom Renovation (Scope of Work)`,
+          55,
+          currentY + 8,
+          { width: 420 },
+        );
+
+      doc
+        .fontSize(9)
+        .font('Helvetica')
+        .fillColor(this.secondaryColor)
+        .text(this.formatCurrency(data.basePrice), 480, currentY + 8);
+
+      // Included items as bullets below base price title
+      if (includedItems.length > 0) {
+        let bulletY = currentY + 24;
+        for (const item of includedItems) {
+          doc
+            .fontSize(8)
+            .font('Helvetica-Bold')
+            .fillColor('#4a5568')
+            .text(`• ${item.itemName}`, 65, bulletY, { width: 400 });
+          bulletY +=
+            doc.heightOfString(`• ${item.itemName}`, { width: 400 }) + 2;
+
+          if (item.itemDescription) {
+            doc
+              .fontSize(7)
+              .font('Helvetica')
+              .fillColor('#718096')
+              .text(item.itemDescription, 75, bulletY, { width: 390 });
+            bulletY +=
+              doc.heightOfString(item.itemDescription, { width: 390 }) + 2;
+          }
+          bulletY += 2;
+        }
+      }
+
+      currentY += basePriceRowHeight;
+    }
+
+    // Filter enabled items only
+    const enabledItems = data.items.filter(
+      (item) => item.isEnabled && item.totalPrice > 0,
+    );
+
+    // Table Rows (Description and Total only)
     doc.font('Helvetica').fillColor(this.secondaryColor);
 
     for (let i = 0; i < enabledItems.length; i++) {
       const item = enabledItems[i];
-
-      // Check if we need a new page
-      if (currentY > 680) {
-        doc.addPage();
-        currentY = 50;
-      }
-
-      // Alternating row background
-      if (i % 2 === 0) {
-        doc.rect(50, currentY, 512, 25).fillColor('#f7fafc').fill();
-      }
-
-      doc.fillColor(this.secondaryColor);
+      const maxContentY = this.getMaxContentY(doc);
 
       // Item name (with option if selected)
       let itemText = item.itemName || 'Item';
@@ -235,14 +313,52 @@ export class PdfGeneratorService {
         itemText += ` (${item.selectedOptionName})`;
       }
 
+      // Calculate row height based on description
+      const descriptionHeight = item.itemDescription
+        ? doc.heightOfString(item.itemDescription, { width: 280 })
+        : 0;
+      const rowHeight =
+        baseRowHeight + descriptionHeight + (item.itemDescription ? 5 : 0);
+
+      // Check if we need a new page
+      if (currentY + rowHeight > maxContentY) {
+        doc.addPage({
+          size: 'A4',
+          margins: { top: 50, bottom: 50, left: 50, right: 50 },
+        });
+        currentY = 50;
+      }
+
+      // Alternating row background
+      if (i % 2 === 0) {
+        doc.rect(50, currentY, 512, rowHeight).fillColor('#f7fafc').fill();
+      }
+
+      doc.fillColor(this.secondaryColor);
+
+      // Item name
       doc
         .fontSize(9)
-        .text(itemText, 55, currentY + 8, { width: 280, lineBreak: false })
-        .text(item.quantity.toString(), 350, currentY + 8)
-        .text(this.formatCurrency(item.unitPrice), 400, currentY + 8)
+        .font('Helvetica-Bold')
+        .text(itemText, 55, currentY + 8, { width: 280, lineBreak: false });
+
+      // Item description (if exists)
+      if (item.itemDescription) {
+        doc
+          .fontSize(8)
+          .font('Helvetica')
+          .fillColor('#718096')
+          .text(item.itemDescription, 55, currentY + 20, { width: 280 });
+      }
+
+      // Total only (Qty and Price columns removed)
+      doc
+        .fontSize(9)
+        .font('Helvetica')
+        .fillColor(this.secondaryColor)
         .text(this.formatCurrency(item.totalPrice), 480, currentY + 8);
 
-      currentY += 25;
+      currentY += rowHeight;
     }
 
     // Store the current Y position for totals
@@ -251,10 +367,25 @@ export class PdfGeneratorService {
 
   private addTotals(doc: PDFKit.PDFDocument, data: SubmissionPdfData): void {
     let currentY = (doc as any).lastItemY || 500;
+    const totalsHeight = 120;
+    const notesMaxHeight = 80;
+    const maxContentY = this.getMaxContentY(doc);
+    const notesHeight = data.projectNotes
+      ? Math.min(
+          doc.heightOfString(data.projectNotes, { width: 512 }),
+          notesMaxHeight,
+        )
+      : 0;
 
-    // Check if we need a new page
-    if (currentY > 650) {
-      doc.addPage();
+    // Only add a new page if totals + notes would not fit
+    if (
+      currentY + totalsHeight + (notesHeight ? notesHeight + 70 : 0) >
+      maxContentY
+    ) {
+      doc.addPage({
+        size: 'A4',
+        margins: { top: 50, bottom: 50, left: 50, right: 50 },
+      });
       currentY = 50;
     }
 
@@ -266,7 +397,7 @@ export class PdfGeneratorService {
     // Horizontal line above totals
     doc
       .moveTo(totalsX, currentY)
-      .lineTo(562, currentY)
+      .lineTo(545, currentY)
       .strokeColor(this.lightGray)
       .lineWidth(1)
       .stroke();
@@ -283,6 +414,26 @@ export class PdfGeneratorService {
 
     currentY += 20;
 
+    // Markup
+    if (data.markup > 0) {
+      doc
+        .text(`Markup (${data.markup}%):`, totalsX, currentY)
+        .text(
+          this.formatCurrency(data.clientPrice - data.basePrice),
+          480,
+          currentY,
+        );
+
+      currentY += 20;
+
+      // Client Price
+      doc
+        .text('Client Price:', totalsX, currentY)
+        .text(this.formatCurrency(data.clientPrice), 480, currentY);
+
+      currentY += 20;
+    }
+
     // Additional Items
     doc
       .text('Additional Items:', totalsX, currentY)
@@ -293,7 +444,7 @@ export class PdfGeneratorService {
     // Horizontal line
     doc
       .moveTo(totalsX, currentY)
-      .lineTo(562, currentY)
+      .lineTo(545, currentY)
       .strokeColor(this.primaryColor)
       .lineWidth(2)
       .stroke();
@@ -302,18 +453,18 @@ export class PdfGeneratorService {
 
     // Total Amount
     doc
-      .fontSize(14)
+      .fontSize(10)
       .font('Helvetica-Bold')
       .fillColor(this.primaryColor)
       .text('TOTAL ESTIMATE:', totalsX, currentY)
       .text(this.formatCurrency(data.totalAmount), 460, currentY);
 
-    // Project Notes (if any)
+    // Project Notes (if any) - limit height so text does not trigger extra pages
     if (data.projectNotes) {
       currentY += 50;
 
       doc
-        .fontSize(12)
+        .fontSize(10)
         .font('Helvetica-Bold')
         .fillColor(this.primaryColor)
         .text('PROJECT NOTES', 50, currentY);
@@ -324,23 +475,31 @@ export class PdfGeneratorService {
         .fontSize(10)
         .font('Helvetica')
         .fillColor(this.secondaryColor)
-        .text(data.projectNotes, 50, currentY, { width: 512 });
+        .text(data.projectNotes, 50, currentY, {
+          width: 512,
+          height: notesMaxHeight,
+          ellipsis: true,
+        });
     }
   }
 
+  private getMaxContentY(doc: PDFKit.PDFDocument): number {
+    return doc.page.height - doc.page.margins.bottom - this.footerReserve;
+  }
+
   private addFooter(doc: PDFKit.PDFDocument, data: SubmissionPdfData): void {
-    const pageHeight = doc.page.height;
-    const footerY = pageHeight - 80;
+    const footerHeight = 70;
+    const footerY = doc.page.height - doc.page.margins.bottom - footerHeight;
 
     // Footer line
     doc
       .moveTo(50, footerY)
-      .lineTo(562, footerY)
+      .lineTo(545, footerY)
       .strokeColor(this.lightGray)
       .lineWidth(1)
       .stroke();
 
-    // Disclaimer
+    // Disclaimer - fixed height so wrapping does not create extra pages
     doc
       .fontSize(8)
       .font('Helvetica')
@@ -349,8 +508,8 @@ export class PdfGeneratorService {
         'This estimate is valid for 30 days from the date of issue. Prices are subject to change based on final site inspection. ' +
           'Additional costs may apply for unforeseen conditions. This is an estimate only and not a binding contract.',
         50,
-        footerY + 15,
-        { width: 512, align: 'center' },
+        footerY + 10,
+        { width: 512, height: 28, align: 'center', ellipsis: true },
       );
 
     // Company contact
@@ -361,7 +520,7 @@ export class PdfGeneratorService {
       .text(
         'BBurn Builders | info@bburnbuilders.com | (312) 555-1234',
         50,
-        footerY + 45,
+        footerY + 42,
         {
           width: 512,
           align: 'center',
@@ -375,6 +534,15 @@ export class PdfGeneratorService {
       currency: 'USD',
       minimumFractionDigits: 2,
     }).format(amount);
+  }
+
+  private normalizeTaglineForPdf(tagline?: string): string | undefined {
+    if (!tagline) return undefined;
+
+    // Commonize tagline by removing trailing location like "in Chicago"
+    // so PDFs don't show a city-specific message.
+    const normalized = tagline.replace(/\s+in\s+[A-Za-z\s]+$/i, '').trim();
+    return normalized || tagline;
   }
 
   private formatDate(date: Date): string {

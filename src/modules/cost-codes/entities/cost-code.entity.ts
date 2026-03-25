@@ -10,7 +10,7 @@ export class CostCodeEntity implements CostCode {
   categoryId: string;
 
   @ApiProperty()
-  serviceCategoryId: string | null;
+  serviceId: string | null;
 
   @ApiProperty()
   code: string;
@@ -18,11 +18,23 @@ export class CostCodeEntity implements CostCode {
   @ApiProperty()
   name: string;
 
+  @ApiProperty({ required: false, nullable: true })
+  elies: string | null;
+
+  @ApiProperty({ required: false })
+  tips: string[];
+
   @ApiProperty()
   description: string | null;
 
   @ApiProperty()
   basePrice: Decimal;
+
+  @ApiProperty()
+  markup: Decimal;
+
+  @ApiProperty()
+  clientPrice: Decimal;
 
   @ApiProperty()
   unitType: CostCode['unitType'];
@@ -47,6 +59,18 @@ export class CostCodeEntity implements CostCode {
 
   @ApiProperty()
   isActive: boolean;
+
+  @ApiProperty({ required: false, nullable: true })
+  parentCostCodeId: string | null;
+
+  @ApiProperty({ required: false, nullable: true })
+  showWhenParentValue: string | null;
+
+  @ApiProperty({ required: false, nullable: true })
+  nestedInputType: string | null;
+
+  @ApiProperty()
+  excludeFromExport: boolean;
 
   @ApiProperty()
   createdAt: Date;

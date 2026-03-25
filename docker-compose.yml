@@ -41,6 +41,11 @@ services:
       - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
       - PORT=${PORT}
       - BASE_URL=${BASE_URL}
+      - EMAIL_USER=${EMAIL_USER}
+      - EMAIL_PASS=${EMAIL_PASS}
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_PORT=${EMAIL_PORT}
+      - SMTP_FROM=${SMTP_FROM}
     volumes:
       - uploads_data:/app/uploads
     depends_on:

@@ -8,6 +8,8 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/ActivityLog';
+export type * from './models/BuildingType';
+export type * from './models/BuildingTypeField';
 export type * from './models/CostCode';
 export type * from './models/CostCodeCategory';
 export type * from './models/CostCodeOption';
@@ -21,8 +23,11 @@ export type * from './models/ServiceCostCode';
 export type * from './models/Submission';
 export type * from './models/SubmissionItem';
 export type * from './models/SubmissionMedia';
+export type * from './models/SubmissionBuildingTypeFieldValue';
 export type * from './models/TermsOfService';
+export type * from './models/Tip';
 export type * from './models/ContactUs';
+export type * from './models/ContactMedia';
 export type * from './models/EstimatorPage';
 export type * from './models/HowItWorksStep';
 export type * from './models/WhyChooseUsFeature';

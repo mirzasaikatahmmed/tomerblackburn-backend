@@ -19,6 +19,12 @@ class CostCodeSummaryDto {
   @ApiProperty()
   basePrice: number;
 
+  @ApiProperty()
+  markup: number;
+
+  @ApiProperty()
+  clientPrice: number;
+
   @ApiProperty({ enum: QuestionType })
   questionType: QuestionType;
 

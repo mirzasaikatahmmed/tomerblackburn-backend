@@ -66,7 +66,7 @@ jobs:
                   push: true
                   tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.PACKAGE_NAME }}:latest
                   cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/${{ secrets.PACKAGE_NAME }}:buildcache
-                  cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/${{ secrets.PACKAGE_NAME }}:buildcache,mode=max
+                  cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/${{ secrets.PACKAGE_NAME }}:buildcache
 
     deploy:
         name: Deploy
@@ -131,7 +131,7 @@ jobs:
 
                   docker compose --profile prod pull
                   docker compose --profile prod down
-                  docker compose --profile prod up -d
+                  docker compose --profile prod up -d --force-recreate
                   docker system prune -f
 
                   echo "Deployment completed successfully!"

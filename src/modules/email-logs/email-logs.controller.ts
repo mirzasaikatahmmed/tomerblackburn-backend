@@ -27,7 +27,7 @@ export class EmailLogsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.emailLogsService.findOne(+id);
+    return this.emailLogsService.findOne(id);
   }
 
   @Patch(':id')
@@ -35,11 +35,11 @@ export class EmailLogsController {
     @Param('id') id: string,
     @Body() updateEmailLogDto: UpdateEmailLogDto,
   ) {
-    return this.emailLogsService.update(+id, updateEmailLogDto);
+    return this.emailLogsService.update(id, updateEmailLogDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.emailLogsService.remove(+id);
+    return this.emailLogsService.remove(id);
   }
 }

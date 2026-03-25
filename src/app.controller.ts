@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, Res, Header } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Response } from 'express';
 import { AppService } from './app.service';
@@ -18,6 +18,8 @@ export class AppController {
     const environment = process.env.NODE_ENV || 'development';
     const isProduction = environment === 'production';
     const version = packageJson.version;
+    const appVersion =
+      (global as any).APP_VERSION || process.env.APP_VERSION || 'unknown';
 
     const html = `
           <!DOCTYPE html>
@@ -204,16 +206,16 @@ export class AppController {
 
                 <div class="info-grid">
                   <div class="info-box">
-                    <div class="info-label">Version</div>
+                    <div class="info-label">Release Version</div>
                     <div class="info-value">v${version}</div>
+                  </div>
+                  <div class="info-box">
+                    <div class="info-label">Deployment Version</div>
+                    <div class="info-value">${appVersion}</div>
                   </div>
                   <div class="info-box">
                     <div class="info-label">Environment</div>
                     <div class="info-value">${environment}</div>
-                  </div>
-                  <div class="info-box">
-                    <div class="info-label">Framework</div>
-                    <div class="info-value">NestJS</div>
                   </div>
                   <div class="info-box">
                     <div class="info-label">Status</div>

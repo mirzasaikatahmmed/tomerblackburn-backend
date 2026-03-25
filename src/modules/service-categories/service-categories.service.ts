@@ -6,12 +6,19 @@ import {
 import { CreateServiceCategoryDto } from './dto/create-service-category.dto';
 import { UpdateServiceCategoryDto } from './dto/update-service-category.dto';
 import { PrismaService } from '@/common/prisma/prisma.service';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ServiceCategoriesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploadService: UploadService,
+  ) {}
 
-  async create(createServiceCategoryDto: CreateServiceCategoryDto) {
+  async create(
+    createServiceCategoryDto: CreateServiceCategoryDto,
+    file?: Express.Multer.File,
+  ) {
     try {
       // Validate that projectTypeId exists
       const projectType = await this.prisma.projectType.findUnique({
@@ -38,9 +45,19 @@ export class ServiceCategoriesService {
         );
       }
 
+      let imageId = createServiceCategoryDto.imageId;
+      if (file) {
+        const uploadedFile = await this.uploadService.uploadFile(file);
+        imageId = uploadedFile.id;
+      }
+
       const serviceCategory = await this.prisma.serviceCategory.create({
-        data: createServiceCategoryDto,
+        data: {
+          ...createServiceCategoryDto,
+          imageId,
+        },
         include: {
+          image: true,
           projectType: true,
           services: {
             orderBy: { displayOrder: 'asc' },
@@ -74,6 +91,7 @@ export class ServiceCategoriesService {
       const serviceCategories = await this.prisma.serviceCategory.findMany({
         where,
         include: {
+          image: true,
           projectType: true,
           services: {
             orderBy: { displayOrder: 'asc' },
@@ -102,6 +120,7 @@ export class ServiceCategoriesService {
       const serviceCategories = await this.prisma.serviceCategory.findMany({
         where: { isActive: true },
         include: {
+          image: true,
           projectType: true,
           services: {
             where: { isActive: true },
@@ -131,6 +150,7 @@ export class ServiceCategoriesService {
       const serviceCategory = await this.prisma.serviceCategory.findUnique({
         where: { id },
         include: {
+          image: true,
           projectType: true,
           services: {
             orderBy: { displayOrder: 'asc' },
@@ -170,6 +190,7 @@ export class ServiceCategoriesService {
       const serviceCategories = await this.prisma.serviceCategory.findMany({
         where: { projectTypeId },
         include: {
+          image: true,
           projectType: true,
           services: {
             orderBy: { displayOrder: 'asc' },
@@ -196,7 +217,11 @@ export class ServiceCategoriesService {
     }
   }
 
-  async update(id: string, updateServiceCategoryDto: UpdateServiceCategoryDto) {
+  async update(
+    id: string,
+    updateServiceCategoryDto: UpdateServiceCategoryDto,
+    file?: Express.Multer.File,
+  ) {
     try {
       // Check if service category exists
       await this.findOne(id);
@@ -233,10 +258,20 @@ export class ServiceCategoriesService {
         }
       }
 
+      let imageId = updateServiceCategoryDto.imageId;
+      if (file) {
+        const uploadedFile = await this.uploadService.uploadFile(file);
+        imageId = uploadedFile.id;
+      }
+
       const serviceCategory = await this.prisma.serviceCategory.update({
         where: { id },
-        data: updateServiceCategoryDto,
+        data: {
+          ...updateServiceCategoryDto,
+          imageId,
+        },
         include: {
+          image: true,
           projectType: true,
           services: {
             orderBy: { displayOrder: 'asc' },

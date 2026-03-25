@@ -4,7 +4,11 @@ import { CreateSubmissionDto } from './create-submission.dto';
 import { QuestionType, SubmissionStatus } from 'generated/prisma/enums';
 
 export class UpdateSubmissionDto extends PartialType(
-  OmitType(CreateSubmissionDto, ['serviceId', 'items'] as const),
+  OmitType(CreateSubmissionDto, [
+    'serviceId',
+    'items',
+    'buildingTypeFieldValues',
+  ] as const),
 ) {
   @ApiProperty({
     description: 'Submission status',
@@ -42,6 +46,12 @@ class ServiceSummaryDto {
 
   @ApiProperty()
   basePrice: number;
+
+  @ApiProperty()
+  markup: number;
+
+  @ApiProperty()
+  clientPrice: number;
 }
 
 class CostCodeSummaryDto {
@@ -188,6 +198,18 @@ export class SubmissionResponseDto {
   basePrice: number;
 
   @ApiProperty({
+    description: 'Markup percentage (e.g. 20 for 20%)',
+    example: 20.0,
+  })
+  markup: number;
+
+  @ApiProperty({
+    description: 'Client-facing price (basePrice + markup)',
+    example: 18000.0,
+  })
+  clientPrice: number;
+
+  @ApiProperty({
     description: 'Additional items total',
     example: 5000.0,
   })
@@ -205,6 +227,12 @@ export class SubmissionResponseDto {
     example: SubmissionStatus.PENDING,
   })
   status: SubmissionStatus;
+
+  @ApiProperty({
+    description: 'Whether the submission has been archived',
+    example: false,
+  })
+  isArchived: boolean;
 
   @ApiProperty({
     description: 'Project notes',

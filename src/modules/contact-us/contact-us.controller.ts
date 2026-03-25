@@ -27,6 +27,7 @@ import {
   ContactUsResponseDto,
 } from './dto/update-contact-us.dto';
 import { PaginationQueryDto } from './dto/pagination-query.dto';
+import { ExportContactsByIdsDto } from './dto/export-by-ids.dto';
 
 @ApiTags('Contact Us')
 @Controller('contact-us')
@@ -104,6 +105,42 @@ export class ContactUsController {
       isRead === 'true' ? true : isRead === 'false' ? false : undefined;
 
     const buffer = await this.contactUsService.exportToExcel(readFilter);
+
+    const filename = `contact-submissions-${new Date().toISOString().replace(/[:.]/g, '-')}.xlsx`;
+
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.send(buffer);
+  }
+
+  @Post('export')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Export specific contact submissions by IDs to Excel',
+    description:
+      'Export selected contact form submissions as an Excel file in BuilderTrend format',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Contact submissions exported successfully',
+    headers: {
+      'Content-Type': {
+        description:
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      },
+      'Content-Disposition': {
+        description: 'attachment; filename=contact-submissions.xlsx',
+      },
+    },
+  })
+  @Header(
+    'Content-Type',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  )
+  async exportByIds(
+    @Res() res: Response,
+    @Body() exportByIdsDto: ExportContactsByIdsDto,
+  ) {
+    const buffer = await this.contactUsService.exportByIds(exportByIdsDto.ids);
 
     const filename = `contact-submissions-${new Date().toISOString().replace(/[:.]/g, '-')}.xlsx`;
 
@@ -211,6 +248,55 @@ export class ContactUsController {
   })
   markAllAsRead() {
     return this.contactUsService.markAllAsRead();
+  }
+
+  @Post(':id/media')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Add media to contact submission',
+    description: 'Attach an uploaded photo or video to a contact submission',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Contact submission ID',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Media attached to contact submission successfully',
+  })
+  addMedia(
+    @Param('id') id: string,
+    @Body()
+    body: {
+      fileInstanceId: string;
+      mediaType: 'PHOTO' | 'VIDEO';
+      description?: string;
+    },
+  ) {
+    return this.contactUsService.addMedia(
+      id,
+      body.fileInstanceId,
+      body.mediaType,
+      body.description,
+    );
+  }
+
+  @Delete('media/:mediaId')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Remove media from contact submission',
+    description: 'Remove an attached media item from a contact submission',
+  })
+  @ApiParam({
+    name: 'mediaId',
+    description: 'Contact media ID',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Media removed from contact submission successfully',
+  })
+  removeMedia(@Param('mediaId') mediaId: string) {
+    return this.contactUsService.removeMedia(mediaId);
   }
 
   @Delete(':id')

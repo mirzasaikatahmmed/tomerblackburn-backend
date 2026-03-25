@@ -28,12 +28,16 @@ export type AggregateSubmission = {
 
 export type SubmissionAvgAggregateOutputType = {
   basePrice: runtime.Decimal | null;
+  markup: runtime.Decimal | null;
+  clientPrice: runtime.Decimal | null;
   additionalItemsTotal: runtime.Decimal | null;
   totalAmount: runtime.Decimal | null;
 };
 
 export type SubmissionSumAggregateOutputType = {
   basePrice: runtime.Decimal | null;
+  markup: runtime.Decimal | null;
+  clientPrice: runtime.Decimal | null;
   additionalItemsTotal: runtime.Decimal | null;
   totalAmount: runtime.Decimal | null;
 };
@@ -47,10 +51,16 @@ export type SubmissionMinAggregateOutputType = {
   clientPhone: string | null;
   projectAddress: string | null;
   zipCode: string | null;
+  desiredStartDate: Date | null;
+  buildingType: string | null;
+  buildingTypeId: string | null;
   basePrice: runtime.Decimal | null;
+  markup: runtime.Decimal | null;
+  clientPrice: runtime.Decimal | null;
   additionalItemsTotal: runtime.Decimal | null;
   totalAmount: runtime.Decimal | null;
   status: $Enums.SubmissionStatus | null;
+  isArchived: boolean | null;
   projectNotes: string | null;
   additionalDetails: string | null;
   pdfUrl: string | null;
@@ -71,10 +81,16 @@ export type SubmissionMaxAggregateOutputType = {
   clientPhone: string | null;
   projectAddress: string | null;
   zipCode: string | null;
+  desiredStartDate: Date | null;
+  buildingType: string | null;
+  buildingTypeId: string | null;
   basePrice: runtime.Decimal | null;
+  markup: runtime.Decimal | null;
+  clientPrice: runtime.Decimal | null;
   additionalItemsTotal: runtime.Decimal | null;
   totalAmount: runtime.Decimal | null;
   status: $Enums.SubmissionStatus | null;
+  isArchived: boolean | null;
   projectNotes: string | null;
   additionalDetails: string | null;
   pdfUrl: string | null;
@@ -95,10 +111,16 @@ export type SubmissionCountAggregateOutputType = {
   clientPhone: number;
   projectAddress: number;
   zipCode: number;
+  desiredStartDate: number;
+  buildingType: number;
+  buildingTypeId: number;
   basePrice: number;
+  markup: number;
+  clientPrice: number;
   additionalItemsTotal: number;
   totalAmount: number;
   status: number;
+  isArchived: number;
   projectNotes: number;
   additionalDetails: number;
   pdfUrl: number;
@@ -113,12 +135,16 @@ export type SubmissionCountAggregateOutputType = {
 
 export type SubmissionAvgAggregateInputType = {
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   additionalItemsTotal?: true;
   totalAmount?: true;
 };
 
 export type SubmissionSumAggregateInputType = {
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   additionalItemsTotal?: true;
   totalAmount?: true;
 };
@@ -132,10 +158,16 @@ export type SubmissionMinAggregateInputType = {
   clientPhone?: true;
   projectAddress?: true;
   zipCode?: true;
+  desiredStartDate?: true;
+  buildingType?: true;
+  buildingTypeId?: true;
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   additionalItemsTotal?: true;
   totalAmount?: true;
   status?: true;
+  isArchived?: true;
   projectNotes?: true;
   additionalDetails?: true;
   pdfUrl?: true;
@@ -156,10 +188,16 @@ export type SubmissionMaxAggregateInputType = {
   clientPhone?: true;
   projectAddress?: true;
   zipCode?: true;
+  desiredStartDate?: true;
+  buildingType?: true;
+  buildingTypeId?: true;
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   additionalItemsTotal?: true;
   totalAmount?: true;
   status?: true;
+  isArchived?: true;
   projectNotes?: true;
   additionalDetails?: true;
   pdfUrl?: true;
@@ -180,10 +218,16 @@ export type SubmissionCountAggregateInputType = {
   clientPhone?: true;
   projectAddress?: true;
   zipCode?: true;
+  desiredStartDate?: true;
+  buildingType?: true;
+  buildingTypeId?: true;
   basePrice?: true;
+  markup?: true;
+  clientPrice?: true;
   additionalItemsTotal?: true;
   totalAmount?: true;
   status?: true;
+  isArchived?: true;
   projectNotes?: true;
   additionalDetails?: true;
   pdfUrl?: true;
@@ -298,10 +342,16 @@ export type SubmissionGroupByOutputType = {
   clientPhone: string;
   projectAddress: string;
   zipCode: string | null;
+  desiredStartDate: Date | null;
+  buildingType: string | null;
+  buildingTypeId: string | null;
   basePrice: runtime.Decimal;
+  markup: runtime.Decimal;
+  clientPrice: runtime.Decimal;
   additionalItemsTotal: runtime.Decimal;
   totalAmount: runtime.Decimal;
   status: $Enums.SubmissionStatus;
+  isArchived: boolean;
   projectNotes: string | null;
   additionalDetails: string | null;
   pdfUrl: string | null;
@@ -343,7 +393,26 @@ export type SubmissionWhereInput = {
   clientPhone?: Prisma.StringFilter<'Submission'> | string;
   projectAddress?: Prisma.StringFilter<'Submission'> | string;
   zipCode?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  desiredStartDate?:
+    | Prisma.DateTimeNullableFilter<'Submission'>
+    | Date
+    | string
+    | null;
+  buildingType?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  buildingTypeId?: Prisma.StringNullableFilter<'Submission'> | string | null;
   basePrice?:
+    | Prisma.DecimalFilter<'Submission'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFilter<'Submission'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFilter<'Submission'>
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -364,6 +433,7 @@ export type SubmissionWhereInput = {
   status?:
     | Prisma.EnumSubmissionStatusFilter<'Submission'>
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFilter<'Submission'> | boolean;
   projectNotes?: Prisma.StringNullableFilter<'Submission'> | string | null;
   additionalDetails?: Prisma.StringNullableFilter<'Submission'> | string | null;
   pdfUrl?: Prisma.StringNullableFilter<'Submission'> | string | null;
@@ -385,9 +455,14 @@ export type SubmissionWhereInput = {
     Prisma.ServiceScalarRelationFilter,
     Prisma.ServiceWhereInput
   >;
+  buildingTypeRef?: Prisma.XOR<
+    Prisma.BuildingTypeNullableScalarRelationFilter,
+    Prisma.BuildingTypeWhereInput
+  > | null;
   submissionItems?: Prisma.SubmissionItemListRelationFilter;
   submissionMedia?: Prisma.SubmissionMediaListRelationFilter;
   emailLogs?: Prisma.EmailLogListRelationFilter;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueListRelationFilter;
 };
 
 export type SubmissionOrderByWithRelationInput = {
@@ -399,10 +474,16 @@ export type SubmissionOrderByWithRelationInput = {
   clientPhone?: Prisma.SortOrder;
   projectAddress?: Prisma.SortOrder;
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder;
+  desiredStartDate?: Prisma.SortOrderInput | Prisma.SortOrder;
+  buildingType?: Prisma.SortOrderInput | Prisma.SortOrder;
+  buildingTypeId?: Prisma.SortOrderInput | Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   additionalItemsTotal?: Prisma.SortOrder;
   totalAmount?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  isArchived?: Prisma.SortOrder;
   projectNotes?: Prisma.SortOrderInput | Prisma.SortOrder;
   additionalDetails?: Prisma.SortOrderInput | Prisma.SortOrder;
   pdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -413,9 +494,11 @@ export type SubmissionOrderByWithRelationInput = {
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
   service?: Prisma.ServiceOrderByWithRelationInput;
+  buildingTypeRef?: Prisma.BuildingTypeOrderByWithRelationInput;
   submissionItems?: Prisma.SubmissionItemOrderByRelationAggregateInput;
   submissionMedia?: Prisma.SubmissionMediaOrderByRelationAggregateInput;
   emailLogs?: Prisma.EmailLogOrderByRelationAggregateInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueOrderByRelationAggregateInput;
 };
 
 export type SubmissionWhereUniqueInput = Prisma.AtLeast<
@@ -431,7 +514,26 @@ export type SubmissionWhereUniqueInput = Prisma.AtLeast<
     clientPhone?: Prisma.StringFilter<'Submission'> | string;
     projectAddress?: Prisma.StringFilter<'Submission'> | string;
     zipCode?: Prisma.StringNullableFilter<'Submission'> | string | null;
+    desiredStartDate?:
+      | Prisma.DateTimeNullableFilter<'Submission'>
+      | Date
+      | string
+      | null;
+    buildingType?: Prisma.StringNullableFilter<'Submission'> | string | null;
+    buildingTypeId?: Prisma.StringNullableFilter<'Submission'> | string | null;
     basePrice?:
+      | Prisma.DecimalFilter<'Submission'>
+      | runtime.Decimal
+      | runtime.DecimalJsLike
+      | number
+      | string;
+    markup?:
+      | Prisma.DecimalFilter<'Submission'>
+      | runtime.Decimal
+      | runtime.DecimalJsLike
+      | number
+      | string;
+    clientPrice?:
       | Prisma.DecimalFilter<'Submission'>
       | runtime.Decimal
       | runtime.DecimalJsLike
@@ -452,6 +554,7 @@ export type SubmissionWhereUniqueInput = Prisma.AtLeast<
     status?:
       | Prisma.EnumSubmissionStatusFilter<'Submission'>
       | $Enums.SubmissionStatus;
+    isArchived?: Prisma.BoolFilter<'Submission'> | boolean;
     projectNotes?: Prisma.StringNullableFilter<'Submission'> | string | null;
     additionalDetails?:
       | Prisma.StringNullableFilter<'Submission'>
@@ -476,9 +579,14 @@ export type SubmissionWhereUniqueInput = Prisma.AtLeast<
       Prisma.ServiceScalarRelationFilter,
       Prisma.ServiceWhereInput
     >;
+    buildingTypeRef?: Prisma.XOR<
+      Prisma.BuildingTypeNullableScalarRelationFilter,
+      Prisma.BuildingTypeWhereInput
+    > | null;
     submissionItems?: Prisma.SubmissionItemListRelationFilter;
     submissionMedia?: Prisma.SubmissionMediaListRelationFilter;
     emailLogs?: Prisma.EmailLogListRelationFilter;
+    buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueListRelationFilter;
   },
   'id' | 'submissionNumber'
 >;
@@ -492,10 +600,16 @@ export type SubmissionOrderByWithAggregationInput = {
   clientPhone?: Prisma.SortOrder;
   projectAddress?: Prisma.SortOrder;
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder;
+  desiredStartDate?: Prisma.SortOrderInput | Prisma.SortOrder;
+  buildingType?: Prisma.SortOrderInput | Prisma.SortOrder;
+  buildingTypeId?: Prisma.SortOrderInput | Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   additionalItemsTotal?: Prisma.SortOrder;
   totalAmount?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  isArchived?: Prisma.SortOrder;
   projectNotes?: Prisma.SortOrderInput | Prisma.SortOrder;
   additionalDetails?: Prisma.SortOrderInput | Prisma.SortOrder;
   pdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -531,7 +645,32 @@ export type SubmissionScalarWhereWithAggregatesInput = {
     | Prisma.StringNullableWithAggregatesFilter<'Submission'>
     | string
     | null;
+  desiredStartDate?:
+    | Prisma.DateTimeNullableWithAggregatesFilter<'Submission'>
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.StringNullableWithAggregatesFilter<'Submission'>
+    | string
+    | null;
+  buildingTypeId?:
+    | Prisma.StringNullableWithAggregatesFilter<'Submission'>
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalWithAggregatesFilter<'Submission'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalWithAggregatesFilter<'Submission'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalWithAggregatesFilter<'Submission'>
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -552,6 +691,7 @@ export type SubmissionScalarWhereWithAggregatesInput = {
   status?:
     | Prisma.EnumSubmissionStatusWithAggregatesFilter<'Submission'>
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolWithAggregatesFilter<'Submission'> | boolean;
   projectNotes?:
     | Prisma.StringNullableWithAggregatesFilter<'Submission'>
     | string
@@ -597,7 +737,11 @@ export type SubmissionCreateInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -605,6 +749,7 @@ export type SubmissionCreateInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -615,9 +760,11 @@ export type SubmissionCreateInput = {
   reviewedAt?: Date | string | null;
   completedAt?: Date | string | null;
   service: Prisma.ServiceCreateNestedOneWithoutSubmissionsInput;
+  buildingTypeRef?: Prisma.BuildingTypeCreateNestedOneWithoutSubmissionsInput;
   submissionItems?: Prisma.SubmissionItemCreateNestedManyWithoutSubmissionInput;
   submissionMedia?: Prisma.SubmissionMediaCreateNestedManyWithoutSubmissionInput;
   emailLogs?: Prisma.EmailLogCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueCreateNestedManyWithoutSubmissionInput;
 };
 
 export type SubmissionUncheckedCreateInput = {
@@ -629,7 +776,12 @@ export type SubmissionUncheckedCreateInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  buildingTypeId?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -637,6 +789,7 @@ export type SubmissionUncheckedCreateInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -649,6 +802,7 @@ export type SubmissionUncheckedCreateInput = {
   submissionItems?: Prisma.SubmissionItemUncheckedCreateNestedManyWithoutSubmissionInput;
   submissionMedia?: Prisma.SubmissionMediaUncheckedCreateNestedManyWithoutSubmissionInput;
   emailLogs?: Prisma.EmailLogUncheckedCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedCreateNestedManyWithoutSubmissionInput;
 };
 
 export type SubmissionUpdateInput = {
@@ -659,7 +813,28 @@ export type SubmissionUpdateInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -680,6 +855,7 @@ export type SubmissionUpdateInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -704,9 +880,11 @@ export type SubmissionUpdateInput = {
     | string
     | null;
   service?: Prisma.ServiceUpdateOneRequiredWithoutSubmissionsNestedInput;
+  buildingTypeRef?: Prisma.BuildingTypeUpdateOneWithoutSubmissionsNestedInput;
   submissionItems?: Prisma.SubmissionItemUpdateManyWithoutSubmissionNestedInput;
   submissionMedia?: Prisma.SubmissionMediaUpdateManyWithoutSubmissionNestedInput;
   emailLogs?: Prisma.EmailLogUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUpdateManyWithoutSubmissionNestedInput;
 };
 
 export type SubmissionUncheckedUpdateInput = {
@@ -718,7 +896,32 @@ export type SubmissionUncheckedUpdateInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  buildingTypeId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -739,6 +942,7 @@ export type SubmissionUncheckedUpdateInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -765,6 +969,7 @@ export type SubmissionUncheckedUpdateInput = {
   submissionItems?: Prisma.SubmissionItemUncheckedUpdateManyWithoutSubmissionNestedInput;
   submissionMedia?: Prisma.SubmissionMediaUncheckedUpdateManyWithoutSubmissionNestedInput;
   emailLogs?: Prisma.EmailLogUncheckedUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedUpdateManyWithoutSubmissionNestedInput;
 };
 
 export type SubmissionCreateManyInput = {
@@ -776,7 +981,12 @@ export type SubmissionCreateManyInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  buildingTypeId?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -784,6 +994,7 @@ export type SubmissionCreateManyInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -803,7 +1014,28 @@ export type SubmissionUpdateManyMutationInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -824,6 +1056,7 @@ export type SubmissionUpdateManyMutationInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -858,7 +1091,32 @@ export type SubmissionUncheckedUpdateManyInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  buildingTypeId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -879,6 +1137,7 @@ export type SubmissionUncheckedUpdateManyInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -904,11 +1163,6 @@ export type SubmissionUncheckedUpdateManyInput = {
     | null;
 };
 
-export type SubmissionNullableScalarRelationFilter = {
-  is?: Prisma.SubmissionWhereInput | null;
-  isNot?: Prisma.SubmissionWhereInput | null;
-};
-
 export type SubmissionListRelationFilter = {
   every?: Prisma.SubmissionWhereInput;
   some?: Prisma.SubmissionWhereInput;
@@ -917,6 +1171,11 @@ export type SubmissionListRelationFilter = {
 
 export type SubmissionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder;
+};
+
+export type SubmissionNullableScalarRelationFilter = {
+  is?: Prisma.SubmissionWhereInput | null;
+  isNot?: Prisma.SubmissionWhereInput | null;
 };
 
 export type SubmissionCountOrderByAggregateInput = {
@@ -928,10 +1187,16 @@ export type SubmissionCountOrderByAggregateInput = {
   clientPhone?: Prisma.SortOrder;
   projectAddress?: Prisma.SortOrder;
   zipCode?: Prisma.SortOrder;
+  desiredStartDate?: Prisma.SortOrder;
+  buildingType?: Prisma.SortOrder;
+  buildingTypeId?: Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   additionalItemsTotal?: Prisma.SortOrder;
   totalAmount?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  isArchived?: Prisma.SortOrder;
   projectNotes?: Prisma.SortOrder;
   additionalDetails?: Prisma.SortOrder;
   pdfUrl?: Prisma.SortOrder;
@@ -945,6 +1210,8 @@ export type SubmissionCountOrderByAggregateInput = {
 
 export type SubmissionAvgOrderByAggregateInput = {
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   additionalItemsTotal?: Prisma.SortOrder;
   totalAmount?: Prisma.SortOrder;
 };
@@ -958,10 +1225,16 @@ export type SubmissionMaxOrderByAggregateInput = {
   clientPhone?: Prisma.SortOrder;
   projectAddress?: Prisma.SortOrder;
   zipCode?: Prisma.SortOrder;
+  desiredStartDate?: Prisma.SortOrder;
+  buildingType?: Prisma.SortOrder;
+  buildingTypeId?: Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   additionalItemsTotal?: Prisma.SortOrder;
   totalAmount?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  isArchived?: Prisma.SortOrder;
   projectNotes?: Prisma.SortOrder;
   additionalDetails?: Prisma.SortOrder;
   pdfUrl?: Prisma.SortOrder;
@@ -982,10 +1255,16 @@ export type SubmissionMinOrderByAggregateInput = {
   clientPhone?: Prisma.SortOrder;
   projectAddress?: Prisma.SortOrder;
   zipCode?: Prisma.SortOrder;
+  desiredStartDate?: Prisma.SortOrder;
+  buildingType?: Prisma.SortOrder;
+  buildingTypeId?: Prisma.SortOrder;
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   additionalItemsTotal?: Prisma.SortOrder;
   totalAmount?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  isArchived?: Prisma.SortOrder;
   projectNotes?: Prisma.SortOrder;
   additionalDetails?: Prisma.SortOrder;
   pdfUrl?: Prisma.SortOrder;
@@ -999,6 +1278,8 @@ export type SubmissionMinOrderByAggregateInput = {
 
 export type SubmissionSumOrderByAggregateInput = {
   basePrice?: Prisma.SortOrder;
+  markup?: Prisma.SortOrder;
+  clientPrice?: Prisma.SortOrder;
   additionalItemsTotal?: Prisma.SortOrder;
   totalAmount?: Prisma.SortOrder;
 };
@@ -1006,6 +1287,112 @@ export type SubmissionSumOrderByAggregateInput = {
 export type SubmissionScalarRelationFilter = {
   is?: Prisma.SubmissionWhereInput;
   isNot?: Prisma.SubmissionWhereInput;
+};
+
+export type SubmissionCreateNestedManyWithoutBuildingTypeRefInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.SubmissionCreateWithoutBuildingTypeRefInput,
+        Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput
+      >
+    | Prisma.SubmissionCreateWithoutBuildingTypeRefInput[]
+    | Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput[];
+  connectOrCreate?:
+    | Prisma.SubmissionCreateOrConnectWithoutBuildingTypeRefInput
+    | Prisma.SubmissionCreateOrConnectWithoutBuildingTypeRefInput[];
+  createMany?: Prisma.SubmissionCreateManyBuildingTypeRefInputEnvelope;
+  connect?:
+    | Prisma.SubmissionWhereUniqueInput
+    | Prisma.SubmissionWhereUniqueInput[];
+};
+
+export type SubmissionUncheckedCreateNestedManyWithoutBuildingTypeRefInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.SubmissionCreateWithoutBuildingTypeRefInput,
+        Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput
+      >
+    | Prisma.SubmissionCreateWithoutBuildingTypeRefInput[]
+    | Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput[];
+  connectOrCreate?:
+    | Prisma.SubmissionCreateOrConnectWithoutBuildingTypeRefInput
+    | Prisma.SubmissionCreateOrConnectWithoutBuildingTypeRefInput[];
+  createMany?: Prisma.SubmissionCreateManyBuildingTypeRefInputEnvelope;
+  connect?:
+    | Prisma.SubmissionWhereUniqueInput
+    | Prisma.SubmissionWhereUniqueInput[];
+};
+
+export type SubmissionUpdateManyWithoutBuildingTypeRefNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.SubmissionCreateWithoutBuildingTypeRefInput,
+        Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput
+      >
+    | Prisma.SubmissionCreateWithoutBuildingTypeRefInput[]
+    | Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput[];
+  connectOrCreate?:
+    | Prisma.SubmissionCreateOrConnectWithoutBuildingTypeRefInput
+    | Prisma.SubmissionCreateOrConnectWithoutBuildingTypeRefInput[];
+  upsert?:
+    | Prisma.SubmissionUpsertWithWhereUniqueWithoutBuildingTypeRefInput
+    | Prisma.SubmissionUpsertWithWhereUniqueWithoutBuildingTypeRefInput[];
+  createMany?: Prisma.SubmissionCreateManyBuildingTypeRefInputEnvelope;
+  set?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[];
+  disconnect?:
+    | Prisma.SubmissionWhereUniqueInput
+    | Prisma.SubmissionWhereUniqueInput[];
+  delete?:
+    | Prisma.SubmissionWhereUniqueInput
+    | Prisma.SubmissionWhereUniqueInput[];
+  connect?:
+    | Prisma.SubmissionWhereUniqueInput
+    | Prisma.SubmissionWhereUniqueInput[];
+  update?:
+    | Prisma.SubmissionUpdateWithWhereUniqueWithoutBuildingTypeRefInput
+    | Prisma.SubmissionUpdateWithWhereUniqueWithoutBuildingTypeRefInput[];
+  updateMany?:
+    | Prisma.SubmissionUpdateManyWithWhereWithoutBuildingTypeRefInput
+    | Prisma.SubmissionUpdateManyWithWhereWithoutBuildingTypeRefInput[];
+  deleteMany?:
+    | Prisma.SubmissionScalarWhereInput
+    | Prisma.SubmissionScalarWhereInput[];
+};
+
+export type SubmissionUncheckedUpdateManyWithoutBuildingTypeRefNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.SubmissionCreateWithoutBuildingTypeRefInput,
+        Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput
+      >
+    | Prisma.SubmissionCreateWithoutBuildingTypeRefInput[]
+    | Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput[];
+  connectOrCreate?:
+    | Prisma.SubmissionCreateOrConnectWithoutBuildingTypeRefInput
+    | Prisma.SubmissionCreateOrConnectWithoutBuildingTypeRefInput[];
+  upsert?:
+    | Prisma.SubmissionUpsertWithWhereUniqueWithoutBuildingTypeRefInput
+    | Prisma.SubmissionUpsertWithWhereUniqueWithoutBuildingTypeRefInput[];
+  createMany?: Prisma.SubmissionCreateManyBuildingTypeRefInputEnvelope;
+  set?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[];
+  disconnect?:
+    | Prisma.SubmissionWhereUniqueInput
+    | Prisma.SubmissionWhereUniqueInput[];
+  delete?:
+    | Prisma.SubmissionWhereUniqueInput
+    | Prisma.SubmissionWhereUniqueInput[];
+  connect?:
+    | Prisma.SubmissionWhereUniqueInput
+    | Prisma.SubmissionWhereUniqueInput[];
+  update?:
+    | Prisma.SubmissionUpdateWithWhereUniqueWithoutBuildingTypeRefInput
+    | Prisma.SubmissionUpdateWithWhereUniqueWithoutBuildingTypeRefInput[];
+  updateMany?:
+    | Prisma.SubmissionUpdateManyWithWhereWithoutBuildingTypeRefInput
+    | Prisma.SubmissionUpdateManyWithWhereWithoutBuildingTypeRefInput[];
+  deleteMany?:
+    | Prisma.SubmissionScalarWhereInput
+    | Prisma.SubmissionScalarWhereInput[];
 };
 
 export type SubmissionCreateNestedOneWithoutEmailLogsInput = {
@@ -1198,7 +1585,34 @@ export type SubmissionUpdateOneRequiredWithoutSubmissionMediaNestedInput = {
   >;
 };
 
-export type SubmissionCreateWithoutEmailLogsInput = {
+export type SubmissionCreateNestedOneWithoutBuildingTypeFieldValuesInput = {
+  create?: Prisma.XOR<
+    Prisma.SubmissionCreateWithoutBuildingTypeFieldValuesInput,
+    Prisma.SubmissionUncheckedCreateWithoutBuildingTypeFieldValuesInput
+  >;
+  connectOrCreate?: Prisma.SubmissionCreateOrConnectWithoutBuildingTypeFieldValuesInput;
+  connect?: Prisma.SubmissionWhereUniqueInput;
+};
+
+export type SubmissionUpdateOneRequiredWithoutBuildingTypeFieldValuesNestedInput =
+  {
+    create?: Prisma.XOR<
+      Prisma.SubmissionCreateWithoutBuildingTypeFieldValuesInput,
+      Prisma.SubmissionUncheckedCreateWithoutBuildingTypeFieldValuesInput
+    >;
+    connectOrCreate?: Prisma.SubmissionCreateOrConnectWithoutBuildingTypeFieldValuesInput;
+    upsert?: Prisma.SubmissionUpsertWithoutBuildingTypeFieldValuesInput;
+    connect?: Prisma.SubmissionWhereUniqueInput;
+    update?: Prisma.XOR<
+      Prisma.XOR<
+        Prisma.SubmissionUpdateToOneWithWhereWithoutBuildingTypeFieldValuesInput,
+        Prisma.SubmissionUpdateWithoutBuildingTypeFieldValuesInput
+      >,
+      Prisma.SubmissionUncheckedUpdateWithoutBuildingTypeFieldValuesInput
+    >;
+  };
+
+export type SubmissionCreateWithoutBuildingTypeRefInput = {
   id?: string;
   submissionNumber: string;
   clientName: string;
@@ -1206,7 +1620,11 @@ export type SubmissionCreateWithoutEmailLogsInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1214,6 +1632,7 @@ export type SubmissionCreateWithoutEmailLogsInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -1226,9 +1645,11 @@ export type SubmissionCreateWithoutEmailLogsInput = {
   service: Prisma.ServiceCreateNestedOneWithoutSubmissionsInput;
   submissionItems?: Prisma.SubmissionItemCreateNestedManyWithoutSubmissionInput;
   submissionMedia?: Prisma.SubmissionMediaCreateNestedManyWithoutSubmissionInput;
+  emailLogs?: Prisma.EmailLogCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueCreateNestedManyWithoutSubmissionInput;
 };
 
-export type SubmissionUncheckedCreateWithoutEmailLogsInput = {
+export type SubmissionUncheckedCreateWithoutBuildingTypeRefInput = {
   id?: string;
   submissionNumber: string;
   serviceId: string;
@@ -1237,7 +1658,11 @@ export type SubmissionUncheckedCreateWithoutEmailLogsInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1245,6 +1670,7 @@ export type SubmissionUncheckedCreateWithoutEmailLogsInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -1256,6 +1682,197 @@ export type SubmissionUncheckedCreateWithoutEmailLogsInput = {
   completedAt?: Date | string | null;
   submissionItems?: Prisma.SubmissionItemUncheckedCreateNestedManyWithoutSubmissionInput;
   submissionMedia?: Prisma.SubmissionMediaUncheckedCreateNestedManyWithoutSubmissionInput;
+  emailLogs?: Prisma.EmailLogUncheckedCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedCreateNestedManyWithoutSubmissionInput;
+};
+
+export type SubmissionCreateOrConnectWithoutBuildingTypeRefInput = {
+  where: Prisma.SubmissionWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.SubmissionCreateWithoutBuildingTypeRefInput,
+    Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput
+  >;
+};
+
+export type SubmissionCreateManyBuildingTypeRefInputEnvelope = {
+  data:
+    | Prisma.SubmissionCreateManyBuildingTypeRefInput
+    | Prisma.SubmissionCreateManyBuildingTypeRefInput[];
+  skipDuplicates?: boolean;
+};
+
+export type SubmissionUpsertWithWhereUniqueWithoutBuildingTypeRefInput = {
+  where: Prisma.SubmissionWhereUniqueInput;
+  update: Prisma.XOR<
+    Prisma.SubmissionUpdateWithoutBuildingTypeRefInput,
+    Prisma.SubmissionUncheckedUpdateWithoutBuildingTypeRefInput
+  >;
+  create: Prisma.XOR<
+    Prisma.SubmissionCreateWithoutBuildingTypeRefInput,
+    Prisma.SubmissionUncheckedCreateWithoutBuildingTypeRefInput
+  >;
+};
+
+export type SubmissionUpdateWithWhereUniqueWithoutBuildingTypeRefInput = {
+  where: Prisma.SubmissionWhereUniqueInput;
+  data: Prisma.XOR<
+    Prisma.SubmissionUpdateWithoutBuildingTypeRefInput,
+    Prisma.SubmissionUncheckedUpdateWithoutBuildingTypeRefInput
+  >;
+};
+
+export type SubmissionUpdateManyWithWhereWithoutBuildingTypeRefInput = {
+  where: Prisma.SubmissionScalarWhereInput;
+  data: Prisma.XOR<
+    Prisma.SubmissionUpdateManyMutationInput,
+    Prisma.SubmissionUncheckedUpdateManyWithoutBuildingTypeRefInput
+  >;
+};
+
+export type SubmissionScalarWhereInput = {
+  AND?: Prisma.SubmissionScalarWhereInput | Prisma.SubmissionScalarWhereInput[];
+  OR?: Prisma.SubmissionScalarWhereInput[];
+  NOT?: Prisma.SubmissionScalarWhereInput | Prisma.SubmissionScalarWhereInput[];
+  id?: Prisma.StringFilter<'Submission'> | string;
+  submissionNumber?: Prisma.StringFilter<'Submission'> | string;
+  serviceId?: Prisma.StringFilter<'Submission'> | string;
+  clientName?: Prisma.StringFilter<'Submission'> | string;
+  clientEmail?: Prisma.StringFilter<'Submission'> | string;
+  clientPhone?: Prisma.StringFilter<'Submission'> | string;
+  projectAddress?: Prisma.StringFilter<'Submission'> | string;
+  zipCode?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  desiredStartDate?:
+    | Prisma.DateTimeNullableFilter<'Submission'>
+    | Date
+    | string
+    | null;
+  buildingType?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  buildingTypeId?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  basePrice?:
+    | Prisma.DecimalFilter<'Submission'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFilter<'Submission'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFilter<'Submission'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  additionalItemsTotal?:
+    | Prisma.DecimalFilter<'Submission'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount?:
+    | Prisma.DecimalFilter<'Submission'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  status?:
+    | Prisma.EnumSubmissionStatusFilter<'Submission'>
+    | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFilter<'Submission'> | boolean;
+  projectNotes?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  additionalDetails?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  pdfUrl?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  ipAddress?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  userAgent?: Prisma.StringNullableFilter<'Submission'> | string | null;
+  submittedAt?: Prisma.DateTimeFilter<'Submission'> | Date | string;
+  updatedAt?: Prisma.DateTimeFilter<'Submission'> | Date | string;
+  reviewedAt?:
+    | Prisma.DateTimeNullableFilter<'Submission'>
+    | Date
+    | string
+    | null;
+  completedAt?:
+    | Prisma.DateTimeNullableFilter<'Submission'>
+    | Date
+    | string
+    | null;
+};
+
+export type SubmissionCreateWithoutEmailLogsInput = {
+  id?: string;
+  submissionNumber: string;
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  projectAddress: string;
+  zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  additionalItemsTotal?:
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
+  projectNotes?: string | null;
+  additionalDetails?: string | null;
+  pdfUrl?: string | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  submittedAt?: Date | string;
+  updatedAt?: Date | string;
+  reviewedAt?: Date | string | null;
+  completedAt?: Date | string | null;
+  service: Prisma.ServiceCreateNestedOneWithoutSubmissionsInput;
+  buildingTypeRef?: Prisma.BuildingTypeCreateNestedOneWithoutSubmissionsInput;
+  submissionItems?: Prisma.SubmissionItemCreateNestedManyWithoutSubmissionInput;
+  submissionMedia?: Prisma.SubmissionMediaCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueCreateNestedManyWithoutSubmissionInput;
+};
+
+export type SubmissionUncheckedCreateWithoutEmailLogsInput = {
+  id?: string;
+  submissionNumber: string;
+  serviceId: string;
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  projectAddress: string;
+  zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  buildingTypeId?: string | null;
+  basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  additionalItemsTotal?:
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
+  projectNotes?: string | null;
+  additionalDetails?: string | null;
+  pdfUrl?: string | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  submittedAt?: Date | string;
+  updatedAt?: Date | string;
+  reviewedAt?: Date | string | null;
+  completedAt?: Date | string | null;
+  submissionItems?: Prisma.SubmissionItemUncheckedCreateNestedManyWithoutSubmissionInput;
+  submissionMedia?: Prisma.SubmissionMediaUncheckedCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedCreateNestedManyWithoutSubmissionInput;
 };
 
 export type SubmissionCreateOrConnectWithoutEmailLogsInput = {
@@ -1294,7 +1911,28 @@ export type SubmissionUpdateWithoutEmailLogsInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1315,6 +1953,7 @@ export type SubmissionUpdateWithoutEmailLogsInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -1339,8 +1978,10 @@ export type SubmissionUpdateWithoutEmailLogsInput = {
     | string
     | null;
   service?: Prisma.ServiceUpdateOneRequiredWithoutSubmissionsNestedInput;
+  buildingTypeRef?: Prisma.BuildingTypeUpdateOneWithoutSubmissionsNestedInput;
   submissionItems?: Prisma.SubmissionItemUpdateManyWithoutSubmissionNestedInput;
   submissionMedia?: Prisma.SubmissionMediaUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUpdateManyWithoutSubmissionNestedInput;
 };
 
 export type SubmissionUncheckedUpdateWithoutEmailLogsInput = {
@@ -1352,7 +1993,32 @@ export type SubmissionUncheckedUpdateWithoutEmailLogsInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  buildingTypeId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1373,6 +2039,7 @@ export type SubmissionUncheckedUpdateWithoutEmailLogsInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -1398,6 +2065,7 @@ export type SubmissionUncheckedUpdateWithoutEmailLogsInput = {
     | null;
   submissionItems?: Prisma.SubmissionItemUncheckedUpdateManyWithoutSubmissionNestedInput;
   submissionMedia?: Prisma.SubmissionMediaUncheckedUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedUpdateManyWithoutSubmissionNestedInput;
 };
 
 export type SubmissionCreateWithoutServiceInput = {
@@ -1408,7 +2076,11 @@ export type SubmissionCreateWithoutServiceInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1416,6 +2088,7 @@ export type SubmissionCreateWithoutServiceInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -1425,9 +2098,11 @@ export type SubmissionCreateWithoutServiceInput = {
   updatedAt?: Date | string;
   reviewedAt?: Date | string | null;
   completedAt?: Date | string | null;
+  buildingTypeRef?: Prisma.BuildingTypeCreateNestedOneWithoutSubmissionsInput;
   submissionItems?: Prisma.SubmissionItemCreateNestedManyWithoutSubmissionInput;
   submissionMedia?: Prisma.SubmissionMediaCreateNestedManyWithoutSubmissionInput;
   emailLogs?: Prisma.EmailLogCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueCreateNestedManyWithoutSubmissionInput;
 };
 
 export type SubmissionUncheckedCreateWithoutServiceInput = {
@@ -1438,7 +2113,12 @@ export type SubmissionUncheckedCreateWithoutServiceInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  buildingTypeId?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1446,6 +2126,7 @@ export type SubmissionUncheckedCreateWithoutServiceInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -1458,6 +2139,7 @@ export type SubmissionUncheckedCreateWithoutServiceInput = {
   submissionItems?: Prisma.SubmissionItemUncheckedCreateNestedManyWithoutSubmissionInput;
   submissionMedia?: Prisma.SubmissionMediaUncheckedCreateNestedManyWithoutSubmissionInput;
   emailLogs?: Prisma.EmailLogUncheckedCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedCreateNestedManyWithoutSubmissionInput;
 };
 
 export type SubmissionCreateOrConnectWithoutServiceInput = {
@@ -1503,58 +2185,6 @@ export type SubmissionUpdateManyWithWhereWithoutServiceInput = {
   >;
 };
 
-export type SubmissionScalarWhereInput = {
-  AND?: Prisma.SubmissionScalarWhereInput | Prisma.SubmissionScalarWhereInput[];
-  OR?: Prisma.SubmissionScalarWhereInput[];
-  NOT?: Prisma.SubmissionScalarWhereInput | Prisma.SubmissionScalarWhereInput[];
-  id?: Prisma.StringFilter<'Submission'> | string;
-  submissionNumber?: Prisma.StringFilter<'Submission'> | string;
-  serviceId?: Prisma.StringFilter<'Submission'> | string;
-  clientName?: Prisma.StringFilter<'Submission'> | string;
-  clientEmail?: Prisma.StringFilter<'Submission'> | string;
-  clientPhone?: Prisma.StringFilter<'Submission'> | string;
-  projectAddress?: Prisma.StringFilter<'Submission'> | string;
-  zipCode?: Prisma.StringNullableFilter<'Submission'> | string | null;
-  basePrice?:
-    | Prisma.DecimalFilter<'Submission'>
-    | runtime.Decimal
-    | runtime.DecimalJsLike
-    | number
-    | string;
-  additionalItemsTotal?:
-    | Prisma.DecimalFilter<'Submission'>
-    | runtime.Decimal
-    | runtime.DecimalJsLike
-    | number
-    | string;
-  totalAmount?:
-    | Prisma.DecimalFilter<'Submission'>
-    | runtime.Decimal
-    | runtime.DecimalJsLike
-    | number
-    | string;
-  status?:
-    | Prisma.EnumSubmissionStatusFilter<'Submission'>
-    | $Enums.SubmissionStatus;
-  projectNotes?: Prisma.StringNullableFilter<'Submission'> | string | null;
-  additionalDetails?: Prisma.StringNullableFilter<'Submission'> | string | null;
-  pdfUrl?: Prisma.StringNullableFilter<'Submission'> | string | null;
-  ipAddress?: Prisma.StringNullableFilter<'Submission'> | string | null;
-  userAgent?: Prisma.StringNullableFilter<'Submission'> | string | null;
-  submittedAt?: Prisma.DateTimeFilter<'Submission'> | Date | string;
-  updatedAt?: Prisma.DateTimeFilter<'Submission'> | Date | string;
-  reviewedAt?:
-    | Prisma.DateTimeNullableFilter<'Submission'>
-    | Date
-    | string
-    | null;
-  completedAt?:
-    | Prisma.DateTimeNullableFilter<'Submission'>
-    | Date
-    | string
-    | null;
-};
-
 export type SubmissionCreateWithoutSubmissionItemsInput = {
   id?: string;
   submissionNumber: string;
@@ -1563,7 +2193,11 @@ export type SubmissionCreateWithoutSubmissionItemsInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1571,6 +2205,7 @@ export type SubmissionCreateWithoutSubmissionItemsInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -1581,8 +2216,10 @@ export type SubmissionCreateWithoutSubmissionItemsInput = {
   reviewedAt?: Date | string | null;
   completedAt?: Date | string | null;
   service: Prisma.ServiceCreateNestedOneWithoutSubmissionsInput;
+  buildingTypeRef?: Prisma.BuildingTypeCreateNestedOneWithoutSubmissionsInput;
   submissionMedia?: Prisma.SubmissionMediaCreateNestedManyWithoutSubmissionInput;
   emailLogs?: Prisma.EmailLogCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueCreateNestedManyWithoutSubmissionInput;
 };
 
 export type SubmissionUncheckedCreateWithoutSubmissionItemsInput = {
@@ -1594,7 +2231,12 @@ export type SubmissionUncheckedCreateWithoutSubmissionItemsInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  buildingTypeId?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1602,6 +2244,7 @@ export type SubmissionUncheckedCreateWithoutSubmissionItemsInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -1613,6 +2256,7 @@ export type SubmissionUncheckedCreateWithoutSubmissionItemsInput = {
   completedAt?: Date | string | null;
   submissionMedia?: Prisma.SubmissionMediaUncheckedCreateNestedManyWithoutSubmissionInput;
   emailLogs?: Prisma.EmailLogUncheckedCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedCreateNestedManyWithoutSubmissionInput;
 };
 
 export type SubmissionCreateOrConnectWithoutSubmissionItemsInput = {
@@ -1651,7 +2295,28 @@ export type SubmissionUpdateWithoutSubmissionItemsInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1672,6 +2337,7 @@ export type SubmissionUpdateWithoutSubmissionItemsInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -1696,8 +2362,10 @@ export type SubmissionUpdateWithoutSubmissionItemsInput = {
     | string
     | null;
   service?: Prisma.ServiceUpdateOneRequiredWithoutSubmissionsNestedInput;
+  buildingTypeRef?: Prisma.BuildingTypeUpdateOneWithoutSubmissionsNestedInput;
   submissionMedia?: Prisma.SubmissionMediaUpdateManyWithoutSubmissionNestedInput;
   emailLogs?: Prisma.EmailLogUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUpdateManyWithoutSubmissionNestedInput;
 };
 
 export type SubmissionUncheckedUpdateWithoutSubmissionItemsInput = {
@@ -1709,7 +2377,32 @@ export type SubmissionUncheckedUpdateWithoutSubmissionItemsInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  buildingTypeId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1730,6 +2423,7 @@ export type SubmissionUncheckedUpdateWithoutSubmissionItemsInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -1755,6 +2449,7 @@ export type SubmissionUncheckedUpdateWithoutSubmissionItemsInput = {
     | null;
   submissionMedia?: Prisma.SubmissionMediaUncheckedUpdateManyWithoutSubmissionNestedInput;
   emailLogs?: Prisma.EmailLogUncheckedUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedUpdateManyWithoutSubmissionNestedInput;
 };
 
 export type SubmissionCreateWithoutSubmissionMediaInput = {
@@ -1765,7 +2460,11 @@ export type SubmissionCreateWithoutSubmissionMediaInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1773,6 +2472,7 @@ export type SubmissionCreateWithoutSubmissionMediaInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -1783,8 +2483,10 @@ export type SubmissionCreateWithoutSubmissionMediaInput = {
   reviewedAt?: Date | string | null;
   completedAt?: Date | string | null;
   service: Prisma.ServiceCreateNestedOneWithoutSubmissionsInput;
+  buildingTypeRef?: Prisma.BuildingTypeCreateNestedOneWithoutSubmissionsInput;
   submissionItems?: Prisma.SubmissionItemCreateNestedManyWithoutSubmissionInput;
   emailLogs?: Prisma.EmailLogCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueCreateNestedManyWithoutSubmissionInput;
 };
 
 export type SubmissionUncheckedCreateWithoutSubmissionMediaInput = {
@@ -1796,7 +2498,12 @@ export type SubmissionUncheckedCreateWithoutSubmissionMediaInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  buildingTypeId?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1804,6 +2511,7 @@ export type SubmissionUncheckedCreateWithoutSubmissionMediaInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -1815,6 +2523,7 @@ export type SubmissionUncheckedCreateWithoutSubmissionMediaInput = {
   completedAt?: Date | string | null;
   submissionItems?: Prisma.SubmissionItemUncheckedCreateNestedManyWithoutSubmissionInput;
   emailLogs?: Prisma.EmailLogUncheckedCreateNestedManyWithoutSubmissionInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedCreateNestedManyWithoutSubmissionInput;
 };
 
 export type SubmissionCreateOrConnectWithoutSubmissionMediaInput = {
@@ -1853,7 +2562,28 @@ export type SubmissionUpdateWithoutSubmissionMediaInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1874,6 +2604,7 @@ export type SubmissionUpdateWithoutSubmissionMediaInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -1898,8 +2629,10 @@ export type SubmissionUpdateWithoutSubmissionMediaInput = {
     | string
     | null;
   service?: Prisma.ServiceUpdateOneRequiredWithoutSubmissionsNestedInput;
+  buildingTypeRef?: Prisma.BuildingTypeUpdateOneWithoutSubmissionsNestedInput;
   submissionItems?: Prisma.SubmissionItemUpdateManyWithoutSubmissionNestedInput;
   emailLogs?: Prisma.EmailLogUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUpdateManyWithoutSubmissionNestedInput;
 };
 
 export type SubmissionUncheckedUpdateWithoutSubmissionMediaInput = {
@@ -1911,7 +2644,32 @@ export type SubmissionUncheckedUpdateWithoutSubmissionMediaInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  buildingTypeId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1932,6 +2690,7 @@ export type SubmissionUncheckedUpdateWithoutSubmissionMediaInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -1957,9 +2716,10 @@ export type SubmissionUncheckedUpdateWithoutSubmissionMediaInput = {
     | null;
   submissionItems?: Prisma.SubmissionItemUncheckedUpdateManyWithoutSubmissionNestedInput;
   emailLogs?: Prisma.EmailLogUncheckedUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedUpdateManyWithoutSubmissionNestedInput;
 };
 
-export type SubmissionCreateManyServiceInput = {
+export type SubmissionCreateWithoutBuildingTypeFieldValuesInput = {
   id?: string;
   submissionNumber: string;
   clientName: string;
@@ -1967,7 +2727,11 @@ export type SubmissionCreateManyServiceInput = {
   clientPhone: string;
   projectAddress: string;
   zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
   additionalItemsTotal?:
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -1975,6 +2739,7 @@ export type SubmissionCreateManyServiceInput = {
     | string;
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
   status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
   projectNotes?: string | null;
   additionalDetails?: string | null;
   pdfUrl?: string | null;
@@ -1984,9 +2749,80 @@ export type SubmissionCreateManyServiceInput = {
   updatedAt?: Date | string;
   reviewedAt?: Date | string | null;
   completedAt?: Date | string | null;
+  service: Prisma.ServiceCreateNestedOneWithoutSubmissionsInput;
+  buildingTypeRef?: Prisma.BuildingTypeCreateNestedOneWithoutSubmissionsInput;
+  submissionItems?: Prisma.SubmissionItemCreateNestedManyWithoutSubmissionInput;
+  submissionMedia?: Prisma.SubmissionMediaCreateNestedManyWithoutSubmissionInput;
+  emailLogs?: Prisma.EmailLogCreateNestedManyWithoutSubmissionInput;
 };
 
-export type SubmissionUpdateWithoutServiceInput = {
+export type SubmissionUncheckedCreateWithoutBuildingTypeFieldValuesInput = {
+  id?: string;
+  submissionNumber: string;
+  serviceId: string;
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  projectAddress: string;
+  zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  buildingTypeId?: string | null;
+  basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  additionalItemsTotal?:
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
+  projectNotes?: string | null;
+  additionalDetails?: string | null;
+  pdfUrl?: string | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  submittedAt?: Date | string;
+  updatedAt?: Date | string;
+  reviewedAt?: Date | string | null;
+  completedAt?: Date | string | null;
+  submissionItems?: Prisma.SubmissionItemUncheckedCreateNestedManyWithoutSubmissionInput;
+  submissionMedia?: Prisma.SubmissionMediaUncheckedCreateNestedManyWithoutSubmissionInput;
+  emailLogs?: Prisma.EmailLogUncheckedCreateNestedManyWithoutSubmissionInput;
+};
+
+export type SubmissionCreateOrConnectWithoutBuildingTypeFieldValuesInput = {
+  where: Prisma.SubmissionWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.SubmissionCreateWithoutBuildingTypeFieldValuesInput,
+    Prisma.SubmissionUncheckedCreateWithoutBuildingTypeFieldValuesInput
+  >;
+};
+
+export type SubmissionUpsertWithoutBuildingTypeFieldValuesInput = {
+  update: Prisma.XOR<
+    Prisma.SubmissionUpdateWithoutBuildingTypeFieldValuesInput,
+    Prisma.SubmissionUncheckedUpdateWithoutBuildingTypeFieldValuesInput
+  >;
+  create: Prisma.XOR<
+    Prisma.SubmissionCreateWithoutBuildingTypeFieldValuesInput,
+    Prisma.SubmissionUncheckedCreateWithoutBuildingTypeFieldValuesInput
+  >;
+  where?: Prisma.SubmissionWhereInput;
+};
+
+export type SubmissionUpdateToOneWithWhereWithoutBuildingTypeFieldValuesInput =
+  {
+    where?: Prisma.SubmissionWhereInput;
+    data: Prisma.XOR<
+      Prisma.SubmissionUpdateWithoutBuildingTypeFieldValuesInput,
+      Prisma.SubmissionUncheckedUpdateWithoutBuildingTypeFieldValuesInput
+    >;
+  };
+
+export type SubmissionUpdateWithoutBuildingTypeFieldValuesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   submissionNumber?: Prisma.StringFieldUpdateOperationsInput | string;
   clientName?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1994,7 +2830,28 @@ export type SubmissionUpdateWithoutServiceInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -2015,6 +2872,7 @@ export type SubmissionUpdateWithoutServiceInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -2038,20 +2896,48 @@ export type SubmissionUpdateWithoutServiceInput = {
     | Date
     | string
     | null;
+  service?: Prisma.ServiceUpdateOneRequiredWithoutSubmissionsNestedInput;
+  buildingTypeRef?: Prisma.BuildingTypeUpdateOneWithoutSubmissionsNestedInput;
   submissionItems?: Prisma.SubmissionItemUpdateManyWithoutSubmissionNestedInput;
   submissionMedia?: Prisma.SubmissionMediaUpdateManyWithoutSubmissionNestedInput;
   emailLogs?: Prisma.EmailLogUpdateManyWithoutSubmissionNestedInput;
 };
 
-export type SubmissionUncheckedUpdateWithoutServiceInput = {
+export type SubmissionUncheckedUpdateWithoutBuildingTypeFieldValuesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   submissionNumber?: Prisma.StringFieldUpdateOperationsInput | string;
+  serviceId?: Prisma.StringFieldUpdateOperationsInput | string;
   clientName?: Prisma.StringFieldUpdateOperationsInput | string;
   clientEmail?: Prisma.StringFieldUpdateOperationsInput | string;
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  buildingTypeId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -2072,6 +2958,7 @@ export type SubmissionUncheckedUpdateWithoutServiceInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -2100,7 +2987,40 @@ export type SubmissionUncheckedUpdateWithoutServiceInput = {
   emailLogs?: Prisma.EmailLogUncheckedUpdateManyWithoutSubmissionNestedInput;
 };
 
-export type SubmissionUncheckedUpdateManyWithoutServiceInput = {
+export type SubmissionCreateManyBuildingTypeRefInput = {
+  id?: string;
+  submissionNumber: string;
+  serviceId: string;
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  projectAddress: string;
+  zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  additionalItemsTotal?:
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
+  projectNotes?: string | null;
+  additionalDetails?: string | null;
+  pdfUrl?: string | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  submittedAt?: Date | string;
+  updatedAt?: Date | string;
+  reviewedAt?: Date | string | null;
+  completedAt?: Date | string | null;
+};
+
+export type SubmissionUpdateWithoutBuildingTypeRefInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   submissionNumber?: Prisma.StringFieldUpdateOperationsInput | string;
   clientName?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -2108,7 +3028,28 @@ export type SubmissionUncheckedUpdateManyWithoutServiceInput = {
   clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
   projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
     | Prisma.DecimalFieldUpdateOperationsInput
     | runtime.Decimal
     | runtime.DecimalJsLike
@@ -2129,6 +3070,448 @@ export type SubmissionUncheckedUpdateManyWithoutServiceInput = {
   status?:
     | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
     | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  projectNotes?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  additionalDetails?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  reviewedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  completedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  service?: Prisma.ServiceUpdateOneRequiredWithoutSubmissionsNestedInput;
+  submissionItems?: Prisma.SubmissionItemUpdateManyWithoutSubmissionNestedInput;
+  submissionMedia?: Prisma.SubmissionMediaUpdateManyWithoutSubmissionNestedInput;
+  emailLogs?: Prisma.EmailLogUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUpdateManyWithoutSubmissionNestedInput;
+};
+
+export type SubmissionUncheckedUpdateWithoutBuildingTypeRefInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  submissionNumber?: Prisma.StringFieldUpdateOperationsInput | string;
+  serviceId?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientName?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientEmail?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
+  projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  additionalItemsTotal?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  status?:
+    | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
+    | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  projectNotes?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  additionalDetails?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  reviewedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  completedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  submissionItems?: Prisma.SubmissionItemUncheckedUpdateManyWithoutSubmissionNestedInput;
+  submissionMedia?: Prisma.SubmissionMediaUncheckedUpdateManyWithoutSubmissionNestedInput;
+  emailLogs?: Prisma.EmailLogUncheckedUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedUpdateManyWithoutSubmissionNestedInput;
+};
+
+export type SubmissionUncheckedUpdateManyWithoutBuildingTypeRefInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  submissionNumber?: Prisma.StringFieldUpdateOperationsInput | string;
+  serviceId?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientName?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientEmail?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
+  projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  additionalItemsTotal?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  status?:
+    | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
+    | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  projectNotes?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  additionalDetails?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  reviewedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  completedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+};
+
+export type SubmissionCreateManyServiceInput = {
+  id?: string;
+  submissionNumber: string;
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  projectAddress: string;
+  zipCode?: string | null;
+  desiredStartDate?: Date | string | null;
+  buildingType?: string | null;
+  buildingTypeId?: string | null;
+  basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  markup?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  clientPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  additionalItemsTotal?:
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  status?: $Enums.SubmissionStatus;
+  isArchived?: boolean;
+  projectNotes?: string | null;
+  additionalDetails?: string | null;
+  pdfUrl?: string | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  submittedAt?: Date | string;
+  updatedAt?: Date | string;
+  reviewedAt?: Date | string | null;
+  completedAt?: Date | string | null;
+};
+
+export type SubmissionUpdateWithoutServiceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  submissionNumber?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientName?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientEmail?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
+  projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  additionalItemsTotal?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  status?:
+    | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
+    | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  projectNotes?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  additionalDetails?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  reviewedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  completedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingTypeRef?: Prisma.BuildingTypeUpdateOneWithoutSubmissionsNestedInput;
+  submissionItems?: Prisma.SubmissionItemUpdateManyWithoutSubmissionNestedInput;
+  submissionMedia?: Prisma.SubmissionMediaUpdateManyWithoutSubmissionNestedInput;
+  emailLogs?: Prisma.EmailLogUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUpdateManyWithoutSubmissionNestedInput;
+};
+
+export type SubmissionUncheckedUpdateWithoutServiceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  submissionNumber?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientName?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientEmail?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
+  projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  buildingTypeId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  additionalItemsTotal?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  status?:
+    | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
+    | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  projectNotes?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  additionalDetails?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  reviewedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  completedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  submissionItems?: Prisma.SubmissionItemUncheckedUpdateManyWithoutSubmissionNestedInput;
+  submissionMedia?: Prisma.SubmissionMediaUncheckedUpdateManyWithoutSubmissionNestedInput;
+  emailLogs?: Prisma.EmailLogUncheckedUpdateManyWithoutSubmissionNestedInput;
+  buildingTypeFieldValues?: Prisma.SubmissionBuildingTypeFieldValueUncheckedUpdateManyWithoutSubmissionNestedInput;
+};
+
+export type SubmissionUncheckedUpdateManyWithoutServiceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  submissionNumber?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientName?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientEmail?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientPhone?: Prisma.StringFieldUpdateOperationsInput | string;
+  projectAddress?: Prisma.StringFieldUpdateOperationsInput | string;
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  desiredStartDate?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  buildingType?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  buildingTypeId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  basePrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  markup?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  clientPrice?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  additionalItemsTotal?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  totalAmount?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  status?:
+    | Prisma.EnumSubmissionStatusFieldUpdateOperationsInput
+    | $Enums.SubmissionStatus;
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectNotes?:
     | Prisma.NullableStringFieldUpdateOperationsInput
     | string
@@ -2162,6 +3545,7 @@ export type SubmissionCountOutputType = {
   submissionItems: number;
   submissionMedia: number;
   emailLogs: number;
+  buildingTypeFieldValues: number;
 };
 
 export type SubmissionCountOutputTypeSelect<
@@ -2171,6 +3555,9 @@ export type SubmissionCountOutputTypeSelect<
   submissionItems?: boolean | SubmissionCountOutputTypeCountSubmissionItemsArgs;
   submissionMedia?: boolean | SubmissionCountOutputTypeCountSubmissionMediaArgs;
   emailLogs?: boolean | SubmissionCountOutputTypeCountEmailLogsArgs;
+  buildingTypeFieldValues?:
+    | boolean
+    | SubmissionCountOutputTypeCountBuildingTypeFieldValuesArgs;
 };
 
 /**
@@ -2216,6 +3603,16 @@ export type SubmissionCountOutputTypeCountEmailLogsArgs<
   where?: Prisma.EmailLogWhereInput;
 };
 
+/**
+ * SubmissionCountOutputType without action
+ */
+export type SubmissionCountOutputTypeCountBuildingTypeFieldValuesArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.SubmissionBuildingTypeFieldValueWhereInput;
+};
+
 export type SubmissionSelect<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
@@ -2229,10 +3626,16 @@ export type SubmissionSelect<
     clientPhone?: boolean;
     projectAddress?: boolean;
     zipCode?: boolean;
+    desiredStartDate?: boolean;
+    buildingType?: boolean;
+    buildingTypeId?: boolean;
     basePrice?: boolean;
+    markup?: boolean;
+    clientPrice?: boolean;
     additionalItemsTotal?: boolean;
     totalAmount?: boolean;
     status?: boolean;
+    isArchived?: boolean;
     projectNotes?: boolean;
     additionalDetails?: boolean;
     pdfUrl?: boolean;
@@ -2243,9 +3646,13 @@ export type SubmissionSelect<
     reviewedAt?: boolean;
     completedAt?: boolean;
     service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+    buildingTypeRef?: boolean | Prisma.Submission$buildingTypeRefArgs<ExtArgs>;
     submissionItems?: boolean | Prisma.Submission$submissionItemsArgs<ExtArgs>;
     submissionMedia?: boolean | Prisma.Submission$submissionMediaArgs<ExtArgs>;
     emailLogs?: boolean | Prisma.Submission$emailLogsArgs<ExtArgs>;
+    buildingTypeFieldValues?:
+      | boolean
+      | Prisma.Submission$buildingTypeFieldValuesArgs<ExtArgs>;
     _count?: boolean | Prisma.SubmissionCountOutputTypeDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['submission']
@@ -2264,10 +3671,16 @@ export type SubmissionSelectCreateManyAndReturn<
     clientPhone?: boolean;
     projectAddress?: boolean;
     zipCode?: boolean;
+    desiredStartDate?: boolean;
+    buildingType?: boolean;
+    buildingTypeId?: boolean;
     basePrice?: boolean;
+    markup?: boolean;
+    clientPrice?: boolean;
     additionalItemsTotal?: boolean;
     totalAmount?: boolean;
     status?: boolean;
+    isArchived?: boolean;
     projectNotes?: boolean;
     additionalDetails?: boolean;
     pdfUrl?: boolean;
@@ -2278,6 +3691,7 @@ export type SubmissionSelectCreateManyAndReturn<
     reviewedAt?: boolean;
     completedAt?: boolean;
     service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+    buildingTypeRef?: boolean | Prisma.Submission$buildingTypeRefArgs<ExtArgs>;
   },
   ExtArgs['result']['submission']
 >;
@@ -2295,10 +3709,16 @@ export type SubmissionSelectUpdateManyAndReturn<
     clientPhone?: boolean;
     projectAddress?: boolean;
     zipCode?: boolean;
+    desiredStartDate?: boolean;
+    buildingType?: boolean;
+    buildingTypeId?: boolean;
     basePrice?: boolean;
+    markup?: boolean;
+    clientPrice?: boolean;
     additionalItemsTotal?: boolean;
     totalAmount?: boolean;
     status?: boolean;
+    isArchived?: boolean;
     projectNotes?: boolean;
     additionalDetails?: boolean;
     pdfUrl?: boolean;
@@ -2309,6 +3729,7 @@ export type SubmissionSelectUpdateManyAndReturn<
     reviewedAt?: boolean;
     completedAt?: boolean;
     service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+    buildingTypeRef?: boolean | Prisma.Submission$buildingTypeRefArgs<ExtArgs>;
   },
   ExtArgs['result']['submission']
 >;
@@ -2322,10 +3743,16 @@ export type SubmissionSelectScalar = {
   clientPhone?: boolean;
   projectAddress?: boolean;
   zipCode?: boolean;
+  desiredStartDate?: boolean;
+  buildingType?: boolean;
+  buildingTypeId?: boolean;
   basePrice?: boolean;
+  markup?: boolean;
+  clientPrice?: boolean;
   additionalItemsTotal?: boolean;
   totalAmount?: boolean;
   status?: boolean;
+  isArchived?: boolean;
   projectNotes?: boolean;
   additionalDetails?: boolean;
   pdfUrl?: boolean;
@@ -2349,10 +3776,16 @@ export type SubmissionOmit<
   | 'clientPhone'
   | 'projectAddress'
   | 'zipCode'
+  | 'desiredStartDate'
+  | 'buildingType'
+  | 'buildingTypeId'
   | 'basePrice'
+  | 'markup'
+  | 'clientPrice'
   | 'additionalItemsTotal'
   | 'totalAmount'
   | 'status'
+  | 'isArchived'
   | 'projectNotes'
   | 'additionalDetails'
   | 'pdfUrl'
@@ -2369,9 +3802,13 @@ export type SubmissionInclude<
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+  buildingTypeRef?: boolean | Prisma.Submission$buildingTypeRefArgs<ExtArgs>;
   submissionItems?: boolean | Prisma.Submission$submissionItemsArgs<ExtArgs>;
   submissionMedia?: boolean | Prisma.Submission$submissionMediaArgs<ExtArgs>;
   emailLogs?: boolean | Prisma.Submission$emailLogsArgs<ExtArgs>;
+  buildingTypeFieldValues?:
+    | boolean
+    | Prisma.Submission$buildingTypeFieldValuesArgs<ExtArgs>;
   _count?: boolean | Prisma.SubmissionCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type SubmissionIncludeCreateManyAndReturn<
@@ -2379,12 +3816,14 @@ export type SubmissionIncludeCreateManyAndReturn<
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+  buildingTypeRef?: boolean | Prisma.Submission$buildingTypeRefArgs<ExtArgs>;
 };
 export type SubmissionIncludeUpdateManyAndReturn<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+  buildingTypeRef?: boolean | Prisma.Submission$buildingTypeRefArgs<ExtArgs>;
 };
 
 export type $SubmissionPayload<
@@ -2394,9 +3833,11 @@ export type $SubmissionPayload<
   name: 'Submission';
   objects: {
     service: Prisma.$ServicePayload<ExtArgs>;
+    buildingTypeRef: Prisma.$BuildingTypePayload<ExtArgs> | null;
     submissionItems: Prisma.$SubmissionItemPayload<ExtArgs>[];
     submissionMedia: Prisma.$SubmissionMediaPayload<ExtArgs>[];
     emailLogs: Prisma.$EmailLogPayload<ExtArgs>[];
+    buildingTypeFieldValues: Prisma.$SubmissionBuildingTypeFieldValuePayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -2408,10 +3849,16 @@ export type $SubmissionPayload<
       clientPhone: string;
       projectAddress: string;
       zipCode: string | null;
+      desiredStartDate: Date | null;
+      buildingType: string | null;
+      buildingTypeId: string | null;
       basePrice: runtime.Decimal;
+      markup: runtime.Decimal;
+      clientPrice: runtime.Decimal;
       additionalItemsTotal: runtime.Decimal;
       totalAmount: runtime.Decimal;
       status: $Enums.SubmissionStatus;
+      isArchived: boolean;
       projectNotes: string | null;
       additionalDetails: string | null;
       pdfUrl: string | null;
@@ -2985,6 +4432,21 @@ export interface Prisma__SubmissionClient<
     ExtArgs,
     GlobalOmitOptions
   >;
+  buildingTypeRef<
+    T extends Prisma.Submission$buildingTypeRefArgs<ExtArgs> = {},
+  >(
+    args?: Prisma.Subset<T, Prisma.Submission$buildingTypeRefArgs<ExtArgs>>,
+  ): Prisma.Prisma__BuildingTypeClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$BuildingTypePayload<ExtArgs>,
+      T,
+      'findUniqueOrThrow',
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
   submissionItems<
     T extends Prisma.Submission$submissionItemsArgs<ExtArgs> = {},
   >(
@@ -3016,6 +4478,22 @@ export interface Prisma__SubmissionClient<
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
         Prisma.$EmailLogPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
+  buildingTypeFieldValues<
+    T extends Prisma.Submission$buildingTypeFieldValuesArgs<ExtArgs> = {},
+  >(
+    args?: Prisma.Subset<
+      T,
+      Prisma.Submission$buildingTypeFieldValuesArgs<ExtArgs>
+    >,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$SubmissionBuildingTypeFieldValuePayload<ExtArgs>,
         T,
         'findMany',
         GlobalOmitOptions
@@ -3072,10 +4550,16 @@ export interface SubmissionFieldRefs {
   readonly clientPhone: Prisma.FieldRef<'Submission', 'String'>;
   readonly projectAddress: Prisma.FieldRef<'Submission', 'String'>;
   readonly zipCode: Prisma.FieldRef<'Submission', 'String'>;
+  readonly desiredStartDate: Prisma.FieldRef<'Submission', 'DateTime'>;
+  readonly buildingType: Prisma.FieldRef<'Submission', 'String'>;
+  readonly buildingTypeId: Prisma.FieldRef<'Submission', 'String'>;
   readonly basePrice: Prisma.FieldRef<'Submission', 'Decimal'>;
+  readonly markup: Prisma.FieldRef<'Submission', 'Decimal'>;
+  readonly clientPrice: Prisma.FieldRef<'Submission', 'Decimal'>;
   readonly additionalItemsTotal: Prisma.FieldRef<'Submission', 'Decimal'>;
   readonly totalAmount: Prisma.FieldRef<'Submission', 'Decimal'>;
   readonly status: Prisma.FieldRef<'Submission', 'SubmissionStatus'>;
+  readonly isArchived: Prisma.FieldRef<'Submission', 'Boolean'>;
   readonly projectNotes: Prisma.FieldRef<'Submission', 'String'>;
   readonly additionalDetails: Prisma.FieldRef<'Submission', 'String'>;
   readonly pdfUrl: Prisma.FieldRef<'Submission', 'String'>;
@@ -3552,6 +5036,28 @@ export type SubmissionDeleteManyArgs<
 };
 
 /**
+ * Submission.buildingTypeRef
+ */
+export type Submission$buildingTypeRefArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the BuildingType
+   */
+  select?: Prisma.BuildingTypeSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the BuildingType
+   */
+  omit?: Prisma.BuildingTypeOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BuildingTypeInclude<ExtArgs> | null;
+  where?: Prisma.BuildingTypeWhereInput;
+};
+
+/**
  * Submission.submissionItems
  */
 export type Submission$submissionItemsArgs<
@@ -3640,6 +5146,37 @@ export type Submission$emailLogsArgs<
   take?: number;
   skip?: number;
   distinct?: Prisma.EmailLogScalarFieldEnum | Prisma.EmailLogScalarFieldEnum[];
+};
+
+/**
+ * Submission.buildingTypeFieldValues
+ */
+export type Submission$buildingTypeFieldValuesArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the SubmissionBuildingTypeFieldValue
+   */
+  select?: Prisma.SubmissionBuildingTypeFieldValueSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the SubmissionBuildingTypeFieldValue
+   */
+  omit?: Prisma.SubmissionBuildingTypeFieldValueOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubmissionBuildingTypeFieldValueInclude<ExtArgs> | null;
+  where?: Prisma.SubmissionBuildingTypeFieldValueWhereInput;
+  orderBy?:
+    | Prisma.SubmissionBuildingTypeFieldValueOrderByWithRelationInput
+    | Prisma.SubmissionBuildingTypeFieldValueOrderByWithRelationInput[];
+  cursor?: Prisma.SubmissionBuildingTypeFieldValueWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?:
+    | Prisma.SubmissionBuildingTypeFieldValueScalarFieldEnum
+    | Prisma.SubmissionBuildingTypeFieldValueScalarFieldEnum[];
 };
 
 /**

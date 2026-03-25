@@ -330,6 +330,69 @@ async function main() {
   });
   console.log('✅ Created/updated estimator page');
 
+  // Seed Building Types (for Estimator "Your Information" section)
+  console.log('🏠 Seeding building types...');
+  const buildingTypeCount = await prisma.buildingType.count();
+  if (buildingTypeCount === 0) {
+    await prisma.buildingType.createMany({
+      data: [
+        {
+          name: 'Single Family',
+          price: 0,
+          isActive: true,
+          displayOrder: 0,
+        },
+        {
+          name: 'Condo',
+          price: 0,
+          isActive: true,
+          displayOrder: 1,
+        },
+        {
+          name: 'Townhome',
+          price: 0,
+          isActive: true,
+          displayOrder: 2,
+        },
+        {
+          name: 'Multi-Unit',
+          price: 0,
+          isActive: true,
+          displayOrder: 3,
+        },
+      ],
+    });
+    // Add dynamic fields for Multi-Unit (example)
+    const multiUnit = await prisma.buildingType.findFirst({
+      where: { name: 'Multi-Unit' },
+    });
+    if (multiUnit) {
+      await prisma.buildingTypeField.createMany({
+        data: [
+          {
+            buildingTypeId: multiUnit.id,
+            label: 'Number of Units',
+            fieldType: 'number',
+            placeholder: 'Enter number of units',
+            isRequired: true,
+            displayOrder: 0,
+          },
+          {
+            buildingTypeId: multiUnit.id,
+            label: 'Square Footage',
+            fieldType: 'number',
+            placeholder: 'Total sq ft',
+            isRequired: false,
+            displayOrder: 1,
+          },
+        ],
+      });
+    }
+    console.log('✅ Created building types with sample dynamic fields');
+  } else {
+    console.log('✅ Building types already exist, skipping');
+  }
+
   // Seed How It Works steps
   console.log('📝 Seeding How It Works steps...');
   const howItWorksSteps = [
@@ -400,6 +463,61 @@ async function main() {
     });
   }
   console.log('✅ Created/updated Why Choose Us features');
+
+  // Seed Building Types (for Estimator "Your Information" section)
+  console.log('🏠 Seeding building types...');
+  const buildingTypeCount = await prisma.buildingType.count();
+  if (buildingTypeCount === 0) {
+    await prisma.buildingType.createMany({
+      data: [
+        {
+          name: 'Single Family',
+          price: 0,
+          isActive: true,
+          displayOrder: 0,
+        },
+        {
+          name: 'Condo',
+          price: 0,
+          isActive: true,
+          displayOrder: 1,
+        },
+        {
+          name: 'Townhome',
+          price: 0,
+          isActive: true,
+          displayOrder: 2,
+        },
+        {
+          name: 'Multi-Unit',
+          price: 0,
+          isActive: true,
+          displayOrder: 3,
+        },
+      ],
+    });
+    // Add dynamic fields for Multi-Unit (example)
+    const multiUnit = await prisma.buildingType.findFirst({
+      where: { name: 'Multi-Unit' },
+    });
+    if (multiUnit) {
+      await prisma.buildingTypeField.createMany({
+        data: [
+          {
+            buildingTypeId: multiUnit.id,
+            label: 'Number of Units',
+            fieldType: 'number',
+            placeholder: 'Enter number of units',
+            isRequired: true,
+            displayOrder: 0,
+          },
+        ],
+      });
+    }
+    console.log('✅ Created building types with sample dynamic fields');
+  } else {
+    console.log('✅ Building types already exist, skipping');
+  }
 
   console.log('\n✨ Seeding completed successfully!');
   console.log('\n📝 Default credentials:');

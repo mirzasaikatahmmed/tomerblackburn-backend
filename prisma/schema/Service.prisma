@@ -2,11 +2,13 @@ model Service {
   id                String  @id @default(uuid())
   serviceCategoryId String
   code              String  @unique
-  name              String 
+  name              String
   shortDescription  String?
   fullDescription   String?
 
-  basePrice Decimal @default(0) @db.Decimal(10, 2)
+  basePrice   Decimal @default(0) @db.Decimal(10, 2)
+  markup      Decimal @default(0) @db.Decimal(5, 2)
+  clientPrice Decimal @default(0) @db.Decimal(10, 2)
 
   imageFileId  String?
   displayOrder Int     @default(0)
@@ -15,9 +17,10 @@ model Service {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  serviceCategory ServiceCategory    @relation(fields: [serviceCategoryId], references: [id], onDelete: Cascade)
-  imageFile       FileInstance?      @relation("ServiceImage", fields: [imageFileId], references: [id])
-  submissions     Submission[]
+  serviceCategory  ServiceCategory   @relation(fields: [serviceCategoryId], references: [id], onDelete: Cascade)
+  imageFile        FileInstance?     @relation("ServiceImage", fields: [imageFileId], references: [id])
+  submissions      Submission[]
+  costCodes        CostCode[]
   serviceCostCodes ServiceCostCode[]
 
   @@index([code])
