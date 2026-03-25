@@ -24,6 +24,18 @@ import { existsSync } from 'fs';
 import * as ExcelJS from 'exceljs';
 import { v4 as uuidv4 } from 'uuid';
 
+interface PrismaError {
+  code?: string;
+  meta?: { field_name?: string };
+  message: string;
+  name?: string;
+}
+
+function toError(e: unknown): PrismaError {
+  if (e instanceof Error) return e as PrismaError;
+  return { message: String(e) };
+}
+
 @Injectable()
 export class SubmissionsService {
   private readonly uploadsDir: string;
@@ -42,7 +54,7 @@ export class SubmissionsService {
     this.baseUrl =
       this.configService.get<string>('BASE_URL') || `http://localhost:${port}`;
 
-    this.ensureUploadsDirectory();
+    void this.ensureUploadsDirectory();
   }
 
   private async ensureUploadsDirectory(): Promise<void> {
@@ -149,7 +161,7 @@ export class SubmissionsService {
     // Fetch included base items from the service's cost codes
     const includedBaseItems = await this.prisma.costCode.findMany({
       where: {
-        serviceCostCodes: { some: { serviceId: submission.serviceId } },
+        serviceId: submission.serviceId,
         isIncludedInBase: true,
         isActive: true,
         excludeFromExport: false,
@@ -492,9 +504,11 @@ export class SubmissionsService {
         throw error;
       }
 
+      const err = toError(error);
+
       // Handle Prisma foreign key constraint errors
-      if (error.code === 'P2003') {
-        const field = error.meta?.field_name || 'unknown';
+      if (err.code === 'P2003') {
+        const field = err.meta?.field_name || 'unknown';
         if (field.includes('serviceId')) {
           throw new NotFoundException(
             'The selected service does not exist. Please choose a valid service.',
@@ -511,22 +525,22 @@ export class SubmissionsService {
       }
 
       // Handle Prisma unique constraint errors
-      if (error.code === 'P2002') {
+      if (err.code === 'P2002') {
         throw new Error(
           'A submission with this information already exists. Please check for duplicates.',
         );
       }
 
       // Handle validation errors
-      if (error.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         throw new Error(
-          `Validation failed: ${error.message}. Please check your input data.`,
+          `Validation failed: ${err.message}. Please check your input data.`,
         );
       }
 
       // Generic error with more context
       throw new Error(
-        `Failed to create submission: ${error.message || 'Unknown error occurred'}. Please contact support if the problem persists.`,
+        `Failed to create submission: ${err.message || 'Unknown error occurred'}. Please contact support if the problem persists.`,
       );
     }
   }
@@ -541,7 +555,11 @@ export class SubmissionsService {
     includeArchived: boolean = false,
   ) {
     try {
-      const where: any = {};
+      const where: {
+        status?: SubmissionStatus;
+        isArchived?: boolean;
+        submittedAt?: { gte: Date };
+      } = {};
 
       if (status) {
         where.status = status;
@@ -637,7 +655,9 @@ export class SubmissionsService {
         },
       };
     } catch (error) {
-      throw new Error(`Failed to retrieve submissions: ${error.message}`);
+      throw new Error(
+        `Failed to retrieve submissions: ${toError(error).message}`,
+      );
     }
   }
 
@@ -691,7 +711,9 @@ export class SubmissionsService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to retrieve submission: ${error.message}`);
+      throw new Error(
+        `Failed to retrieve submission: ${toError(error).message}`,
+      );
     }
   }
 
@@ -742,7 +764,9 @@ export class SubmissionsService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to retrieve submission: ${error.message}`);
+      throw new Error(
+        `Failed to retrieve submission: ${toError(error).message}`,
+      );
     }
   }
 
@@ -779,21 +803,20 @@ export class SubmissionsService {
         throw error;
       }
 
-      // Handle Prisma foreign key constraint errors
-      if (error.code === 'P2003') {
-        const field = error.meta?.field_name || 'unknown';
+      const err = toError(error);
+      if (err.code === 'P2003') {
+        const field = err.meta?.field_name || 'unknown';
         throw new NotFoundException(
           `Invalid reference in ${field}. Please check your submission data.`,
         );
       }
 
-      // Handle record not found
-      if (error.code === 'P2025') {
+      if (err.code === 'P2025') {
         throw new NotFoundException(`Submission with ID "${id}" not found.`);
       }
 
       throw new Error(
-        `Failed to update submission: ${error.message || 'Unknown error occurred'}`,
+        `Failed to update submission: ${err.message || 'Unknown error occurred'}`,
       );
     }
   }
@@ -802,7 +825,11 @@ export class SubmissionsService {
     try {
       await this.findOne(id);
 
-      const updateData: any = { status };
+      const updateData: {
+        status: SubmissionStatus;
+        reviewedAt?: Date;
+        completedAt?: Date;
+      } = { status };
 
       if (status === SubmissionStatus.PROCESSING) {
         updateData.reviewedAt = new Date();
@@ -832,7 +859,9 @@ export class SubmissionsService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to update submission status: ${error.message}`);
+      throw new Error(
+        `Failed to update submission status: ${toError(error).message}`,
+      );
     }
   }
 
@@ -865,7 +894,7 @@ export class SubmissionsService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to regenerate PDF: ${error.message}`);
+      throw new Error(`Failed to regenerate PDF: ${toError(error).message}`);
     }
   }
 
@@ -916,15 +945,15 @@ export class SubmissionsService {
         throw error;
       }
 
-      // Handle Prisma foreign key constraint errors
-      if (error.code === 'P2003') {
+      const err = toError(error);
+      if (err.code === 'P2003') {
         throw new NotFoundException(
           'Invalid submission or file reference. Please verify the IDs.',
         );
       }
 
       throw new Error(
-        `Failed to add media to submission: ${error.message || 'Unknown error occurred'}`,
+        `Failed to add media to submission: ${err.message || 'Unknown error occurred'}`,
       );
     }
   }
@@ -953,7 +982,7 @@ export class SubmissionsService {
         throw error;
       }
       throw new Error(
-        `Failed to remove media from submission: ${error.message}`,
+        `Failed to remove media from submission: ${toError(error).message}`,
       );
     }
   }
@@ -1024,10 +1053,7 @@ export class SubmissionsService {
         message: 'Submission deleted successfully',
       };
     } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-      throw new Error(`Failed to delete submission: ${error.message}`);
+      throw new Error(`Failed to delete submission: ${toError(error).message}`);
     }
   }
 
@@ -1053,7 +1079,9 @@ export class SubmissionsService {
         count: result.count,
       };
     } catch (error) {
-      throw new Error(`Failed to archive submissions: ${error.message}`);
+      throw new Error(
+        `Failed to archive submissions: ${toError(error).message}`,
+      );
     }
   }
 
@@ -1076,7 +1104,9 @@ export class SubmissionsService {
         count: result.count,
       };
     } catch (error) {
-      throw new Error(`Failed to delete submissions: ${error.message}`);
+      throw new Error(
+        `Failed to delete submissions: ${toError(error).message}`,
+      );
     }
   }
 
@@ -1100,7 +1130,9 @@ export class SubmissionsService {
         },
       };
     } catch (error) {
-      throw new Error(`Failed to retrieve next steps: ${error.message}`);
+      throw new Error(
+        `Failed to retrieve next steps: ${toError(error).message}`,
+      );
     }
   }
 
@@ -1125,7 +1157,7 @@ export class SubmissionsService {
         data: nextStep,
       };
     } catch (error) {
-      throw new Error(`Failed to create next step: ${error.message}`);
+      throw new Error(`Failed to create next step: ${toError(error).message}`);
     }
   }
 
@@ -1144,7 +1176,9 @@ export class SubmissionsService {
         data: steps,
       };
     } catch (error) {
-      throw new Error(`Failed to retrieve next steps: ${error.message}`);
+      throw new Error(
+        `Failed to retrieve next steps: ${toError(error).message}`,
+      );
     }
   }
 
@@ -1166,7 +1200,9 @@ export class SubmissionsService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to retrieve next step: ${error.message}`);
+      throw new Error(
+        `Failed to retrieve next step: ${toError(error).message}`,
+      );
     }
   }
 
@@ -1208,7 +1244,7 @@ export class SubmissionsService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to update next step: ${error.message}`);
+      throw new Error(`Failed to update next step: ${toError(error).message}`);
     }
   }
 
@@ -1233,7 +1269,7 @@ export class SubmissionsService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to delete next step: ${error.message}`);
+      throw new Error(`Failed to delete next step: ${toError(error).message}`);
     }
   }
 
@@ -1575,7 +1611,7 @@ export class SubmissionsService {
       };
     } catch (error) {
       throw new Error(
-        `Failed to update what happens next steps: ${error.message}`,
+        `Failed to update what happens next steps: ${toError(error).message}`,
       );
     }
   }

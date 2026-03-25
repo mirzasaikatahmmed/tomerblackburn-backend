@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const PDFDocument = require('pdfkit');
+const PDFDocument = require('pdfkit') as new (
+  options?: PDFKit.PDFDocumentOptions,
+) => PDFKit.PDFDocument;
 
 export interface SubmissionPdfData {
   submissionNumber: string;
@@ -46,6 +48,7 @@ export class PdfGeneratorService {
   private readonly lightGray = '#e2e8f0';
   /** Reserve 100pt for footer to prevent overflow. */
   private readonly footerReserve = 100;
+  private lastItemY = 0;
 
   async generateSubmissionPdf(data: SubmissionPdfData): Promise<Buffer> {
     return new Promise((resolve, reject) => {
@@ -64,7 +67,7 @@ export class PdfGeneratorService {
         const chunks: Buffer[] = [];
         doc.on('data', (chunk: Buffer) => chunks.push(chunk));
         doc.on('end', () => resolve(Buffer.concat(chunks)));
-        doc.on('error', reject);
+        doc.on('error', (err: Error) => reject(err));
 
         // Generate the PDF content
         this.addHeader(doc, data);
@@ -72,11 +75,11 @@ export class PdfGeneratorService {
         this.addProjectSummary(doc, data);
         this.addLineItems(doc, data);
         this.addTotals(doc, data);
-        this.addFooter(doc, data);
+        this.addFooter(doc);
 
         doc.end();
       } catch (error) {
-        reject(error);
+        reject(error instanceof Error ? error : new Error(String(error)));
       }
     });
   }
@@ -226,6 +229,9 @@ export class PdfGeneratorService {
     // Base price row + included items bullets
     if (data.basePrice > 0) {
       const includedItems = data.includedBaseItems || [];
+      const scopeDescH = data.service.scopeDescription
+        ? doc.heightOfString(data.service.scopeDescription, { width: 420 }) + 4
+        : 0;
       const itemLinesHeight = includedItems.reduce((sum, item) => {
         const nameH = doc.heightOfString(`• ${item.itemName}`, { width: 400 });
         const descH = item.itemDescription
@@ -234,7 +240,7 @@ export class PdfGeneratorService {
         return sum + nameH + (descH ? descH + 2 : 0) + 4;
       }, 0);
       const basePriceRowHeight =
-        25 + (includedItems.length > 0 ? itemLinesHeight + 10 : 0);
+        25 + scopeDescH + (includedItems.length > 0 ? itemLinesHeight + 10 : 0);
 
       if (currentY + basePriceRowHeight > this.getMaxContentY(doc)) {
         doc.addPage({
@@ -267,9 +273,21 @@ export class PdfGeneratorService {
         .fillColor(this.secondaryColor)
         .text(this.formatCurrency(data.basePrice), 480, currentY + 8);
 
-      // Included items as bullets below base price title
+      // scopeDescription below title
+      let afterTitleY = currentY + 24;
+      if (data.service.scopeDescription) {
+        doc
+          .fontSize(8)
+          .font('Helvetica')
+          .fillColor('#718096')
+          .text(data.service.scopeDescription, 55, afterTitleY, { width: 420 });
+        afterTitleY +=
+          doc.heightOfString(data.service.scopeDescription, { width: 420 }) + 4;
+      }
+
+      // Included items as bullets below scope description
       if (includedItems.length > 0) {
-        let bulletY = currentY + 24;
+        let bulletY = afterTitleY;
         for (const item of includedItems) {
           doc
             .fontSize(8)
@@ -362,11 +380,11 @@ export class PdfGeneratorService {
     }
 
     // Store the current Y position for totals
-    (doc as any).lastItemY = currentY;
+    this.lastItemY = currentY;
   }
 
   private addTotals(doc: PDFKit.PDFDocument, data: SubmissionPdfData): void {
-    let currentY = (doc as any).lastItemY || 500;
+    let currentY = this.lastItemY || 500;
     const totalsHeight = 120;
     const notesMaxHeight = 80;
     const maxContentY = this.getMaxContentY(doc);
@@ -487,7 +505,7 @@ export class PdfGeneratorService {
     return doc.page.height - doc.page.margins.bottom - this.footerReserve;
   }
 
-  private addFooter(doc: PDFKit.PDFDocument, data: SubmissionPdfData): void {
+  private addFooter(doc: PDFKit.PDFDocument): void {
     const footerHeight = 70;
     const footerY = doc.page.height - doc.page.margins.bottom - footerHeight;
 
